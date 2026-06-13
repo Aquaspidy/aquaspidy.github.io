@@ -16,8 +16,12 @@
             opacity: 1;
             transform: translateY(0);
         }
-        
-        /* Timeline line */
+        .timeline-item {
+            transition: all 0.3s ease;
+        }
+        .timeline-item:hover {
+            transform: translateX(8px);
+        }
         .timeline::before {
             content: '';
             position: absolute;
@@ -25,41 +29,13 @@
             transform: translateX(-50%);
             width: 2px;
             height: 100%;
-            background: linear-gradient(to bottom, #06b6d4, #8b5cf6, #06b6d4);
+            background: linear-gradient(to bottom, #06b6d4, #8b5cf6, #ec4899, #f59e0b, #06b6d4);
             opacity: 0.3;
         }
-        
         @media (max-width: 768px) {
             .timeline::before {
                 left: 20px;
             }
-        }
-        
-        /* Timeline item hover */
-        .timeline-item {
-            transition: all 0.3s ease;
-        }
-        .timeline-item:hover {
-            transform: translateX(5px);
-        }
-        
-        /* Expandable content */
-        .expand-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out;
-        }
-        .expand-content.open {
-            max-height: 2000px;
-            transition: max-height 0.8s ease-in;
-        }
-        
-        .glow-hover {
-            transition: all 0.3s ease;
-        }
-        .glow-hover:hover {
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
-            border-color: rgba(6, 182, 212, 0.5);
         }
     </style>
 </head>
@@ -71,7 +47,8 @@
                 <span class="text-purple-400">Analyst</span> Guide
             </div>
             <div class="space-x-6 text-sm hidden md:block">
-                <a href="index.html" class="hover:text-purple-400 transition">← Back to Home</a>
+                <a href="index.html" class="hover:text-purple-400 transition">← Home</a>
+                <a href="voop.html" class="hover:text-purple-400 transition">Voop App</a>
             </div>
         </div>
     </nav>
@@ -81,14 +58,14 @@
             How to Become Your Team's<br>
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Basketball Data Analyst</span>
         </h1>
-        <p class="text-gray-400 text-lg">A complete step-by-step guide based on my experience scouting, coding, and reporting for my high school team.</p>
+        <p class="text-gray-400 text-lg">A complete step-by-step guide based on my experience scouting, coding, scoring, and reporting for my high school team.</p>
     </section>
 
     <!-- Timeline Section -->
     <section class="px-6 py-8 max-w-4xl mx-auto relative timeline">
         
-        <!-- Timeline Item 1 -->
-        <div class="timeline-item relative mb-16 fade-up">
+        <!-- Step 1: Opponent Scouting -->
+        <div class="timeline-item relative mb-12 fade-up">
             <div class="flex flex-col md:flex-row gap-6">
                 <div class="md:w-1/4 text-right">
                     <div class="sticky top-24">
@@ -99,89 +76,59 @@
                     </div>
                 </div>
                 <div class="md:w-3/4">
-                    <div class="bg-gray-900/50 rounded-xl border border-gray-800 p-6 glow-hover cursor-pointer" onclick="toggleExpand(this)">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-cyan-400">🔍 Opponent Scouting Reports</h3>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
-                        </div>
-                        <p class="text-gray-400 mt-2">How I research opponents using Hudl, MaxPreps, and game film — and write detailed player scouting notes.</p>
-                        <div class="expand-content mt-4 pt-4 border-t border-gray-800">
-                            <div class="text-gray-300 space-y-3">
-                                <p class="italic text-gray-400">[Detailed content will go here - JYang will provide the specific method]</p>
-                                <div class="bg-gray-800/50 p-4 rounded-lg">
-                                    <p class="text-sm text-gray-400">📄 Template available for download at the end of this guide.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="method-scouting.html" class="block bg-gray-900/50 rounded-xl border border-gray-800 p-6 hover:border-cyan-500 transition no-underline text-white">
+                        <h3 class="text-xl font-bold text-cyan-400">🔍 Opponent Scouting Reports</h3>
+                        <p class="text-gray-400 mt-2">How I research opponents using Hudl, MaxPreps, and game film — and write detailed player scouting notes with individual defensive game plans.</p>
+                        <div class="mt-3 text-cyan-400 text-sm">Read full guide →</div>
+                    </a>
                 </div>
             </div>
         </div>
         
-        <!-- Timeline Item 2 -->
-        <div class="timeline-item relative mb-16 fade-up">
-            <div class="flex flex-col md:flex-row gap-6">
-                <div class="md:w-1/4 text-right">
-                    <div class="sticky top-24">
-                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
-                            <span class="text-white font-bold">2</span>
-                        </div>
-                        <div class="hidden md:block mt-2 text-sm text-purple-400 font-mono">STEP TWO</div>
-                    </div>
-                </div>
-                <div class="md:w-3/4">
-                    <div class="bg-gray-900/50 rounded-xl border border-gray-800 p-6 glow-hover cursor-pointer" onclick="toggleExpand(this)">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-purple-400">📊 R Code for Stats & Graphics</h3>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
-                        </div>
-                        <p class="text-gray-400 mt-2">How I transform box scores into PPP calculations, Four Factors analysis, and lineup efficiency charts.</p>
-                        <div class="expand-content mt-4 pt-4 border-t border-gray-800">
-                            <div class="text-gray-300 space-y-3">
-                                <p class="italic text-gray-400">[Detailed R code and explanation will go here - JYang will provide]</p>
-                                <div class="bg-gray-800/50 p-4 rounded-lg">
-                                    <p class="text-sm text-gray-400">📄 R template available for download at the end of this guide.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Timeline Item 3 -->
-        <div class="timeline-item relative mb-16 fade-up">
+        <!-- Step 2: Keeping Live Scores (NEW) -->
+        <div class="timeline-item relative mb-12 fade-up">
             <div class="flex flex-col md:flex-row gap-6">
                 <div class="md:w-1/4 text-right">
                     <div class="sticky top-24">
                         <div class="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
-                            <span class="text-white font-bold">3</span>
+                            <span class="text-white font-bold">2</span>
                         </div>
-                        <div class="hidden md:block mt-2 text-sm text-emerald-400 font-mono">STEP THREE</div>
+                        <div class="hidden md:block mt-2 text-sm text-emerald-400 font-mono">STEP TWO</div>
                     </div>
                 </div>
                 <div class="md:w-3/4">
-                    <div class="bg-gray-900/50 rounded-xl border border-gray-800 p-6 glow-hover cursor-pointer" onclick="toggleExpand(this)">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-emerald-400">📝 9-Game Recap Report</h3>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
-                        </div>
-                        <p class="text-gray-400 mt-2">Every 6-9 games, I write a comprehensive report analyzing PPP differential, Four Factors, and team strengths/weaknesses.</p>
-                        <div class="expand-content mt-4 pt-4 border-t border-gray-800">
-                            <div class="text-gray-300 space-y-3">
-                                <p class="italic text-gray-400">[Detailed report structure and writing process will go here - JYang will provide]</p>
-                                <div class="bg-gray-800/50 p-4 rounded-lg">
-                                    <p class="text-sm text-gray-400">📄 Report template available for download.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="method-live-scoring.html" class="block bg-gray-900/50 rounded-xl border border-gray-800 p-6 hover:border-emerald-500 transition no-underline text-white">
+                        <h3 class="text-xl font-bold text-emerald-400">📝 Keeping Live Scores</h3>
+                        <p class="text-gray-400 mt-2">How I track every possession in real time — shot types, assists, turnovers, defensive stops, and transition opportunities — using a custom spreadsheet system.</p>
+                        <div class="mt-3 text-emerald-400 text-sm">Read full guide →</div>
+                    </a>
                 </div>
             </div>
         </div>
         
-        <!-- Timeline Item 4 -->
-        <div class="timeline-item relative mb-16 fade-up">
+        <!-- Step 3: R Code for Graphics -->
+        <div class="timeline-item relative mb-12 fade-up">
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-1/4 text-right">
+                    <div class="sticky top-24">
+                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
+                            <span class="text-white font-bold">3</span>
+                        </div>
+                        <div class="hidden md:block mt-2 text-sm text-purple-400 font-mono">STEP THREE</div>
+                    </div>
+                </div>
+                <div class="md:w-3/4">
+                    <a href="method-r-code.html" class="block bg-gray-900/50 rounded-xl border border-gray-800 p-6 hover:border-purple-500 transition no-underline text-white">
+                        <h3 class="text-xl font-bold text-purple-400">📊 R Code for Stats & Graphics</h3>
+                        <p class="text-gray-400 mt-2">How I transform box scores into PPP calculations, Four Factors analysis, lineup efficiency charts, and shot quality trends over the season.</p>
+                        <div class="mt-3 text-purple-400 text-sm">Read full guide →</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 4: Periodic Recaps -->
+        <div class="timeline-item relative mb-12 fade-up">
             <div class="flex flex-col md:flex-row gap-6">
                 <div class="md:w-1/4 text-right">
                     <div class="sticky top-24">
@@ -192,21 +139,32 @@
                     </div>
                 </div>
                 <div class="md:w-3/4">
-                    <div class="bg-gray-900/50 rounded-xl border border-gray-800 p-6 glow-hover cursor-pointer" onclick="toggleExpand(this)">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-xl font-bold text-orange-400">✍️ Post-Game Coach Feedback</h3>
-                            <i class="fas fa-chevron-down text-gray-500 transition-transform duration-300"></i>
+                    <a href="method-periodic-recaps.html" class="block bg-gray-900/50 rounded-xl border border-gray-800 p-6 hover:border-orange-500 transition no-underline text-white">
+                        <h3 class="text-xl font-bold text-orange-400">📋 Writing Periodic Recaps for Your Team</h3>
+                        <p class="text-gray-400 mt-2">Every 6-9 games, I write a comprehensive report analyzing PPP differential, Four Factors, lineup efficiency, and actionable team takeaways.</p>
+                        <div class="mt-3 text-orange-400 text-sm">Read full guide →</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 5: Coach Feedback -->
+        <div class="timeline-item relative mb-12 fade-up">
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-1/4 text-right">
+                    <div class="sticky top-24">
+                        <div class="w-12 h-12 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
+                            <span class="text-white font-bold">5</span>
                         </div>
-                        <p class="text-gray-400 mt-2">Within 24 hours, I send a 2-paragraph memo covering what worked, adjustments needed, and practice focus.</p>
-                        <div class="expand-content mt-4 pt-4 border-t border-gray-800">
-                            <div class="text-gray-300 space-y-3">
-                                <p class="italic text-gray-400">[Memo structure and writing guide will go here - JYang will provide]</p>
-                                <div class="bg-gray-800/50 p-4 rounded-lg">
-                                    <p class="text-sm text-gray-400">📄 Memo template available for download.</p>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="hidden md:block mt-2 text-sm text-pink-400 font-mono">STEP FIVE</div>
                     </div>
+                </div>
+                <div class="md:w-3/4">
+                    <a href="method-coach-feedback.html" class="block bg-gray-900/50 rounded-xl border border-gray-800 p-6 hover:border-pink-500 transition no-underline text-white">
+                        <h3 class="text-xl font-bold text-pink-400">✍️ Post-Game Coach Feedback</h3>
+                        <p class="text-gray-400 mt-2">Within 24 hours of each game, I send a 2-paragraph memo covering what worked offensively, defensive adjustments needed, individual takeaways, and one practice focus.</p>
+                        <div class="mt-3 text-pink-400 text-sm">Read full guide →</div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -218,12 +176,13 @@
         <div class="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-2xl p-8 border border-purple-500/30">
             <i class="fas fa-download text-3xl text-purple-400 mb-3"></i>
             <h2 class="text-2xl font-bold mb-2">Download Templates</h2>
-            <p class="text-gray-400 mb-6">Get the exact templates I use for scouting, R code, reports, and coach feedback.</p>
-            <div class="flex flex-wrap gap-4 justify-center">
-                <a href="#" class="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-lg text-sm transition">📋 Scout Template</a>
-                <a href="#" class="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-lg text-sm transition">📊 R Code Template</a>
-                <a href="#" class="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-lg text-sm transition">📝 Report Template</a>
-                <a href="#" class="bg-gray-800 hover:bg-gray-700 px-5 py-2 rounded-lg text-sm transition">✍️ Feedback Template</a>
+            <p class="text-gray-400 mb-6">Get the exact templates I use for scouting, live scoring, R code, periodic recaps, and coach feedback.</p>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <a href="#" class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm transition">📋 Scout Template</a>
+                <a href="#" class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm transition">📝 Score Sheet</a>
+                <a href="#" class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm transition">📊 R Code Template</a>
+                <a href="#" class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm transition">📋 Recap Template</a>
+                <a href="#" class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm transition">✍️ Feedback Template</a>
             </div>
             <p class="text-gray-500 text-xs mt-4">All templates use placeholder data — customize with your own team info</p>
         </div>
@@ -231,11 +190,10 @@
 
     <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm">
         <p>© 2026 Voop. Analyst Guide by JYang</p>
-        <p class="mt-2"><a href="index.html" class="hover:text-purple-400">← Back to Home</a></p>
+        <p class="mt-2"><a href="index.html" class="hover:text-purple-400">← Home</a> | <a href="voop.html" class="hover:text-purple-400">Voop App</a></p>
     </footer>
 
     <script>
-        // Scroll animation
         const fadeElements = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -245,7 +203,6 @@
             });
         }, { threshold: 0.1 });
         fadeElements.forEach(el => observer.observe(el));
-        
         setTimeout(() => {
             fadeElements.forEach(el => {
                 if (el.getBoundingClientRect().top < window.innerHeight - 100) {
@@ -253,20 +210,6 @@
                 }
             });
         }, 100);
-        
-        // Expand/collapse function for timeline items
-        function toggleExpand(element) {
-            const expandDiv = element.querySelector('.expand-content');
-            const chevron = element.querySelector('.fa-chevron-down');
-            
-            if (expandDiv.classList.contains('open')) {
-                expandDiv.classList.remove('open');
-                chevron.style.transform = 'rotate(0deg';
-            } else {
-                expandDiv.classList.add('open');
-                chevron.style.transform = 'rotate(180deg)';
-            }
-        }
     </script>
 </body>
 </html>
