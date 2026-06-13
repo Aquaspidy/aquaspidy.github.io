@@ -24,6 +24,9 @@
             box-shadow: 0 20px 40px rgba(6, 182, 212, 0.15);
             border-color: rgba(6, 182, 212, 0.6);
         }
+        .philosophy-quote {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(139, 92, 246, 0.05));
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-white font-sans">
@@ -50,33 +53,47 @@
         </p>
     </section>
 
-    <!-- Feature Cards Grid - Links to detailed pages -->
+    <!-- Feature Cards Grid -->
     <section class="px-6 py-8 max-w-6xl mx-auto">
         <div class="grid md:grid-cols-2 gap-6">
             
             <a href="feature-momentum.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-cyan-500 transition no-underline text-white">
                 <div class="text-5xl mb-4">⚡</div>
                 <h3 class="text-xl font-semibold mb-2">Possession Momentum</h3>
-                <p class="text-gray-400 text-sm">Tracks movement intent to determine which team has momentum. Learn how optical flow detects who's controlling the game →</p>
+                <p class="text-gray-400 text-sm">Tracks player movement to determine which team controls the tempo. Identifies scoring runs and momentum swings in real time →</p>
             </a>
             
             <a href="feature-qsq.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-cyan-500 transition no-underline text-white">
                 <div class="text-5xl mb-4">🎯</div>
                 <h3 class="text-xl font-semibold mb-2">Shot Quality (qSQ)</h3>
-                <p class="text-gray-400 text-sm">0-100 rating based on distance to closest defender. Real-time expected field goal percentage calculation →</p>
+                <p class="text-gray-400 text-sm">0-99 rating based on defender distance. Reveals whether your offense is generating good looks regardless of results →</p>
             </a>
             
             <a href="feature-pnr.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-cyan-500 transition no-underline text-white">
                 <div class="text-5xl mb-4">🤝</div>
                 <h3 class="text-xl font-semibold mb-2">Pick & Roll Detection</h3>
-                <p class="text-gray-400 text-sm">Identifies ball screens and evaluates if they created separation. Visualized with purple lines and success tracking →</p>
+                <p class="text-gray-400 text-sm">Identifies screening actions and evaluates success by measuring defender separation and shot quality improvement →</p>
             </a>
             
             <a href="feature-mismatch.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-cyan-500 transition no-underline text-white">
                 <div class="text-5xl mb-4">📏</div>
                 <h3 class="text-xl font-semibold mb-2">Mismatch Hunter</h3>
-                <p class="text-gray-400 text-sm">Detects height advantages on defensive switches. Highlights advantageous matchups anywhere on the court →</p>
+                <p class="text-gray-400 text-sm">Automatically highlights favorable defensive mismatches by comparing height and position →</p>
             </a>
+        </div>
+    </section>
+
+    <!-- Why These 4 Features Section -->
+    <section class="px-6 py-16 max-w-3xl mx-auto fade-up">
+        <div class="philosophy-quote rounded-2xl p-8 border border-cyan-500/20 text-center">
+            <i class="fas fa-quote-left text-3xl text-cyan-400 mb-4 opacity-50"></i>
+            <p class="text-gray-300 italic leading-relaxed text-lg">
+                Why these 4 features? Because we believe the essence of sports is and will always be human. 
+                No AI model can outpower a wise coach who knows their players. What AI can do is to help 
+                the coach to its best, detecting what the human eye can't always pay attention to and may 
+                be critical in helping a team win a game. This is why Voop focuses on these features above.
+            </p>
+            <i class="fas fa-quote-right text-3xl text-cyan-400 mt-4 opacity-50"></i>
         </div>
     </section>
 
@@ -90,7 +107,7 @@
                     <p class="text-gray-500">Demo Video Coming Soon</p>
                 </div>
             </div>
-            <p class="text-gray-400 text-sm mt-4">Screenshot of Voop tracking players with bounding boxes</p>
+            <p class="text-gray-400 text-sm mt-4">Watch Voop track players with bounding boxes and display real-time analytics</p>
         </div>
     </section>
 
