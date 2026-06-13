@@ -27,6 +27,13 @@
         .philosophy-quote {
             background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(139, 92, 246, 0.05));
         }
+        .download-btn {
+            transition: all 0.3s ease;
+        }
+        .download-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-white font-sans">
@@ -84,7 +91,7 @@
     </section>
 
     <!-- Why These 4 Features Section -->
-    <section class="px-6 py-16 max-w-3xl mx-auto fade-up">
+    <section class="px-6 py-8 max-w-3xl mx-auto fade-up">
         <div class="philosophy-quote rounded-2xl p-8 border border-cyan-500/20 text-center">
             <i class="fas fa-quote-left text-3xl text-cyan-400 mb-4 opacity-50"></i>
             <p class="text-gray-300 italic leading-relaxed text-lg">
@@ -97,8 +104,22 @@
         </div>
     </section>
 
+    <!-- DOWNLOAD SECTION - NEW -->
+    <section class="px-6 py-12 max-w-2xl mx-auto fade-up">
+        <div class="bg-gradient-to-r from-cyan-900/30 to-blue-900/30 rounded-2xl p-8 border border-cyan-500/30 text-center">
+            <div class="text-5xl mb-4">📦</div>
+            <h2 class="text-2xl font-bold mb-2">Download Voop</h2>
+            <p class="text-gray-400 mb-6">Get the complete Voop application package for macOS. Includes the app, YOLOv8 model, and all dependencies.</p>
+            <a href="Voop_Package.zip" download class="download-btn bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-4 rounded-xl font-bold inline-flex items-center gap-3 transition">
+                <i class="fas fa-download text-xl"></i>
+                Download Voop_Package.zip
+            </a>
+            <p class="text-gray-500 text-xs mt-4">Version 1.0 • macOS •  Requires Python 3.9+</p>
+        </div>
+    </section>
+
     <!-- Demo Video Placeholder -->
-    <section class="px-6 py-16 max-w-4xl mx-auto text-center fade-up">
+    <section class="px-6 py-12 max-w-4xl mx-auto text-center fade-up">
         <h2 class="text-2xl font-bold mb-4">See It In Action</h2>
         <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800">
             <div class="bg-black/50 rounded-xl aspect-video flex items-center justify-center">
