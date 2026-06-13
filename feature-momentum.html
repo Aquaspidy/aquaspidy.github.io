@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voop | Possession Momentum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .momentum-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        .momentum-bg::before {
+            content: "⚡⚡⚡";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            font-size: 30vw;
+            opacity: 0.03;
+            font-family: monospace;
+            white-space: nowrap;
+            transform: rotate(-15deg);
+            pointer-events: none;
+            letter-spacing: 50px;
+        }
+        .momentum-gradient {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+        }
+        .stat-pill {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white font-sans">
+
+    <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <span class="text-cyan-400">Voop</span>
+            </div>
+            <div class="space-x-6 text-sm hidden md:block">
+                <a href="index.html" class="hover:text-cyan-400 transition">Home</a>
+                <a href="voop.html" class="hover:text-cyan-400 transition">← All Features</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="momentum-bg">
+        <section class="px-6 py-16 max-w-4xl mx-auto">
+            <div class="fade-up">
+                <a href="voop.html" class="text-cyan-400 text-sm mb-4 inline-block hover:underline">← Back to all features</a>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="text-7xl">⚡</div>
+                    <div class="stat-pill px-4 py-1 rounded-full text-cyan-400 text-sm font-mono">LIVE TRACKING</div>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Possession Momentum</h1>
+                <p class="text-gray-400 text-xl mb-8">Tracking who controls the tempo — not just who has the ball.</p>
+            </div>
+            
+            <!-- Main Description -->
+            <div class="fade-up momentum-gradient rounded-2xl p-8 border border-cyan-500/20 my-8">
+                <p class="text-gray-200 leading-relaxed text-lg">
+                    The momentum detection feature in Voop tracks which team has control based on player movement. 
+                    It analyzes horizontal motion of all players, calculating whether the offense is pushing forward 
+                    or being driven back. When players move decisively toward the opponent's basket, momentum shifts 
+                    toward that team.
+                </p>
+            </div>
+            
+            <!-- Technical Details -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                    <i class="fas fa-microchip text-cyan-400"></i> How It Works
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-cyan-400 font-bold mb-2">🎯 Decay Factor</div>
+                        <p class="text-gray-400 text-sm">Prevents sudden flips from single plays. A single highlight dunk won't swing momentum — sustained pressure is required.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-cyan-400 font-bold mb-2">📊 Threshold System</div>
+                        <p class="text-gray-400 text-sm">Ensures only sustained pressure changes possession. Temporary advantages are noted but don't flip control.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-cyan-400 font-bold mb-2">📈 Percentage Meter</div>
+                        <p class="text-gray-400 text-sm">Displays a 0-100% meter showing how strongly one team controls the tempo — a visual pulse of the game.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-cyan-400 font-bold mb-2">🔄 Optical Flow</div>
+                        <p class="text-gray-400 text-sm">Powered by computer vision that tracks horizontal motion vectors of every player on the court simultaneously.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- In-Game Application -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                    <i class="fas fa-basketball text-cyan-400"></i> In-Game Application
+                </h2>
+                <div class="bg-gray-900/30 rounded-xl p-6 border-l-4 border-cyan-400 mb-8">
+                    <p class="text-gray-300 leading-relaxed">
+                        Coaches use momentum detection to identify scoring runs, recognize defensive stops before they show on the scoreboard, 
+                        and determine the exact moment to call timeouts. Unlike basic possession arrows that just show who has the ball, 
+                        Voop's momentum reveals the actual game flow and psychological advantage. This helps teams capitalize on hot streaks 
+                        or strategically break opponent momentum with timely substitutions.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Screenshot Placeholder -->
+            <div class="fade-up mt-12">
+                <h2 class="text-2xl font-bold mb-4">Preview</h2>
+                <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800 text-center">
+                    <div class="bg-black/50 rounded-xl aspect-video flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-chart-line text-5xl text-cyan-400 mb-3"></i>
+                            <p class="text-gray-500">Momentum meter visualization will appear here</p>
+                            <p class="text-gray-600 text-sm mt-2">Screenshot showing real-time momentum percentage and possession indicator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Back to Features -->
+            <div class="fade-up mt-12 text-center">
+                <a href="voop.html" class="bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-lg inline-block transition">← Back to All Features</a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm mt-16">
+        <p>© 2026 Voop. Built by JYang with YOLOv8, PyQt, and computer vision</p>
+    </footer>
+
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
