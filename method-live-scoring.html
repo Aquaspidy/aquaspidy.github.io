@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyst Guide | Keeping Live Scores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tip-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.05));
+            border-left: 4px solid #10b981;
+        }
+        .app-badge {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            transition: all 0.2s ease;
+        }
+        .app-badge:hover {
+            background: rgba(16, 185, 129, 0.2);
+            transform: translateY(-2px);
+        }
+        .quote-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(217, 119, 6, 0.05));
+            border-left: 4px solid #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white font-sans">
+
+    <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <span class="text-emerald-400">Analyst</span> Guide
+            </div>
+            <div class="space-x-6 text-sm hidden md:block">
+                <a href="index.html" class="hover:text-emerald-400 transition">Home</a>
+                <a href="guide.html" class="hover:text-emerald-400 transition">← All Methods</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="px-6 py-16 max-w-4xl mx-auto">
+        <div class="fade-up">
+            <a href="guide.html" class="text-emerald-400 text-sm mb-4 inline-block hover:underline">← Back to timeline</a>
+            <div class="text-6xl mb-6">📝</div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Keeping Live Scores</h1>
+            <p class="text-gray-400 text-lg mb-8">More than just numbers — live scoring is your window into the game's hidden patterns.</p>
+        </div>
+
+        <!-- Ditch Paper Spreadsheets -->
+        <div class="fade-up">
+            <h2 class="text-2xl font-bold mb-4 mt-4 flex items-center gap-2">
+                <i class="fas fa-ban text-emerald-400"></i> Ditch the Paper
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                If your team is still keeping scores on a paper spreadsheet, you should probably change methods. Paper spreadsheets are easy to mess up and always miss plenty of important stats like rebounds and assists. This becomes a problem later when you're trying to reflect on why you won or lost and conclude strengths and weaknesses. Numbers are powerful — they never lie — so you want to get as much out of a game as possible to know yourself thoroughly.
+            </p>
+        </div>
+
+        <!-- Digital Tools -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-mobile-alt text-emerald-400"></i> Digital Scorekeeping Apps
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Use free, public digital scorekeeping apps like <span class="text-emerald-400 font-semibold">GameChanger</span> (developed by Dick's) — or if you have a bit of budget, you can use <span class="text-emerald-400 font-semibold">Synergy</span>. These apps are easy to use and easy to learn. All you need to do is tap on buttons, and they calculate all the needed stats automatically. GameChanger even generates an amazing game report concluding the strengths and weaknesses of both teams after each game.
+            </p>
+            <div class="flex flex-wrap gap-3 mt-4">
+                <span class="app-badge px-4 py-2 rounded-full text-sm">📱 GameChanger (Free)</span>
+                <span class="app-badge px-4 py-2 rounded-full text-sm">💎 Synergy (Paid)</span>
+            </div>
+        </div>
+
+        <!-- Beyond Button-Pushing -->
+        <div class="fade-up">
+            <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                <i class="fas fa-brain text-emerald-400"></i> Beyond Button-Pushing
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                As a statistician, simply sitting courtside and clicking buttons is not enough. You need to be analyzing the game in your brain all the time. Look for patterns, such as:
+            </p>
+            <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4 mb-4">
+                <li>"Their guards always use that pump fake to draw fouls — all three of our center's fouls came from that."</li>
+                <li>"Only our point guard is moving all the time. Other players are stagnant, resulting in forced buzzer-beater airballs in four consecutive possessions."</li>
+            </ul>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Keep those thoughts in mind and tell your coach during timeouts or halftime.
+            </p>
+        </div>
+
+        <!-- Relationship with Coach - Gold Tip -->
+        <div class="fade-up tip-box rounded-xl p-6 my-8">
+            <div class="flex items-center gap-3 mb-3">
+                <i class="fas fa-handshake text-emerald-400 text-xl"></i>
+                <h3 class="text-xl font-bold text-emerald-400">💡 Gold Tip: Build a Relationship with Your Coach</h3>
+            </div>
+            <p class="text-gray-300 leading-relaxed">
+                Have a tight relationship with the coach. A good relationship opens up all kinds of opportunities you'll never imagine. You can do this by saying hi to them on campus whenever you see them, inviting them for a shoot-around after practice, or just sitting down on a weekend to talk basketball — or anything in life — with them.
+            </p>
+            <p class="text-gray-300 leading-relaxed mt-3">
+                Trust me, this tiny but extremely useful tip will pay off more than you expect.
+            </p>
+        </div>
+
+        <!-- The Real Value -->
+        <div class="fade-up">
+            <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                <i class="fas fa-chart-line text-emerald-400"></i> The Real Value of Live Scoring
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Keeping live scores may seem superfluous at first, but it actually does much more than just showing scores. It is an absolute beast during timeouts and halftime locker room talks. Show the coach the stats page on the app, and combine those stats with your observations from the game.
+            </p>
+            
+            <div class="bg-gray-900/40 rounded-xl p-5 border-l-4 border-emerald-400 mb-5">
+                <p class="text-gray-300 italic">
+                    "Look coach, we only have 4 assists by halftime, and 3 of them are from just 1 player. From what I saw, other players are stagnant when one player drives toward the rim. We need to move around more — our opponents are having a relaxing day guarding us. We can't make it that easy."
+                </p>
+            </div>
+            
+            <div class="bg-gray-900/40 rounded-xl p-5 border-l-4 border-emerald-400 mb-5">
+                <p class="text-gray-300 italic">
+                    "We are getting destroyed on rebounds. I know we might not be as tall as them, but I think this can be fixed by getting more steals. Their forwards move slow compared to ours."
+                </p>
+            </div>
+            
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Two pairs of eyes always work better than one. Never be ashamed or scared to express your own opinions, even if they're wrong. Nobody is born understanding basketball. Your coach is smart enough — they'll make the right decision from both of your perspectives. You will become an expert soon enough if you work hard to practice your skills at interpreting the game.
+            </p>
+        </div>
+
+        <!-- Watch More Basketball -->
+        <div class="fade-up quote-box rounded-xl p-6 my-8">
+            <div class="flex items-center gap-3 mb-2">
+                <i class="fas fa-tv text-amber-400 text-xl"></i>
+                <h3 class="text-xl font-bold text-amber-400">📺 Another Tip</h3>
+            </div>
+            <p class="text-gray-300 leading-relaxed">
+                Watch other basketball games — the NBA, college, even other high school games. Watch their tactics, and observe how each plan and counterplan is executed in response to actions on the court. It's both relaxing and beneficial for your basketball IQ.
+            </p>
+        </div>
+
+        <!-- After the Game -->
+        <div class="fade-up">
+            <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                <i class="fas fa-file-excel text-emerald-400"></i> After the Game
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                After the game, download the spreadsheet and send it to your coach. This data is also critical for the post-game feedback we'll cover in <span class="text-emerald-400 font-semibold">Step 5</span>.
+            </p>
+        </div>
+
+        <!-- Template Download -->
+        <div class="fade-up mt-12 bg-gray-900 rounded-xl p-6 border border-gray-800">
+            <i class="fas fa-download text-emerald-400 text-2xl mb-2 block"></i>
+            <h3 class="text-lg font-bold mb-2">Download Scorekeeping Template</h3>
+            <p class="text-gray-400 text-sm mb-4">My custom spreadsheet template for tracking advanced stats during live games</p>
+            <a href="#" class="bg-emerald-500 hover:bg-emerald-600 px-5 py-2 rounded-lg text-sm inline-block transition">Download Template →</a>
+        </div>
+
+        <!-- Back to Timeline -->
+        <div class="fade-up mt-12 text-center">
+            <a href="guide.html" class="border border-emerald-500 hover:bg-emerald-500/10 px-6 py-3 rounded-lg inline-block transition">← Back to All Methods</a>
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm mt-16">
+        <p>© 2026 Voop. Analyst Guide by JYang</p>
+    </footer>
+
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
