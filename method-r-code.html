@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyst Guide | R Code for Stats & Graphics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .code-block {
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            border: 1px solid #2d3561;
+        }
+        .warning-box {
+            background: rgba(245, 158, 11, 0.08);
+            border-left: 4px solid #f59e0b;
+        }
+        .danger-box {
+            background: rgba(239, 68, 68, 0.08);
+            border-left: 4px solid #ef4444;
+        }
+        .tip-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 4px solid #10b981;
+        }
+        .ai-prompt {
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white font-sans">
+
+    <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <span class="text-purple-400">Analyst</span> Guide
+            </div>
+            <div class="space-x-6 text-sm hidden md:block">
+                <a href="index.html" class="hover:text-purple-400 transition">Home</a>
+                <a href="guide.html" class="hover:text-purple-400 transition">← All Methods</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="px-6 py-16 max-w-4xl mx-auto">
+        <div class="fade-up">
+            <a href="guide.html" class="text-purple-400 text-sm mb-4 inline-block hover:underline">← Back to timeline</a>
+            <div class="text-6xl mb-6">📊</div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">R Code for Stats & Graphics</h1>
+            <p class="text-gray-400 text-lg mb-8">Turning box scores into meaningful visuals — even if you don't know how to code.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="fade-up">
+            <p class="text-gray-300 leading-relaxed text-lg mb-6">
+                Box scores can only tell you so much. Yet you can turn that spreadsheet into valuable insights if you know a few tricks. You can calculate things like offensive and defensive efficiencies, points per possession, and a lot more.
+            </p>
+        </div>
+
+        <!-- The Honest Truth about R -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-code text-purple-400"></i> You Don't Need to Be an Expert
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                I am no expert at R code. There are plenty of resources online to learn how to code in R, but here's the good news: <span class="text-purple-400 font-semibold">you don't even have to know R code</span> to calculate these stats and generate cool graphs!
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Simply go download R Studio and learn the basics on YouTube or GitHub. Then, with AI technology nowadays, you can always ask an AI model that you use all the time to help you write the code.
+            </p>
+        </div>
+
+        <!-- What to Feed the AI -->
+        <div class="fade-up ai-prompt rounded-xl p-6 my-8">
+            <h3 class="text-lg font-bold text-purple-400 mb-3 flex items-center gap-2">
+                <i class="fas fa-robot"></i> What to Feed the AI
+            </h3>
+            <p class="text-gray-300 leading-relaxed mb-3">
+                But what you feed the AI is important. You will need:
+            </p>
+            <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4 mb-4">
+                <li>The box score spreadsheets</li>
+                <li>Most importantly — the <span class="text-purple-400 font-semibold">game flow / play-by-play chart</span></li>
+            </ul>
+            <p class="text-gray-300 leading-relaxed">
+                As you click buttons during the game, possessions will be recorded. You can clearly see, in order, who grabbed a rebound, who had a turnover, and what happened next.
+            </p>
+        </div>
+
+        <!-- Dealing with Timestamps -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-clock text-purple-400"></i> What About Timestamps?
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                If you have the financial ability, advanced data recording apps like Synergy will mark the specific time each event happened. But if you use free apps like GameChanger, you won't be able to see the time.
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                <span class="text-purple-400 font-semibold">But that's fine!</span> Go to the play-by-play page, take a long screenshot or export the page as a PDF, and feed it to AI — or summarize it yourself. Then ask AI to turn that into charts such as:
+            </p>
+            <ul class="list-disc list-inside text-gray-300 space-y-2 ml-4 mb-4">
+                <li>Lineup efficiency</li>
+                <li>Four Factors (eFG%, TOV%, OREB%, FT rate)</li>
+                <li>Points per possession (PPP)</li>
+            </ul>
+        </div>
+
+        <!-- Critical Warning: What NOT to Calculate -->
+        <div class="fade-up danger-box rounded-xl p-6 my-8">
+            <div class="flex items-center gap-3 mb-3">
+                <i class="fas fa-exclamation-triangle text-red-400 text-xl"></i>
+                <h3 class="text-lg font-bold text-red-400">⚠️ Critical Warning</h3>
+            </div>
+            <p class="text-gray-300 leading-relaxed">
+                Stats such as clutch time performance (though you can define clutch time as the last X possessions), timeout efficiencies (how a team performs in the minutes before and after a timeout), or pace control (average length of each possession) <span class="text-red-400 font-semibold">CANNOT be calculated</span> if you don't have timestamps.
+            </p>
+            <p class="text-gray-300 leading-relaxed mt-3">
+                <span class="text-red-400 font-semibold">Don't calculate those</span> — otherwise you'll be feeding false data to your team. Analytics is all about accuracy. Better to have no data than false data.
+            </p>
+        </div>
+
+        <!-- The Most Important Lesson -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-lightbulb text-purple-400"></i> The Most Important Lesson
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                However, it is important to note that you don't want to just generate all the data you can. Analytics is not about flooding people's minds with numbers. It's about <span class="text-purple-400 font-semibold">selecting the meaningful ones and building a comprehensive argument</span>.
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                You don't want to just present strengths and ignore weaknesses. A player scoring a triple-double without looking at their efficiency is pointless.
+            </p>
+        </div>
+
+        <!-- Start with a Goal -->
+        <div class="fade-up tip-box rounded-xl p-6 my-8">
+            <div class="flex items-center gap-3 mb-3">
+                <i class="fas fa-bullseye text-emerald-400 text-xl"></i>
+                <h3 class="text-lg font-bold text-emerald-400">Start with a Goal, Not Numbers</h3>
+            </div>
+            <p class="text-gray-300 leading-relaxed">
+                This is extremely critical: <span class="text-emerald-400 font-semibold">you need a goal or argument</span>, and this comes from yours and your coach's observations.
+            </p>
+            <p class="text-gray-300 leading-relaxed mt-3">
+                For example, your coach might say: <span class="italic text-emerald-300">"We ain't shooting good enough. Our opponents hit more threes at higher efficiencies than us."</span>
+            </p>
+            <p class="text-gray-300 leading-relaxed mt-3">
+                This is where stats come into use. You might want to rewatch game film and pay attention to the shot environment of your team's shooters.
+            </p>
+        </div>
+
+        <!-- The Problem-Solving Process -->
+        <div class="fade-up">
+            <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                <i class="fas fa-sitemap text-purple-400"></i> The Problem-Solving Process
+            </h2>
+            
+            <div class="bg-gray-900/40 rounded-xl p-5 border-l-4 border-purple-400 mb-5">
+                <p class="text-gray-300 font-semibold mb-2">🔍 If they are mostly open shots but not hitting them:</p>
+                <p class="text-gray-300">The solution is clear — make them hit the gym and practice more.</p>
+            </div>
+            
+            <div class="bg-gray-900/40 rounded-xl p-5 border-l-4 border-purple-400 mb-5">
+                <p class="text-gray-300 font-semibold mb-2">🔍 If they are all contested fadeaway threes to beat the shot clock:</p>
+                <p class="text-gray-300">You might want to find out why. Maybe threes are never your primary weapon, and shooters only get the ball after an unsuccessful drive. Or maybe passes are going directly to shooters rather than creating open spots through plays designed for three-point shots.</p>
+            </div>
+            
+            <div class="bg-gray-900/40 rounded-xl p-5 border-l-4 border-purple-400 mb-5">
+                <p class="text-gray-300 font-semibold mb-2">📊 Pay attention to assisted field goal percentage:</p>
+                <p class="text-gray-300">If it's high, other people are creating opportunities for them. If it's low, they are mostly creating their own space.</p>
+            </div>
+        </div>
+
+        <!-- The Power of Statistics -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-chart-line text-purple-400"></i> The Power of Statistics
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Find the problem. Design a process to find the solution. Use R Studio to help you generate good visuals that figuratively present those arguments. Present that process to your coach so you can convince them to make a change.
+            </p>
+            <p class="text-gray-300 leading-relaxed text-lg mt-4">
+                <span class="text-purple-400 font-bold">That's the power of statistics.</span>
+            </p>
+        </div>
+
+        <!-- Example Code Snippet (Optional Visual) -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-file-code text-purple-400"></i> Example: What AI Can Generate
+            </h2>
+            <div class="code-block">
+                <pre class="text-gray-300 text-sm"><code># Sample R code for calculating PPP (Points Per Possession)
+# Feed your play-by-play data to AI and it will help you write this
+
+library(tidyverse)
+
+# Calculate offensive efficiency
+offensive_ppp <- total_points / total_possessions
+
+# Four Factors calculation
+efg <- (FGM + 0.5 * `3PM`) / FGA
+tov_rate <- TOV / total_possessions
+oreb_rate <- OREB / (OREB + opponent_DReb)
+ft_rate <- FTM / FGA</code></pre>
+            </div>
+            <p class="text-gray-500 text-xs mt-2">You don't need to memorize this — AI can write it for you!</p>
+        </div>
+
+        <!-- Template Download -->
+        <div class="fade-up mt-12 bg-gray-900 rounded-xl p-6 border border-gray-800">
+            <i class="fas fa-download text-purple-400 text-2xl mb-2 block"></i>
+            <h3 class="text-lg font-bold mb-2">Download R Code Template</h3>
+            <p class="text-gray-400 text-sm mb-4">My R script template for calculating PPP, Four Factors, and lineup efficiency</p>
+            <a href="#" class="bg-purple-500 hover:bg-purple-600 px-5 py-2 rounded-lg text-sm inline-block transition">Download Template →</a>
+        </div>
+
+        <!-- Back to Timeline -->
+        <div class="fade-up mt-12 text-center">
+            <a href="guide.html" class="border border-purple-500 hover:bg-purple-500/10 px-6 py-3 rounded-lg inline-block transition">← Back to All Methods</a>
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm mt-16">
+        <p>© 2026 Voop. Analyst Guide by JYang</p>
+    </footer>
+
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
