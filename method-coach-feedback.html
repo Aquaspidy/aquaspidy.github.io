@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyst Guide | Post-Game Coach Feedback</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .principle-box {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(219, 39, 119, 0.05));
+            border-left: 4px solid #ec4899;
+        }
+        .example-box {
+            background: rgba(236, 72, 153, 0.05);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            border-radius: 12px;
+        }
+        .tip-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 4px solid #10b981;
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+        .good-col {
+            border-top: 3px solid #10b981;
+        }
+        .bad-col {
+            border-top: 3px solid #ef4444;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white font-sans">
+
+    <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <span class="text-pink-400">Analyst</span> Guide
+            </div>
+            <div class="space-x-6 text-sm hidden md:block">
+                <a href="index.html" class="hover:text-pink-400 transition">Home</a>
+                <a href="guide.html" class="hover:text-pink-400 transition">← All Methods</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="px-6 py-16 max-w-4xl mx-auto">
+        <div class="fade-up">
+            <a href="guide.html" class="text-pink-400 text-sm mb-4 inline-block hover:underline">← Back to timeline</a>
+            <div class="text-6xl mb-6">✍️</div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Post-Game Coach Feedback</h1>
+            <p class="text-gray-400 text-lg mb-8">A quick, actionable two-paragraph memo after every game — before the next day's practice.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="fade-up">
+            <p class="text-gray-300 leading-relaxed text-lg mb-6">
+                A detailed report after every game is not practical. But what you can do is write a <span class="text-pink-400 font-semibold">2-paragraph feedback memo</span> to your coach.
+            </p>
+        </div>
+
+        <!-- Be Observational -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-eye text-pink-400"></i> Be Observational
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                After watching the game live or from replay, look for things the team did well — or did not do well — that were critical to the win or loss.
+            </p>
+            <p class="text-gray-300 leading-relaxed">
+                You can get help from apps like GameChanger. They have AI summaries that take box scores and game flow into consideration. Read those summaries and combine them with your own findings.
+            </p>
+        </div>
+
+        <!-- The Two-Paragraph Structure -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-paragraph text-pink-400"></i> The Two-Paragraph Structure
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Personally, I prefer two paragraphs:
+            </p>
+            
+            <div class="two-column mt-4">
+                <div class="good-col bg-gray-900/30 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fas fa-check-circle text-emerald-400 text-xl"></i>
+                        <h3 class="font-bold text-emerald-400">Paragraph 1: What Went Well</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm">Focus on strengths and positive performances that contributed to success.</p>
+                </div>
+                
+                <div class="bad-col bg-gray-900/30 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i class="fas fa-exclamation-triangle text-red-400 text-xl"></i>
+                        <h3 class="font-bold text-red-400">Paragraph 2: What Needs Work</h3>
+                    </div>
+                    <p class="text-gray-400 text-sm">Focus on weaknesses and areas for improvement.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Neutrality Reminder -->
+        <div class="fade-up principle-box rounded-xl p-6 my-8">
+            <div class="flex items-center gap-3 mb-3">
+                <i class="fas fa-scale-balanced text-pink-400 text-xl"></i>
+                <h3 class="text-lg font-bold text-pink-400">📜 Neutrality Still Applies</h3>
+            </div>
+            <p class="text-gray-300 leading-relaxed">
+                Keep in mind that the neutrality rule matters here as well. <span class="text-pink-400 font-semibold">Don't criticize or compliment anyone by name.</span> I never mention specific names in my feedback.
+            </p>
+            <p class="text-gray-300 leading-relaxed mt-3">
+                Focus on team-level observations and statistical trends, not individual performances.
+            </p>
+        </div>
+
+        <!-- Example 1: Rebounding Strength -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-file-alt text-pink-400"></i> Example Feedback
+            </h2>
+            
+            <div class="example-box rounded-xl p-6 mb-6">
+                <div class="text-emerald-400 font-bold mb-2 flex items-center gap-2">
+                    <i class="fas fa-check-circle"></i> Paragraph 1 — What Went Well
+                </div>
+                <p class="text-gray-300 italic leading-relaxed">
+                    "We dominated our opponents in rebounds today, grabbing 7 extra defensive rebounds and 6 extra offensive rebounds that resulted in 10 second-chance points. These critical rebounds allowed us to secure our lead and prevent our opponents from gaining momentum in the last 2 minutes."
+                </p>
+            </div>
+            
+            <div class="example-box rounded-xl p-6">
+                <div class="text-red-400 font-bold mb-2 flex items-center gap-2">
+                    <i class="fas fa-exclamation-triangle"></i> Paragraph 2 — What Needs Work
+                </div>
+                <p class="text-gray-300 italic leading-relaxed">
+                    "Turnovers were a huge issue for us today. Five players had more than 3 turnovers. Six of our turnovers turned into steals for our opponents, which resulted in 12 fastbreak points that blew our lead midway through the second half."
+                </p>
+            </div>
+        </div>
+
+        <!-- What Makes These Examples Good -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-star text-pink-400"></i> What Makes These Examples Effective
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-gray-900/40 rounded-xl p-4">
+                    <div class="text-emerald-400 font-bold mb-1">✅ Specific Numbers</div>
+                    <p class="text-gray-400 text-sm">"7 extra defensive rebounds" — not just "we rebounded well"</p>
+                </div>
+                <div class="bg-gray-900/40 rounded-xl p-4">
+                    <div class="text-emerald-400 font-bold mb-1">✅ Causal Connection</div>
+                    <p class="text-gray-400 text-sm">"resulted in 10 second-chance points" — links action to outcome</p>
+                </div>
+                <div class="bg-gray-900/40 rounded-xl p-4">
+                    <div class="text-emerald-400 font-bold mb-1">✅ Neutral Wording</div>
+                    <p class="text-gray-400 text-sm">"Five players had more than 3 turnovers" — factual, not blaming</p>
+                </div>
+                <div class="bg-gray-900/40 rounded-xl p-4">
+                    <div class="text-emerald-400 font-bold mb-1">✅ Game Context</div>
+                    <p class="text-gray-400 text-sm">"midway through the second half" — helps coach pinpoint timing</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timing -->
+        <div class="fade-up tip-box rounded-xl p-6 my-8">
+            <div class="flex items-center gap-3 mb-3">
+                <i class="fas fa-clock text-emerald-400 text-xl"></i>
+                <h3 class="text-lg font-bold text-emerald-400">⏰ When to Send</h3>
+            </div>
+            <p class="text-gray-300 leading-relaxed">
+                Send one to the coaching staff after every game — <span class="text-emerald-400 font-semibold">and before the next day's practice</span>. This gives coaches time to apply your insights into live action during practice.
+            </p>
+        </div>
+
+        <!-- Comparison Table: What to Include vs. What to Avoid -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-list-check text-pink-400"></i> Do's & Don'ts
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr><th class="text-left p-3 bg-emerald-500/10 text-emerald-400 rounded-l-lg">✅ DO Include</th>
+                            <th class="text-left p-3 bg-red-500/10 text-red-400 rounded-r-lg">❌ DON'T Include</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-800">
+                            <td class="p-3 text-gray-300">Specific statistics (rebounds, turnovers, points)</td>
+                            <td class="p-3 text-gray-400">Player names or jersey numbers</td>
+                        </tr>
+                        <tr class="border-b border-gray-800">
+                            <td class="p-3 text-gray-300">Cause-and-effect relationships</td>
+                            <td class="p-3 text-gray-400">Emotional language ("awful", "amazing")</td>
+                        </tr>
+                        <tr class="border-b border-gray-800">
+                            <td class="p-3 text-gray-300">Game timing context (halftime, last 2 minutes)</td>
+                            <td class="p-3 text-gray-400">Comparisons between players</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 text-gray-300">Actionable insights for practice</td>
+                            <td class="p-3 text-gray-400">Criticism or praise of individuals</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Template Download -->
+        <div class="fade-up mt-12 bg-gray-900 rounded-xl p-6 border border-gray-800">
+            <i class="fas fa-download text-pink-400 text-2xl mb-2 block"></i>
+            <h3 class="text-lg font-bold mb-2">Download Feedback Template</h3>
+            <p class="text-gray-400 text-sm mb-4">My two-paragraph coach feedback template — ready to fill in after each game</p>
+            <a href="#" class="bg-pink-500 hover:bg-pink-600 px-5 py-2 rounded-lg text-sm inline-block transition">Download Template →</a>
+        </div>
+
+        <!-- Back to Timeline -->
+        <div class="fade-up mt-12 text-center">
+            <a href="guide.html" class="border border-pink-500 hover:bg-pink-500/10 px-6 py-3 rounded-lg inline-block transition">← Back to All Methods</a>
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm mt-16">
+        <p>© 2026 Voop. Analyst Guide by JYang</p>
+    </footer>
+
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
