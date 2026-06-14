@@ -22,21 +22,7 @@
         .timeline-item:hover {
             transform: translateX(8px);
         }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(to bottom, #06b6d4, #8b5cf6, #ec4899, #f59e0b, #06b6d4);
-            opacity: 0.3;
-        }
-        @media (max-width: 768px) {
-            .timeline::before {
-                left: 20px;
-            }
-        }
+        /* Removed the timeline line completely */
     </style>
 </head>
 <body class="bg-gray-950 text-white font-sans">
@@ -61,8 +47,8 @@
         <p class="text-gray-400 text-lg">A complete step-by-step guide based on my experience scouting, coding, scoring, and reporting for my high school team.</p>
     </section>
 
-    <!-- Timeline Section -->
-    <section class="px-6 py-8 max-w-4xl mx-auto relative timeline">
+    <!-- Timeline Section - No line -->
+    <section class="px-6 py-8 max-w-4xl mx-auto relative">
         
         <!-- Step 1: Opponent Scouting -->
         <div class="timeline-item relative mb-12 fade-up">
@@ -78,14 +64,14 @@
                 <div class="md:w-3/4">
                     <a href="method-scouting.html" class="block bg-gray-900/50 rounded-xl border border-gray-800 p-6 hover:border-cyan-500 transition no-underline text-white">
                         <h3 class="text-xl font-bold text-cyan-400">🔍 Opponent Scouting Reports</h3>
-                        <p class="text-gray-400 mt-2">How I research opponents using Hudl, MaxPreps, and game film — and write detailed player scouting notes with individual defensive game plans.</p>
+                        <p class="text-gray-400 mt-2">How I research opponents using Prephoops, Hudl, MaxPreps, and game film — and write detailed player scouting notes with individual defensive game plans.</p>
                         <div class="mt-3 text-cyan-400 text-sm">Read full guide →</div>
                     </a>
                 </div>
             </div>
         </div>
         
-        <!-- Step 2: Keeping Live Scores (NEW) -->
+        <!-- Step 2: Keeping Live Scores -->
         <div class="timeline-item relative mb-12 fade-up">
             <div class="flex flex-col md:flex-row gap-6">
                 <div class="md:w-1/4 text-right">
