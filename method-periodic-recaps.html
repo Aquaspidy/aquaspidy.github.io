@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyst Guide | Writing Periodic Recaps</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .principle-box {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(234, 88, 12, 0.05));
+            border-left: 4px solid #f97316;
+        }
+        .warning-box {
+            background: rgba(239, 68, 68, 0.08);
+            border-left: 4px solid #ef4444;
+        }
+        .tip-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 4px solid #10b981;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .category-card {
+            background: rgba(249, 115, 22, 0.05);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white font-sans">
+
+    <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <span class="text-orange-400">Analyst</span> Guide
+            </div>
+            <div class="space-x-6 text-sm hidden md:block">
+                <a href="index.html" class="hover:text-orange-400 transition">Home</a>
+                <a href="guide.html" class="hover:text-orange-400 transition">← All Methods</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="px-6 py-16 max-w-4xl mx-auto">
+        <div class="fade-up">
+            <a href="guide.html" class="text-orange-400 text-sm mb-4 inline-block hover:underline">← Back to timeline</a>
+            <div class="text-6xl mb-6">📋</div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Writing Periodic Recaps</h1>
+            <p class="text-gray-400 text-lg mb-8">The team's regular health checkup — reflecting on performance to extend win streaks or break slumps.</p>
+        </div>
+
+        <!-- Why Periodic Recaps Matter -->
+        <div class="fade-up">
+            <p class="text-gray-300 leading-relaxed text-lg mb-6">
+                Periodic recaps are perhaps the most important step of being a good statistician. For a span of 5 to 9 games, your team might be on a win streak — or might not be performing as well as expected. It is critical to extend that win streak or stop that slump by doing some in-depth reflection. Think of it like a regular physical health checkup for the team.
+            </p>
+        </div>
+
+        <!-- The Framework -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-sitemap text-orange-400"></i> The Framework
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                The game can be broken down into 2 main categories: <span class="text-orange-400 font-semibold">offensive</span> and <span class="text-orange-400 font-semibold">defensive</span>. Each then divides into <span class="text-orange-400 font-semibold">team</span> and <span class="text-orange-400 font-semibold">individual</span>. Each category will have strengths and weaknesses, and it is your job to put all of them together in one file.
+            </p>
+            
+            <div class="category-grid mt-6">
+                <div class="category-card">
+                    <div class="text-2xl mb-2">🏀</div>
+                    <div class="font-bold text-orange-400">Offensive</div>
+                    <div class="text-xs text-gray-500 mt-1">Team & Individual</div>
+                </div>
+                <div class="category-card">
+                    <div class="text-2xl mb-2">🛡️</div>
+                    <div class="font-bold text-orange-400">Defensive</div>
+                    <div class="text-xs text-gray-500 mt-1">Team & Individual</div>
+                </div>
+                <div class="category-card">
+                    <div class="text-2xl mb-2">✅</div>
+                    <div class="font-bold text-emerald-400">Strengths</div>
+                    <div class="text-xs text-gray-500 mt-1">What's working</div>
+                </div>
+                <div class="category-card">
+                    <div class="text-2xl mb-2">⚠️</div>
+                    <div class="font-bold text-red-400">Weaknesses</div>
+                    <div class="text-xs text-gray-500 mt-1">What needs work</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Talk to Your Coach -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-chalkboard-user text-orange-400"></i> Step 1: Talk to Your Coach
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                I recommend the first step to be talking to your coach. Go discuss your observations with them and see what they think. Then, with those insights in mind, you can start planning your entire file.
+            </p>
+            <p class="text-gray-300 leading-relaxed">
+                Ask yourself: <span class="text-orange-300 italic">What did we do well as a team? What still needs improvement?</span>
+            </p>
+        </div>
+
+        <!-- Critical Rule: Stay Neutral -->
+        <div class="fade-up principle-box rounded-xl p-6 my-8">
+            <div class="flex items-center gap-3 mb-3">
+                <i class="fas fa-scale-balanced text-orange-400 text-xl"></i>
+                <h3 class="text-lg font-bold text-orange-400">📜 The Golden Rule: Stay Neutral</h3>
+            </div>
+            <p class="text-gray-300 leading-relaxed">
+                An important note here: <span class="text-orange-400 font-semibold">you should never criticize or compliment a specific player</span> in your report. The report must be factual and neutral. You are not the coach — that is not your job. The file's purpose is to present facts neutrally and explain what is happening, leaving the judgments to the coaching staff.
+            </p>
+            <p class="text-gray-300 leading-relaxed mt-3">
+                Personally, I never write strengths or weaknesses for individual players — only for the entire team.
+            </p>
+        </div>
+
+        <!-- Step 2: Plan Your Argument -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-chart-line text-orange-400"></i> Step 2: Plan Your Argument
+            </h2>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                Once you've determined what to write about for each category, you need to build your case with data.
+            </p>
+            <p class="text-gray-300 leading-relaxed mb-4">
+                For example, if you decide that over the past 7 games your team has been winning mainly due to offensive rebounds and second-chance points, a good idea would be to put a comparison graph of offensive rebound rates for winning games vs. losing games — or your team vs. opponent teams. Include similar comparison graphs of other less important factors together to emphasize the importance of offensive rebounds.
+            </p>
+            <p class="text-gray-300 leading-relaxed">
+                Generate those graphs using R code or other apps you prefer.
+            </p>
+        </div>
+
+        <!-- Two Writing Principles -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-pen-fancy text-orange-400"></i> Two Writing Principles
+            </h2>
+            
+            <div class="space-y-4 mt-4">
+                <div class="bg-gray-900/40 rounded-xl p-5 border-l-4 border-orange-400">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-orange-400 text-xl">1️⃣</span>
+                        <h3 class="font-bold text-orange-400">Concise and Straightforward Language</h3>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        Don't use fancy words when simple ones will do. This is about <span class="text-orange-300 font-semibold">practicality</span>, not a literature essay.
+                    </p>
+                </div>
+                
+                <div class="bg-gray-900/40 rounded-xl p-5 border-l-4 border-orange-400">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-orange-400 text-xl">2️⃣</span>
+                        <h3 class="font-bold text-orange-400">Be Comprehensive — Avoid Response Bias</h3>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        Make sure you are as comprehensive as possible. Don't include one stat and leave other important ones out just to make a claim. That is called <span class="text-orange-300 font-semibold">response bias</span> in statistics.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mt-2">
+                        Since you are trying to find associations with observational data, you want to exclude all potential confounding variables or important impactful factors. <span class="text-orange-300">That's why planning matters so much before you write.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- After Writing -->
+        <div class="fade-up tip-box rounded-xl p-6 my-8">
+            <div class="flex items-center gap-3 mb-3">
+                <i class="fas fa-paper-plane text-emerald-400 text-xl"></i>
+                <h3 class="text-lg font-bold text-emerald-400">📤 After You Write</h3>
+            </div>
+            <p class="text-gray-300 leading-relaxed">
+                Send the report to your coach and discuss it with them. Ask for improvement advice — that's how you get better.
+            </p>
+            <p class="text-gray-300 leading-relaxed mt-3">
+                <span class="text-emerald-400 font-semibold">Bonus:</span> If you're passionate, you can even present it to the whole team in a short presentation!
+            </p>
+        </div>
+
+        <!-- Example Report Structure -->
+        <div class="fade-up my-8">
+            <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                <i class="fas fa-file-alt text-orange-400"></i> Example Report Structure
+            </h2>
+            <div class="bg-gray-900 rounded-xl p-6 border border-gray-800">
+                <div class="space-y-3 text-gray-300">
+                    <p><span class="text-orange-400 font-bold">📋 Title:</span> Periodic Recap — Games 12-18</p>
+                    <p><span class="text-orange-400 font-bold">📊 Key Finding:</span> Offensive rebounding rate of 38% in wins vs. 22% in losses</p>
+                    <p><span class="text-orange-400 font-bold">🏀 Offensive Strength:</span> Second-chance points (average 14 PPG in wins)</p>
+                    <p><span class="text-orange-400 font-bold">🛡️ Defensive Weakness:</span> Transition defense after made baskets</p>
+                    <p><span class="text-orange-400 font-bold">📈 Supporting Graph:</span> Four Factors comparison chart</p>
+                    <p><span class="text-orange-400 font-bold">✅ Recommendation:</span> Crash offensive glass harder; send one player back on makes</p>
+                </div>
+            </div>
+            <p class="text-gray-500 text-xs mt-2 text-center">Note: All observations are team-level, not player-specific</p>
+        </div>
+
+        <!-- Template Download -->
+        <div class="fade-up mt-12 bg-gray-900 rounded-xl p-6 border border-gray-800">
+            <i class="fas fa-download text-orange-400 text-2xl mb-2 block"></i>
+            <h3 class="text-lg font-bold mb-2">Download Recap Template</h3>
+            <p class="text-gray-400 text-sm mb-4">My periodic recap template — structure your team's health checkup</p>
+            <a href="#" class="bg-orange-500 hover:bg-orange-600 px-5 py-2 rounded-lg text-sm inline-block transition">Download Template →</a>
+        </div>
+
+        <!-- Back to Timeline -->
+        <div class="fade-up mt-12 text-center">
+            <a href="guide.html" class="border border-orange-500 hover:bg-orange-500/10 px-6 py-3 rounded-lg inline-block transition">← Back to All Methods</a>
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm mt-16">
+        <p>© 2026 Voop. Analyst Guide by JYang</p>
+    </footer>
+
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
