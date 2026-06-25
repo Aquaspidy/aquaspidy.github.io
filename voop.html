@@ -18,6 +18,7 @@
         }
         .feature-card {
             transition: all 0.3s ease;
+            height: 100%;
         }
         .feature-card:hover {
             transform: translateY(-8px);
@@ -33,6 +34,20 @@
         .download-btn:hover {
             transform: scale(1.02);
             box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+        }
+        .multi-cam-badge {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.15));
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        @media (max-width: 640px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -60,51 +75,91 @@
         </p>
     </section>
 
-    <!-- Feature Cards Grid -->
-    <section class="px-6 py-8 max-w-6xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-6">
-            
-            <a href="feature-momentum.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-cyan-500 transition no-underline text-white">
-                <div class="text-5xl mb-4">⚡</div>
-                <h3 class="text-xl font-semibold mb-2">Possession Momentum</h3>
-                <p class="text-gray-400 text-sm">Tracks player movement to determine which team controls the tempo. Identifies scoring runs and momentum swings in real time →</p>
-            </a>
-            
-            <a href="feature-qsq.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-cyan-500 transition no-underline text-white">
-                <div class="text-5xl mb-4">🎯</div>
-                <h3 class="text-xl font-semibold mb-2">Shot Quality (qSQ)</h3>
-                <p class="text-gray-400 text-sm">0-99 rating based on defender distance. Reveals whether your offense is generating good looks regardless of results →</p>
-            </a>
-            
-            <a href="feature-pnr.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-cyan-500 transition no-underline text-white">
-                <div class="text-5xl mb-4">🤝</div>
-                <h3 class="text-xl font-semibold mb-2">Play Detection</h3>
-                <p class="text-gray-400 text-sm">Identifies screening actions and evaluates success by measuring defender separation and shot quality improvement →</p>
-            </a>
-            
-            <a href="feature-mismatch.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-cyan-500 transition no-underline text-white">
-                <div class="text-5xl mb-4">📏</div>
-                <h3 class="text-xl font-semibold mb-2">Mismatch Hunter</h3>
-                <p class="text-gray-400 text-sm">Automatically highlights favorable defensive mismatches by comparing height and position →</p>
-            </a>
+    <!-- Multi-Camera Introduction -->
+    <section class="px-6 py-8 max-w-4xl mx-auto fade-up">
+        <div class="multi-cam-badge rounded-2xl p-6 border text-center">
+            <div class="text-4xl mb-3">📹</div>
+            <h2 class="text-2xl font-bold mb-2">Multi-Camera Support</h2>
+            <p class="text-gray-300 leading-relaxed max-w-3xl mx-auto">
+                Voop now supports <span class="text-cyan-400 font-semibold">up to 6 cameras</span> simultaneously, providing 
+                comprehensive court coverage and enhanced accuracy. Multi-camera triangulation enables 
+                <span class="text-cyan-400 font-semibold">true 3D player tracking</span>, precise shot quality analysis 
+                with real release height and angle, and eliminates blind spots that single-camera systems miss. 
+                Coaches can now view the entire court exhaustively — from baseline to baseline.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 mt-4 text-sm text-gray-400">
+                <span class="bg-gray-800/50 px-3 py-1 rounded-full">📐 3D Triangulation</span>
+                <span class="bg-gray-800/50 px-3 py-1 rounded-full">🎯 Real Release Height</span>
+                <span class="bg-gray-800/50 px-3 py-1 rounded-full">🔄 Full Court Coverage</span>
+                <span class="bg-gray-800/50 px-3 py-1 rounded-full">📊 Multi-Angle Analysis</span>
+            </div>
         </div>
     </section>
 
-    <!-- Why These 4 Features Section -->
+    <!-- Feature Grid -->
+    <section class="px-6 py-8 max-w-6xl mx-auto">
+        <div class="feature-grid">
+            
+            <!-- 1. Matchup -->
+            <a href="feature-matchup.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-cyan-500 transition no-underline text-white">
+                <div class="text-5xl mb-4">🏷️</div>
+                <h3 class="text-xl font-semibold mb-2">Live Matchup</h3>
+                <p class="text-gray-400 text-sm">Real-time ball handler vs defender tracking. Identifies who has the ball, who's guarding them, and highlights mismatches instantly →</p>
+            </a>
+            
+            <!-- 2. Athletic Performance -->
+            <a href="feature-performance.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-emerald-500 transition no-underline text-white">
+                <div class="text-5xl mb-4">🏃</div>
+                <h3 class="text-xl font-semibold mb-2">Athletic Performance</h3>
+                <p class="text-gray-400 text-sm">Tracks speed, distance, sprints, and fatigue in real time. Know which players are running hard and who needs a sub →</p>
+            </a>
+            
+            <!-- 3. 3D Shot Quality -->
+            <a href="feature-shotquality3d.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-purple-500 transition no-underline text-white">
+                <div class="text-5xl mb-4">🎯</div>
+                <h3 class="text-xl font-semibold mb-2">3D Shot Quality</h3>
+                <p class="text-gray-400 text-sm">Multi-camera triangulation calculates real release height, angle, and defender distance. 0-100 quality score for every shot →</p>
+            </a>
+            
+            <!-- 4. Play Recognition -->
+            <a href="feature-tactics.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-orange-500 transition no-underline text-white">
+                <div class="text-5xl mb-4">🧠</div>
+                <h3 class="text-xl font-semibold mb-2">Play Recognition & Counter Plan</h3>
+                <p class="text-gray-400 text-sm">AI detects formations (2-3 zone, Horns, 1-3-1, Flex) and suggests counter-plans in real time — like having an assistant coach →</p>
+            </a>
+            
+            <!-- 5. Events Detection -->
+            <a href="feature-events.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-pink-500 transition no-underline text-white">
+                <div class="text-5xl mb-4">⚡</div>
+                <h3 class="text-xl font-semibold mb-2">Events Detection</h3>
+                <p class="text-gray-400 text-sm">Detects key moments: PnR, Fast Breaks, Mismatches, Drives, Passes, Steals, and Blocks. Never miss a critical play again →</p>
+            </a>
+            
+            <!-- 6. Heat Maps -->
+            <a href="feature-heatmap.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-red-500 transition no-underline text-white">
+                <div class="text-5xl mb-4">🔥</div>
+                <h3 class="text-xl font-semibold mb-2">Heat Maps</h3>
+                <p class="text-gray-400 text-sm">Visualize player and team positioning intensity. See where your team operates best — and where opponents exploit you →</p>
+            </a>
+            
+        </div>
+    </section>
+
+    <!-- Why These Features -->
     <section class="px-6 py-8 max-w-3xl mx-auto fade-up">
         <div class="philosophy-quote rounded-2xl p-8 border border-cyan-500/20 text-center">
             <i class="fas fa-quote-left text-3xl text-cyan-400 mb-4 opacity-50"></i>
             <p class="text-gray-300 italic leading-relaxed text-lg">
-                Why these 4 features? Because we believe the essence of sports is and will always be human. 
-                No AI model can outpower a wise coach who knows their players. What AI can do is to help 
-                the coach to its best, detecting what the human eye can't always pay attention to and may 
-                be critical in helping a team win a game. This is why Voop focuses on these features above.
+                Why these features? Because we believe the essence of sports is and will always be human. 
+                No AI model can outpower a wise coach who knows their players. What AI can do is help 
+                the coach to its best — detecting what the human eye can't always pay attention to and 
+                what may be critical in helping a team win a game. This is why Voop focuses on these features above.
             </p>
             <i class="fas fa-quote-right text-3xl text-cyan-400 mt-4 opacity-50"></i>
         </div>
     </section>
 
-    <!-- DOWNLOAD SECTION - NEW -->
+    <!-- Download Section -->
     <section class="px-6 py-12 max-w-2xl mx-auto fade-up">
         <div class="bg-gradient-to-r from-cyan-900/30 to-blue-900/30 rounded-2xl p-8 border border-cyan-500/30 text-center">
             <div class="text-5xl mb-4">📦</div>
@@ -114,7 +169,7 @@
                 <i class="fas fa-download text-xl"></i>
                 Download Voop_Download_Package.zip
             </a>
-            <p class="text-gray-500 text-xs mt-4">Version 1.0 • macOS • Requires Python 3.9+</p>
+            <p class="text-gray-500 text-xs mt-4">Version 2.0 • macOS • Requires Python 3.9+ • Multi-Camera Support</p>
         </div>
     </section>
 
@@ -126,9 +181,10 @@
                 <div class="text-center">
                     <i class="fas fa-play-circle text-6xl text-cyan-400 mb-3"></i>
                     <p class="text-gray-500">Demo Video Coming Soon</p>
+                    <p class="text-gray-600 text-sm mt-2">Multi-camera tracking with 3D shot quality analysis</p>
                 </div>
             </div>
-            <p class="text-gray-400 text-sm mt-4">Watch Voop track players with bounding boxes and display real-time analytics</p>
+            <p class="text-gray-400 text-sm mt-4">Watch Voop track players across multiple cameras with real-time analytics</p>
         </div>
     </section>
 
