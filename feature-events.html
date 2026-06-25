@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voop | Events Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .events-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        .events-bg::before {
+            content: "⚡⚡⚡";
+            position: absolute;
+            top: -20%;
+            right: -20%;
+            width: 200%;
+            height: 200%;
+            font-size: 25vw;
+            opacity: 0.03;
+            font-family: monospace;
+            white-space: nowrap;
+            transform: rotate(15deg);
+            pointer-events: none;
+            letter-spacing: 30px;
+        }
+        .events-gradient {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(219, 39, 119, 0.05));
+        }
+        .stat-pill {
+            background: rgba(236, 72, 153, 0.1);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+        }
+        .event-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .event-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(236, 72, 153, 0.3);
+        }
+        .event-card .count {
+            font-size: 32px;
+            font-weight: 700;
+        }
+        .event-card .label {
+            font-size: 13px;
+            color: #8895aa;
+            margin-top: 2px;
+        }
+        .event-card .icon { font-size: 24px; display: block; margin-bottom: 4px; }
+        .event-timeline {
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        .event-timeline::-webkit-scrollbar { width: 4px; }
+        .event-timeline::-webkit-scrollbar-track { background: #1f2937; border-radius: 10px; }
+        .event-timeline::-webkit-scrollbar-thumb { background: #ec4899; border-radius: 10px; }
+        .event-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 13px;
+        }
+        .event-item .time { color: #5f6a7e; font-size: 11px; min-width: 50px; }
+        .event-item .detail { color: #b0bccf; flex: 1; padding: 0 12px; }
+        .event-item .team { font-size: 11px; padding: 2px 10px; border-radius: 30px; }
+        .event-item .team.home { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+        .event-item .team.away { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .event-item .badge { font-size: 10px; padding: 1px 8px; border-radius: 30px; }
+        .event-item .badge.pnr { background: rgba(168, 85, 247, 0.2); color: #a855f7; }
+        .event-item .badge.fastbreak { background: rgba(249, 115, 22, 0.2); color: #f97316; }
+        .event-item .badge.drive { background: rgba(139, 92, 246, 0.2); color: #8b5cf6; }
+        .event-item .badge.pass { background: rgba(6, 182, 212, 0.2); color: #06b6d4; }
+        .event-item .badge.steal { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .event-item .badge.block { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+        .event-item .badge.mismatch { background: rgba(249, 115, 22, 0.2); color: #f97316; }
+    </style>
+</head>
+<body class="bg-gray-950 text-white font-sans">
+
+    <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <span class="text-pink-400">Voop</span>
+            </div>
+            <div class="space-x-6 text-sm hidden md:block">
+                <a href="index.html" class="hover:text-pink-400 transition">Home</a>
+                <a href="voop.html" class="hover:text-pink-400 transition">← All Features</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="events-bg">
+        <section class="px-6 py-16 max-w-4xl mx-auto">
+            <div class="fade-up">
+                <a href="voop.html" class="text-pink-400 text-sm mb-4 inline-block hover:underline">← Back to all features</a>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="text-7xl">⚡</div>
+                    <div class="stat-pill px-4 py-1 rounded-full text-pink-400 text-sm font-mono">LIVE DETECTION</div>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Events Detection</h1>
+                <p class="text-gray-400 text-xl mb-8">Detects key moments in real time — PnR, Fast Breaks, Drives, Passes, Steals, and Blocks.</p>
+            </div>
+
+            <!-- Event Counts -->
+            <div class="fade-up events-gradient rounded-2xl p-8 border border-pink-500/20 my-8">
+                <h2 class="text-lg font-bold mb-4 text-pink-400">📊 Event Summary</h2>
+                <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+                    <div class="event-card">
+                        <span class="icon">🔄</span>
+                        <div class="count text-purple-400">7</div>
+                        <div class="label">Pick & Roll</div>
+                    </div>
+                    <div class="event-card">
+                        <span class="icon">⚡</span>
+                        <div class="count text-orange-400">4</div>
+                        <div class="label">Fast Break</div>
+                    </div>
+                    <div class="event-card">
+                        <span class="icon">🏃</span>
+                        <div class="count text-purple-600">12</div>
+                        <div class="label">Drives</div>
+                    </div>
+                    <div class="event-card">
+                        <span class="icon">🎯</span>
+                        <div class="count text-cyan-400">18</div>
+                        <div class="label">Passes</div>
+                    </div>
+                    <div class="event-card">
+                        <span class="icon">✋</span>
+                        <div class="count text-red-400">3</div>
+                        <div class="label">Steals</div>
+                    </div>
+                    <div class="event-card">
+                        <span class="icon">🚫</span>
+                        <div class="count text-yellow-400">2</div>
+                        <div class="label">Blocks</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Timeline -->
+            <div class="fade-up my-8">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <i class="fas fa-clock text-pink-400"></i> Event Timeline
+                </h2>
+                <div class="bg-gray-900/50 rounded-xl p-4 border border-gray-800">
+                    <div class="event-timeline">
+                        <div class="event-item">
+                            <span class="time">0:12</span>
+                            <span class="badge pnr">🔄 PnR</span>
+                            <span class="detail">#23 screens for #5 → defender switches</span>
+                            <span class="team home">🏠 Home</span>
+                        </div>
+                        <div class="event-item">
+                            <span class="time">0:28</span>
+                            <span class="badge fastbreak">⚡ Fast Break</span>
+                            <span class="detail">#12 steals → outlet pass → 3-on-1</span>
+                            <span class="team away">✈️ Away</span>
+                        </div>
+                        <div class="event-item">
+                            <span class="time">0:45</span>
+                            <span class="badge drive">🏃 Drive</span>
+                            <span class="detail">#23 drives baseline → draws help defense</span>
+                            <span class="team home">🏠 Home</span>
+                        </div>
+                        <div class="event-item">
+                            <span class="time">0:58</span>
+                            <span class="badge pass">🎯 Pass</span>
+                            <span class="detail">#5 → #23 skip pass to weak side</span>
+                            <span class="team home">🏠 Home</span>
+                        </div>
+                        <div class="event-item">
+                            <span class="time">1:15</span>
+                            <span class="badge steal">✋ Steal</span>
+                            <span class="detail">#8 intercepts pass → starts transition</span>
+                            <span class="team away">✈️ Away</span>
+                        </div>
+                        <div class="event-item">
+                            <span class="time">1:32</span>
+                            <span class="badge block">🚫 Block</span>
+                            <span class="detail">#15 contests layup → clean block</span>
+                            <span class="team home">🏠 Home</span>
+                        </div>
+                        <div class="event-item">
+                            <span class="time">1:48</span>
+                            <span class="badge pnr">🔄 PnR</span>
+                            <span class="detail">#12 screens for #8 → forces rotation</span>
+                            <span class="team away">✈️ Away</span>
+                        </div>
+                        <div class="event-item">
+                            <span class="time">2:05</span>
+                            <span class="badge fastbreak">⚡ Fast Break</span>
+                            <span class="detail">#23 rebound → quick pass ahead → score</span>
+                            <span class="team home">🏠 Home</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                    <i class="fas fa-bolt text-pink-400"></i> What It Does
+                </h2>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Voop's Events Detection module monitors the game in real time and identifies key moments that coaches and analysts need to track. 
+                    The system detects <span class="text-pink-400 font-semibold">Pick & Rolls</span>, <span class="text-pink-400 font-semibold">Fast Breaks</span>, 
+                    <span class="text-pink-400 font-semibold">Drives</span>, <span class="text-pink-400 font-semibold">Passes</span>, 
+                    <span class="text-pink-400 font-semibold">Steals</span>, and <span class="text-pink-400 font-semibold">Blocks</span> — all in real time.
+                </p>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Each event is logged with a timestamp, the players involved, and contextual detail (e.g., "screen for #5 → defender switches"). 
+                    Coaches can review the event timeline to understand the flow of the game, identify patterns, and make data-driven adjustments.
+                </p>
+                <p class="text-gray-300 leading-relaxed">
+                    Unlike traditional stat tracking that requires manual entry, Voop's events are <span class="text-pink-400 font-semibold">fully automatic</span> — 
+                    no clicking buttons or typing notes required. You just watch the game, and Voop captures everything.
+                </p>
+            </div>
+
+            <!-- Technical Details -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                    <i class="fas fa-microchip text-pink-400"></i> How It Works
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-pink-400 font-bold mb-2">🔄 Pick & Roll</div>
+                        <p class="text-gray-400 text-sm">Detects two offensive players in close proximity (>0.5s). Evaluates success based on defender separation.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-pink-400 font-bold mb-2">⚡ Fast Break</div>
+                        <p class="text-gray-400 text-sm">Detects possession change followed by rapid advance up the court (>3m/s).</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-pink-400 font-bold mb-2">🏃 Drive</div>
+                        <p class="text-gray-400 text-sm">Detects player moving fast (>3.5 km/h) toward basket. Tracks successful drives that create scoring opportunities.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-pink-400 font-bold mb-2">✋ Steal & 🚫 Block</div>
+                        <p class="text-gray-400 text-sm">Detects possession change without pass (steal). Detects shot deflection near basket (block).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- In-Game Application -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                    <i class="fas fa-basketball text-pink-400"></i> In-Game Application
+                </h2>
+                <div class="bg-gray-900/30 rounded-xl p-6 border-l-4 border-pink-400 mb-8">
+                    <p class="text-gray-300 leading-relaxed">
+                        During games, coaches can see every event as it happens — PnR frequency, fast break success rate, drive effectiveness, 
+                        and defensive playmaking (steals and blocks). This real-time data helps coaches adjust on the fly.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mt-3">
+                        For example, if a team is running PnR with high success, coaches can switch to a defensive scheme that counters it 
+                        (e.g., switching all screens, dropping the big). If fast breaks are generating easy points, coaches can emphasize 
+                        transition defense in the next timeout.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mt-3">
+                        Post-game reports show event counts and success rates by quarter, lineup, and player — enabling detailed game analysis 
+                        and practice planning. Coaches can see exactly what worked and what didn't.
+                    </p>
+                </div>
+            </div>
+
+            <!-- What Gets Detected -->
+            <div class="fade-up my-8">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <i class="fas fa-list text-pink-400"></i> Event Types
+                </h2>
+                <div class="grid md:grid-cols-3 gap-3">
+                    <div class="bg-gray-900/40 rounded-xl p-4 border-l-4 border-purple-500">
+                        <div class="font-bold text-purple-400">🔄 Pick & Roll</div>
+                        <div class="text-sm text-gray-400">Screen action with defender separation</div>
+                    </div>
+                    <div class="bg-gray-900/40 rounded-xl p-4 border-l-4 border-orange-500">
+                        <div class="font-bold text-orange-400">⚡ Fast Break</div>
+                        <div class="text-sm text-gray-400">Transition scoring opportunity</div>
+                    </div>
+                    <div class="bg-gray-900/40 rounded-xl p-4 border-l-4 border-purple-600">
+                        <div class="font-bold text-purple-600">🏃 Drive</div>
+                        <div class="text-sm text-gray-400">Attacking the basket off the dribble</div>
+                    </div>
+                    <div class="bg-gray-900/40 rounded-xl p-4 border-l-4 border-cyan-500">
+                        <div class="font-bold text-cyan-400">🎯 Pass</div>
+                        <div class="text-sm text-gray-400">Ball movement between players</div>
+                    </div>
+                    <div class="bg-gray-900/40 rounded-xl p-4 border-l-4 border-red-500">
+                        <div class="font-bold text-red-400">✋ Steal</div>
+                        <div class="text-sm text-gray-400">Defensive possession change</div>
+                    </div>
+                    <div class="bg-gray-900/40 rounded-xl p-4 border-l-4 border-yellow-500">
+                        <div class="font-bold text-yellow-400">🚫 Block</div>
+                        <div class="text-sm text-gray-400">Defensive shot deflection</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Screenshot Placeholder -->
+            <div class="fade-up mt-12">
+                <h2 class="text-2xl font-bold mb-4">Preview</h2>
+                <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800 text-center">
+                    <div class="bg-black/50 rounded-xl aspect-video flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-list-check text-5xl text-pink-400 mb-3"></i>
+                            <p class="text-gray-500">Event timeline visualization will appear here</p>
+                            <p class="text-gray-600 text-sm mt-2">Real-time event feed with timestamps and badges</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-4 mt-4 text-xs flex-wrap">
+                        <span class="badge pnr">🔄 PnR</span>
+                        <span class="badge fastbreak">⚡ Fast Break</span>
+                        <span class="badge drive">🏃 Drive</span>
+                        <span class="badge pass">🎯 Pass</span>
+                        <span class="badge steal">✋ Steal</span>
+                        <span class="badge block">🚫 Block</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Features -->
+            <div class="fade-up mt-12 text-center">
+                <a href="voop.html" class="bg-pink-500 hover:bg-pink-600 px-6 py-3 rounded-lg inline-block transition">← Back to All Features</a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm mt-16">
+        <p>© 2026 Voop. Built by JYang with YOLOv8, PyQt, and computer vision</p>
+    </footer>
+
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
