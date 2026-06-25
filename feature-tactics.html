@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voop | Play Recognition & Counter Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tactics-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        .tactics-bg::before {
+            content: "🧠🧠🧠";
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 200%;
+            height: 200%;
+            font-size: 25vw;
+            opacity: 0.03;
+            font-family: monospace;
+            white-space: nowrap;
+            transform: rotate(-10deg);
+            pointer-events: none;
+            letter-spacing: 30px;
+        }
+        .tactics-gradient {
+            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(234, 88, 12, 0.05));
+        }
+        .stat-pill {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+        }
+        .formation-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s ease;
+        }
+        .formation-card:hover {
+            border-color: rgba(249, 115, 22, 0.4);
+            transform: translateY(-2px);
+        }
+        .formation-card .icon { font-size: 28px; display: block; margin-bottom: 6px; }
+        .formation-card .name { font-weight: 600; font-size: 15px; }
+        .formation-card .type { font-size: 12px; color: #8895aa; }
+        .formation-card .counter { font-size: 13px; color: #f97316; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .court-diagram {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 4px;
+            aspect-ratio: 1/0.8;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .court-diagram .pos {
+            background: rgba(249, 115, 22, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: #f97316;
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            aspect-ratio: 1;
+        }
+        .court-diagram .pos.defense {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #3b82f6;
+        }
+        .court-diagram .pos.empty {
+            background: transparent;
+            border-color: transparent;
+        }
+        .court-label {
+            text-align: center;
+            font-size: 11px;
+            color: #5f6a7e;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white font-sans">
+
+    <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <span class="text-orange-400">Voop</span>
+            </div>
+            <div class="space-x-6 text-sm hidden md:block">
+                <a href="index.html" class="hover:text-orange-400 transition">Home</a>
+                <a href="voop.html" class="hover:text-orange-400 transition">← All Features</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tactics-bg">
+        <section class="px-6 py-16 max-w-4xl mx-auto">
+            <div class="fade-up">
+                <a href="voop.html" class="text-orange-400 text-sm mb-4 inline-block hover:underline">← Back to all features</a>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="text-7xl">🧠</div>
+                    <div class="stat-pill px-4 py-1 rounded-full text-orange-400 text-sm font-mono">AI RECOGNITION</div>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Play Recognition & Counter Plan</h1>
+                <p class="text-gray-400 text-xl mb-8">AI detects offensive and defensive formations in real time — and suggests counter-plans instantly.</p>
+            </div>
+
+            <!-- Formation Cards -->
+            <div class="fade-up tactics-gradient rounded-2xl p-8 border border-orange-500/20 my-8">
+                <h2 class="text-lg font-bold mb-4 text-orange-400">📋 Detected Formations</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div class="formation-card">
+                        <span class="icon">🛡️</span>
+                        <div class="name">2-3 Zone</div>
+                        <div class="type">Defense · 87%</div>
+                        <div class="counter">💡 Attack high post</div>
+                    </div>
+                    <div class="formation-card">
+                        <span class="icon">🔥</span>
+                        <div class="name">Horns</div>
+                        <div class="type">Offense · 72%</div>
+                        <div class="counter">💡 Deny high post entry</div>
+                    </div>
+                    <div class="formation-card">
+                        <span class="icon">📈</span>
+                        <div class="name">1-3-1</div>
+                        <div class="type">Offense · 65%</div>
+                        <div class="counter">💡 Overload one side</div>
+                    </div>
+                    <div class="formation-card">
+                        <span class="icon">🛡️</span>
+                        <div class="name">3-2 Zone</div>
+                        <div class="type">Defense · 58%</div>
+                        <div class="counter">💡 Attack corners</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Court Diagram -->
+            <div class="fade-up my-8">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <i class="fas fa-diagram-project text-orange-400"></i> Formation Visualization
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="court-diagram">
+                            <div class="pos empty"></div>
+                            <div class="pos">G</div>
+                            <div class="pos">G</div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos">F</div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos">F</div>
+                            <div class="pos empty"></div>
+                            <div class="pos">C</div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                        </div>
+                        <div class="court-label">🏠 Home — 2-3 Zone Defense (2 top, 3 bottom)</div>
+                    </div>
+                    <div>
+                        <div class="court-diagram">
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos">G</div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos">G</div>
+                            <div class="pos empty"></div>
+                            <div class="pos">F</div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos">C</div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos">F</div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                            <div class="pos empty"></div>
+                        </div>
+                        <div class="court-label">✈️ Away — Horns Offense (2 bigs at elbows)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                    <i class="fas fa-brain text-orange-400"></i> What It Does
+                </h2>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Voop's Play Recognition module analyzes player positioning in real time to identify offensive and defensive formations. 
+                    Using spatial pattern recognition, the system detects formations like <span class="text-orange-400 font-semibold">2-3 Zone Defense</span>, 
+                    <span class="text-orange-400 font-semibold">Horns</span>, <span class="text-orange-400 font-semibold">1-3-1</span>, 
+                    <span class="text-orange-400 font-semibold">Flex</span>, and <span class="text-orange-400 font-semibold">3-2 Zone Defense</span>.
+                </p>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    But recognition alone isn't enough. For each detected formation, Voop provides an <span class="text-orange-400 font-semibold">instant counter-plan</span> — 
+                    actionable advice on how to exploit the formation. For a 2-3 zone, the counter might be "attack the high post with a passer." 
+                    For Horns offense, it might be "deny the high post entry and force the guard baseline."
+                </p>
+                <p class="text-gray-300 leading-relaxed">
+                    This is like having an assistant coach watching the game with you, identifying patterns, and suggesting adjustments — all in real time.
+                </p>
+            </div>
+
+            <!-- Technical Details -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                    <i class="fas fa-microchip text-orange-400"></i> How It Works
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-orange-400 font-bold mb-2">📍 Zone Detection</div>
+                        <p class="text-gray-400 text-sm">Divides the court into zones (top, wings, corners, elbows). Counts players in each zone to identify formations.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-orange-400 font-bold mb-2">📊 Pattern Matching</div>
+                        <p class="text-gray-400 text-sm">Compares player distribution to known formation templates. Confidence scores indicate how certain the detection is.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-orange-400 font-bold mb-2">📈 Confidence Scoring</div>
+                        <p class="text-gray-400 text-sm">Each detection includes a 0-100% confidence score based on how closely the positions match the formation template.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-orange-400 font-bold mb-2">💡 Counter Library</div>
+                        <p class="text-gray-400 text-sm">Each formation is linked to a counter-strategy. The system pulls the appropriate counter when a formation is detected.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- In-Game Application -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                    <i class="fas fa-basketball text-orange-400"></i> In-Game Application
+                </h2>
+                <div class="bg-gray-900/30 rounded-xl p-6 border-l-4 border-orange-400 mb-8">
+                    <p class="text-gray-300 leading-relaxed">
+                        During games, coaches often spend too much time identifying formations and not enough time planning counter-strategies. 
+                        Voop eliminates the identification step — it tells you what the opponent is running before you even finish analyzing their lineup.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mt-3">
+                        The system also tracks which formations opponents use most frequently and in which situations (close games, end of quarters, 
+                        after timeouts). This data helps coaches prepare specific counter-plans for the most common scenarios they'll face.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mt-3">
+                        For example, if an opponent runs Horns offense 70% of the time in crunch situations, coaches can practice defending it 
+                        in practice — with specific assignments for each player on how to deny the high post entry and force sideline action.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Formation Quick Reference -->
+            <div class="fade-up my-8">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <i class="fas fa-list-check text-orange-400"></i> Formation Quick Reference
+                </h2>
+                <div class="grid md:grid-cols-2 gap-3">
+                    <div class="bg-gray-900/40 rounded-xl p-4 border-l-4 border-orange-500">
+                        <div class="font-bold text-orange-400">🛡️ 2-3 Zone Defense</div>
+                        <div class="text-sm text-gray-400">2 top, 3 baseline</div>
+                        <div class="text-sm text-gray-300 mt-1">💡 Attack the high post with a passer</div>
+                    </div>
+                    <div class="bg-gray-900/40 rounded-xl p-4 border-l-4 border-orange-500">
+                        <div class="font-bold text-orange-400">🛡️ 3-2 Zone Defense</div>
+                        <div class="text-sm text-gray-400">3 top, 2 baseline</div>
+                        <div class="text-sm text-gray-300 mt-1">💡 Attack corners with skip passes</div>
+                    </div>
+                    <div class="bg-gray-900/40 rounded-xl p-4 border-l-4 border-orange-500">
+                        <div class="font-bold text-orange-400">🔥 Horns</div>
+                        <div class="text-sm text-gray-400">2 bigs at elbows, guard at top</div>
+                        <div class="text-sm text-gray-300 mt-1">💡 Deny high post entry</div>
+                    </div>
+                    <div class="bg-gray-900/40 rounded-xl p-4 border-l-4 border-orange-500">
+                        <div class="font-bold text-orange-400">📈 1-3-1 Offense</div>
+                        <div class="text-sm text-gray-400">1 top, 3 middle, 1 baseline</div>
+                        <div class="text-sm text-gray-300 mt-1">💡 Overload one side</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Screenshot Placeholder -->
+            <div class="fade-up mt-12">
+                <h2 class="text-2xl font-bold mb-4">Preview</h2>
+                <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800 text-center">
+                    <div class="bg-black/50 rounded-xl aspect-video flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-chess-board text-5xl text-orange-400 mb-3"></i>
+                            <p class="text-gray-500">Tactic detection visualization will appear here</p>
+                            <p class="text-gray-600 text-sm mt-2">Formation overlay with counter-plan suggestions</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-6 mt-4 text-xs">
+                        <div class="flex items-center gap-1"><span class="text-orange-400">🛡️</span><span class="text-gray-500">Defense</span></div>
+                        <div class="flex items-center gap-1"><span class="text-orange-400">🔥</span><span class="text-gray-500">Offense</span></div>
+                        <div class="flex items-center gap-1"><span class="text-orange-400">💡</span><span class="text-gray-500">Counter</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Features -->
+            <div class="fade-up mt-12 text-center">
+                <a href="voop.html" class="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg inline-block transition">← Back to All Features</a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm mt-16">
+        <p>© 2026 Voop. Built by JYang with YOLOv8, PyQt, and computer vision</p>
+    </footer>
+
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
