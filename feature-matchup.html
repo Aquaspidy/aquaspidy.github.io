@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voop | Live Matchup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .matchup-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        .matchup-bg::before {
+            content: "🏷️🏷️🏷️";
+            position: absolute;
+            top: -20%;
+            right: -20%;
+            width: 200%;
+            height: 200%;
+            font-size: 25vw;
+            opacity: 0.03;
+            font-family: monospace;
+            white-space: nowrap;
+            transform: rotate(15deg);
+            pointer-events: none;
+            letter-spacing: 30px;
+        }
+        .matchup-gradient {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(59, 130, 246, 0.05));
+        }
+        .stat-pill {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        .matchup-card {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1.5rem;
+            align-items: center;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .player-badge {
+            text-align: center;
+        }
+        .player-badge .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 8px;
+        }
+        .player-badge .avatar.home { background: rgba(249, 115, 22, 0.2); border: 2px solid #f97316; }
+        .player-badge .avatar.away { background: rgba(59, 130, 246, 0.2); border: 2px solid #3b82f6; }
+        .player-badge .avatar.ball { background: rgba(255, 255, 255, 0.1); border: 2px solid #fff; }
+        .vs-badge {
+            font-size: 20px;
+            font-weight: 700;
+            color: #8895aa;
+            padding: 0 12px;
+        }
+        .mismatch-alert {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        @media (max-width: 640px) {
+            .matchup-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 0.75rem;
+            }
+            .vs-badge { padding: 8px 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white font-sans">
+
+    <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold">
+                <span class="text-cyan-400">Voop</span>
+            </div>
+            <div class="space-x-6 text-sm hidden md:block">
+                <a href="index.html" class="hover:text-cyan-400 transition">Home</a>
+                <a href="voop.html" class="hover:text-cyan-400 transition">← All Features</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="matchup-bg">
+        <section class="px-6 py-16 max-w-4xl mx-auto">
+            <div class="fade-up">
+                <a href="voop.html" class="text-cyan-400 text-sm mb-4 inline-block hover:underline">← Back to all features</a>
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="text-7xl">🏷️</div>
+                    <div class="stat-pill px-4 py-1 rounded-full text-cyan-400 text-sm font-mono">LIVE TRACKING</div>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Live Matchup</h1>
+                <p class="text-gray-400 text-xl mb-8">Real-time ball handler vs defender tracking with instant mismatch detection.</p>
+            </div>
+
+            <!-- Visual Matchup Card -->
+            <div class="fade-up matchup-gradient rounded-2xl p-8 border border-cyan-500/20 my-8">
+                <div class="matchup-card">
+                    <div class="player-badge">
+                        <div class="avatar home">🏀</div>
+                        <div class="font-bold text-lg">#23</div>
+                        <div class="text-sm text-gray-400">Home • With Ball</div>
+                        <div class="text-xs text-gray-500 mt-1">Speed: 4.7 km/h</div>
+                    </div>
+                    <div class="vs-badge">⚡ VS</div>
+                    <div class="player-badge">
+                        <div class="avatar away">🛡️</div>
+                        <div class="font-bold text-lg">#12</div>
+                        <div class="text-sm text-gray-400">Away • Defender</div>
+                        <div class="text-xs text-gray-500 mt-1">Speed: 4.2 km/h</div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <span class="mismatch-alert">
+                        <i class="fas fa-exclamation-triangle text-orange-400"></i>
+                        <span class="text-sm font-medium">⚠️ MISMATCH DETECTED — Height advantage: 1.4x</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <i class="fas fa-bullseye text-cyan-400"></i> What It Does
+                </h2>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Voop's Live Matchup feature tracks which player has the ball and identifies the closest defender in real time. 
+                    Using YOLOv8 object detection and persistent player tracking, the system maintains player identities across frames, 
+                    allowing it to follow specific players throughout the game.
+                </p>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    When a player receives the ball, Voop instantly identifies the nearest defender and displays the matchup side-by-side. 
+                    The system then analyzes the matchup for advantages — comparing player height, speed, and positioning to detect potential 
+                    mismatches that coaches might miss while watching the ball.
+                </p>
+                <p class="text-gray-300 leading-relaxed">
+                    Mismatches are flagged with visual alerts, giving coaches immediate awareness of favorable matchups anywhere on the court. 
+                    Over the course of the game, Voop tracks which players are being targeted, helping teams exploit defensive weaknesses 
+                    and adjust assignments accordingly.
+                </p>
+            </div>
+
+            <!-- Technical Details -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                    <i class="fas fa-microchip text-cyan-400"></i> How It Works
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-cyan-400 font-bold mb-2">🎯 Ball Detection</div>
+                        <p class="text-gray-400 text-sm">Identifies which player has possession based on ball proximity and movement patterns. Ball tracking maintains position even when obscured.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-cyan-400 font-bold mb-2">📏 Defender Proximity</div>
+                        <p class="text-gray-400 text-sm">Calculates distance from ball handler to every opponent, identifying the closest defender as the primary matchup.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-cyan-400 font-bold mb-2">📊 Mismatch Analysis</div>
+                        <p class="text-gray-400 text-sm">Compares player attributes — height ratio, speed differential, and positioning — to identify advantageous matchups in real time.</p>
+                    </div>
+                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
+                        <div class="text-cyan-400 font-bold mb-2">📝 Post-Game Reports</div>
+                        <p class="text-gray-400 text-sm">Logs every matchup and mismatch occurrence, generating reports that show which players were targeted and which matchups were most effective.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- In-Game Application -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                    <i class="fas fa-basketball text-cyan-400"></i> In-Game Application
+                </h2>
+                <div class="bg-gray-900/30 rounded-xl p-6 border-l-4 border-cyan-400 mb-8">
+                    <p class="text-gray-300 leading-relaxed">
+                        Coaches can't watch every matchup simultaneously. By using Voop, mismatches are labeled clearly in real time across the entire court. 
+                        When a mismatch is detected — such as a taller offensive player guarded by a shorter defender — a visual alert appears, 
+                        allowing coaches to immediately direct the ball toward the advantage without pausing to review film.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed mt-3">
+                        The system also tracks defensive assignments, helping coaches identify which defenders are being targeted most effectively 
+                        and whether their team is hunting mismatches or settling for even matchups. Post-game reports show which players consistently 
+                        created advantages and which opponents were exploited most effectively.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Screenshot Placeholder -->
+            <div class="fade-up mt-12">
+                <h2 class="text-2xl font-bold mb-4">Preview</h2>
+                <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800 text-center">
+                    <div class="bg-black/50 rounded-xl aspect-video flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-people-arrows text-5xl text-cyan-400 mb-3"></i>
+                            <p class="text-gray-500">Matchup visualization will appear here</p>
+                            <p class="text-gray-600 text-sm mt-2">Side-by-side player comparison with mismatch alerts</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-6 mt-4 text-xs">
+                        <div class="flex items-center gap-1"><div class="w-4 h-4 rounded-full bg-orange-500"></div><span class="text-gray-500">Home</span></div>
+                        <div class="flex items-center gap-1"><div class="w-4 h-4 rounded-full bg-blue-500"></div><span class="text-gray-500">Away</span></div>
+                        <div class="flex items-center gap-1"><div class="w-4 h-0.5 bg-orange-400"></div><span class="text-gray-500">Mismatch line</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Features -->
+            <div class="fade-up mt-12 text-center">
+                <a href="voop.html" class="bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-lg inline-block transition">← Back to All Features</a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm mt-16">
+        <p>© 2026 Voop. Built by JYang with YOLOv8, PyQt, and computer vision</p>
+    </footer>
+
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
