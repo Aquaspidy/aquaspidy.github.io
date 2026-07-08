@@ -3,285 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voop | 3D Shot Quality Analysis</title>
+    <title>Voop | 3D Shot Quality</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:#0b0f1a;color:#e8edf5}
         .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
         .fade-up.visible{opacity:1;transform:translateY(0)}
-        .shot-bg{position:relative;overflow:hidden}
-        .shot-bg::before{content:"🎯🎯🎯";position:absolute;top:-20%;right:-20%;width:200%;height:200%;font-size:25vw;opacity:0.03;font-family:monospace;white-space:nowrap;transform:rotate(15deg);pointer-events:none;letter-spacing:30px}
-        .shot-gradient{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(168,85,247,0.05))}
-        .stat-pill{background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3)}
-        .stat-card{background:#141a26;border-radius:24px;border:1px solid rgba(255,255,255,0.06);padding:20px 22px;width:100%;max-width:380px;animation:float3D 12s ease-in-out infinite;transform-style:preserve-3d;will-change:transform;position:relative;overflow:hidden;margin:0 auto}
-        @keyframes float3D{0%{transform:perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)}10%{transform:perspective(1500px) rotateX(4deg) rotateY(8deg) scale(1.05)}25%{transform:perspective(1500px) rotateX(-2deg) rotateY(12deg) scale(1.08)}40%{transform:perspective(1500px) rotateX(-5deg) rotateY(4deg) scale(0.97)}55%{transform:perspective(1500px) rotateX(3deg) rotateY(-8deg) scale(1.07)}70%{transform:perspective(1500px) rotateX(6deg) rotateY(-4deg) scale(1.03)}85%{transform:perspective(1500px) rotateX(-3deg) rotateY(-10deg) scale(0.98)}100%{transform:perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)}}
-        .stat-card::before{content:'';position:absolute;top:-40%;right:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(245,158,11,0.08),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep 12s ease-in-out infinite}
-        .stat-card::after{content:'';position:absolute;bottom:-40%;left:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(245,158,11,0.05),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep2 12s ease-in-out infinite}
-        .stat-card .light-spot3{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:150px;height:150px;background:radial-gradient(circle,rgba(245,158,11,0.06),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep3 12s ease-in-out infinite}
+        .stat-pill{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);padding:4px 16px;border-radius:100px;font-size:12px;font-weight:500;color:#f59e0b;letter-spacing:0.3px;text-transform:uppercase}
+        .stat-card{background:#141a26;border-radius:20px;border:1px solid rgba(255,255,255,0.05);padding:24px 28px;width:100%;max-width:400px;animation:float3D 12s ease-in-out infinite;transform-style:preserve-3d;will-change:transform;position:relative;overflow:hidden;margin:0 auto}
+        @keyframes float3D{0%{transform:perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)}10%{transform:perspective(1500px) rotateX(3deg) rotateY(6deg) scale(1.03)}25%{transform:perspective(1500px) rotateX(-2deg) rotateY(10deg) scale(1.06)}40%{transform:perspective(1500px) rotateX(-4deg) rotateY(3deg) scale(0.98)}55%{transform:perspective(1500px) rotateX(3deg) rotateY(-6deg) scale(1.05)}70%{transform:perspective(1500px) rotateX(5deg) rotateY(-3deg) scale(1.02)}85%{transform:perspective(1500px) rotateX(-2deg) rotateY(-8deg) scale(0.99)}100%{transform:perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)}}
+        .stat-card::before{content:'';position:absolute;top:-40%;right:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(245,158,11,0.06),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep 12s ease-in-out infinite}
+        .stat-card::after{content:'';position:absolute;bottom:-40%;left:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(245,158,11,0.04),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep2 12s ease-in-out infinite}
+        .stat-card .light-spot3{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:150px;height:150px;background:radial-gradient(circle,rgba(245,158,11,0.05),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep3 12s ease-in-out infinite}
         @keyframes lightSweep{0%,100%{transform:translate(0,0) scale(1);opacity:0.6}50%{transform:translate(-35px,30px) scale(1.5);opacity:1}}
         @keyframes lightSweep2{0%,100%{transform:translate(0,0) scale(1);opacity:0.4}50%{transform:translate(35px,-30px) scale(1.5);opacity:0.8}}
         @keyframes lightSweep3{0%,100%{transform:translate(-50%,-50%) scale(0.8);opacity:0.3}50%{transform:translate(-50%,-50%) scale(1.4);opacity:0.6}}
-        .stat-title{font-size:13px;font-weight:600;color:#8895aa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:14px;position:relative;z-index:2}
-        .stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px;position:relative;z-index:2}
+        .stat-title{font-size:12px;font-weight:600;color:#8895aa;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:16px;position:relative;z-index:2}
+        .stat-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px;position:relative;z-index:2}
         .stat-row:last-child{border-bottom:none}
-        .stat-row .label{color:#b0bccf}
+        .stat-row .label{color:#b0bccf;font-weight:400;display:flex;align-items:center;gap:10px}
+        .stat-row .label i{color:#8895aa;font-size:15px;width:20px;text-align:center}
         .stat-row .value{font-weight:600;color:#e8edf5}
         .value.highlight{color:#f59e0b}
         .value .num{display:inline-block;transition:all 0.8s cubic-bezier(0.34,1.56,0.64,1)}
-        .value .unit{font-size:12px;color:#8895aa;font-weight:400;margin-left:1px}
-        .icon-bolt{display:inline-block;margin-right:4px;font-size:14px}
-        .metric-card{background:rgba(255,255,255,0.03);border-radius:12px;padding:1rem 1.25rem;border:1px solid rgba(255,255,255,0.06);text-align:center}
-        .metric-card .metric-value{font-size:28px;font-weight:700}
-        .metric-card .metric-label{font-size:12px;color:#8895aa;margin-top:2px}
-        .metric-card .metric-sub{font-size:11px;color:#5f6a7e;margin-top:4px}
-        .quality-meter{height:100%;border-radius:10px;transition:width 0.5s ease}
-        .quality-meter.excellent{background:linear-gradient(90deg,#22c55e,#10b981)}
-        .quality-meter.good{background:linear-gradient(90deg,#f59e0b,#d97706)}
-        .quality-meter.poor{background:linear-gradient(90deg,#ef4444,#dc2626)}
-        @media(max-width:600px){.stat-card{max-width:100%;padding:16px 18px}}
+        .value .unit{font-size:12px;color:#8895aa;font-weight:400;margin-left:2px}
+        .content-section{background:rgba(255,255,255,0.02);border-radius:16px;padding:24px 28px;border:1px solid rgba(255,255,255,0.05)}
+        .content-section h3{font-size:18px;font-weight:600;margin-bottom:12px;color:#e8edf5;display:flex;align-items:center;gap:10px}
+        .content-section h3 i{color:#f59e0b;font-size:20px}
+        .content-section p{color:#b0bccf;line-height:1.7;font-size:15px}
+        .tech-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        .tech-item{background:rgba(255,255,255,0.02);padding:16px 18px;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
+        .tech-item .tech-icon{color:#f59e0b;font-size:18px;margin-bottom:6px;display:block}
+        .tech-item .tech-title{font-weight:600;font-size:14px;color:#e8edf5}
+        .tech-item .tech-desc{font-size:13px;color:#8895aa;margin-top:4px;line-height:1.5}
+        .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+        .metric-card{background:rgba(255,255,255,0.02);border-radius:12px;padding:16px 12px;border:1px solid rgba(255,255,255,0.05);text-align:center}
+        .metric-card .metric-icon{color:#f59e0b;font-size:18px;margin-bottom:4px}
+        .metric-card .metric-value{font-size:22px;font-weight:700;color:#e8edf5}
+        .metric-card .metric-label{font-size:11px;color:#8895aa;margin-top:4px}
+        .metric-card .metric-sub{font-size:10px;color:#5f6a7e;margin-top:2px}
+        .quality-meter{height:6px;border-radius:4px;transition:width 0.5s ease;overflow:hidden}
+        .quality-meter.excellent{background:linear-gradient(90deg,#10b981,#34d399)}
+        .quality-meter.good{background:linear-gradient(90deg,#d97706,#f59e0b)}
+        .quality-meter.poor{background:linear-gradient(90deg,#dc2626,#ef4444)}
+        .quality-row{padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+        .quality-row:last-child{border-bottom:none}
+        .quality-row .q-header{display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px}
+        .quality-row .q-player{color:#b0bccf}
+        .quality-row .q-score{font-weight:600}
+        .quality-row .q-detail{display:flex;justify-content:space-between;font-size:11px;color:#5f6a7e;margin-top:4px}
+        .scale-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+        .scale-item{background:rgba(255,255,255,0.02);border-radius:12px;padding:16px;text-align:center;border-left:3px solid}
+        .scale-item .s-value{font-size:24px;font-weight:700}
+        .scale-item .s-label{font-size:13px;font-weight:500;color:#b0bccf;margin-top:4px}
+        .scale-item .s-desc{font-size:11px;color:#5f6a7e;margin-top:4px}
+        .back-link{color:#f59e0b;text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:opacity 0.2s}
+        .back-link:hover{opacity:0.7}
+        @media(max-width:768px){.metric-grid{grid-template-columns:1fr 1fr}.tech-grid{grid-template-columns:1fr}.scale-grid{grid-template-columns:1fr}}
+        @media(max-width:640px){.stat-card{max-width:100%;padding:18px 20px}}
     </style>
 </head>
-<body class="bg-gray-950 text-white font-sans">
+<body>
 
     <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold"><span class="text-purple-400">Voop</span></div>
+            <div class="text-2xl font-bold"><span style="color:#f59e0b">Voop</span></div>
             <div class="space-x-6 text-sm hidden md:block">
-                <a href="index.html" class="hover:text-purple-400 transition">Home</a>
-                <a href="voop.html" class="hover:text-purple-400 transition">← All Features</a>
+                <a href="index.html" style="color:#b0bccf;text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#f59e0b'" onmouseout="this.style.color='#b0bccf'">Home</a>
+                <a href="voop.html" style="color:#b0bccf;text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#f59e0b'" onmouseout="this.style.color='#b0bccf'">← All Features</a>
             </div>
         </div>
     </nav>
 
-    <div class="shot-bg">
+    <div>
         <section class="px-6 py-16 max-w-4xl mx-auto">
+
+            <!-- Header -->
             <div class="fade-up">
-                <a href="voop.html" class="text-purple-400 text-sm mb-4 inline-block hover:underline">← Back to all features</a>
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="text-7xl">🎯</div>
-                    <div class="stat-pill px-4 py-1 rounded-full text-purple-400 text-sm font-mono">3D ANALYSIS</div>
+                <a href="voop.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to all features</a>
+                <div style="display:flex;align-items:center;gap:16px;margin-top:20px;margin-bottom:8px;">
+                    <div style="font-size:48px;color:#f59e0b"><i class="fas fa-crosshairs"></i></div>
+                    <span class="stat-pill">3D Analysis</span>
                 </div>
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">3D Shot Quality Analysis</h1>
-                <p class="text-gray-400 text-xl mb-8">Multi-camera triangulation calculates real shot metrics: release height, angle, distance, and defender proximity.</p>
+                <h1 style="font-size:44px;font-weight:800;margin-bottom:8px;letter-spacing:-0.5px">3D Shot Quality</h1>
+                <p style="color:#8895aa;font-size:18px">Multi-camera triangulation calculates real shot metrics: release height, angle, distance, and defender proximity.</p>
             </div>
 
             <!-- Hero Card -->
-            <div class="fade-up my-8">
+            <div class="fade-up" style="margin-top:32px;">
                 <div class="stat-card">
                     <div class="light-spot3"></div>
-                    <div class="stat-title">🎯 3D Shot Quality</div>
+                    <div class="stat-title"><i class="fas fa-crosshairs" style="margin-right:8px;color:#f59e0b"></i> 3D Shot Quality</div>
                     <div class="stat-row">
-                        <span class="label"><span class="icon-bolt">📊</span> Quality Score</span>
+                        <span class="label"><i class="fas fa-chart-simple"></i> Quality Score</span>
                         <span class="value highlight"><span class="num" id="qualityNum">87</span><span class="unit">%</span></span>
                     </div>
                     <div class="stat-row">
-                        <span class="label"><span class="icon-bolt">📏</span> Release Height</span>
+                        <span class="label"><i class="fas fa-arrow-up"></i> Release Height</span>
                         <span class="value"><span class="num" id="heightNum">2.6</span><span class="unit">m</span></span>
                     </div>
                     <div class="stat-row">
-                        <span class="label"><span class="icon-bolt">📐</span> Release Angle</span>
+                        <span class="label"><i class="fas fa-arrow-trend-up"></i> Release Angle</span>
                         <span class="value"><span class="num" id="angleNum">55</span><span class="unit">°</span></span>
                     </div>
                     <div class="stat-row">
-                        <span class="label"><span class="icon-bolt">📏</span> Shot Distance</span>
+                        <span class="label"><i class="fas fa-ruler"></i> Shot Distance</span>
                         <span class="value"><span class="num" id="shotDistNum">5.2</span><span class="unit">m</span></span>
                     </div>
                     <div class="stat-row">
-                        <span class="label"><span class="icon-bolt">🛡️</span> Defender Dist</span>
+                        <span class="label"><i class="fas fa-user"></i> Defender Dist</span>
                         <span class="value"><span class="num" id="defDistNum">1.8</span><span class="unit">m</span></span>
                     </div>
                 </div>
             </div>
 
             <!-- Key Metrics -->
-            <div class="fade-up my-8">
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <i class="fas fa-chart-simple text-purple-400"></i> Shot Metrics
-                </h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="fade-up" style="margin-top:40px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                    <i class="fas fa-chart-simple" style="color:#f59e0b;font-size:20px"></i>
+                    <h2 style="font-size:20px;font-weight:600;color:#e8edf5">Shot Metrics</h2>
+                </div>
+                <div class="metric-grid">
                     <div class="metric-card">
-                        <div class="text-2xl mb-1">📏</div>
-                        <div class="metric-value text-purple-400">5.8</div>
+                        <div class="metric-icon"><i class="fas fa-ruler"></i></div>
+                        <div class="metric-value">5.8</div>
                         <div class="metric-label">Avg Distance</div>
                         <div class="metric-sub">meters from hoop</div>
                     </div>
                     <div class="metric-card">
-                        <div class="text-2xl mb-1">📐</div>
-                        <div class="metric-value text-purple-400">2.6</div>
+                        <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
+                        <div class="metric-value">2.6</div>
                         <div class="metric-label">Release Height</div>
                         <div class="metric-sub">meters</div>
                     </div>
                     <div class="metric-card">
-                        <div class="text-2xl mb-1">🔄</div>
-                        <div class="metric-value text-purple-400">54°</div>
+                        <div class="metric-icon"><i class="fas fa-arrow-trend-up"></i></div>
+                        <div class="metric-value">54°</div>
                         <div class="metric-label">Release Angle</div>
                         <div class="metric-sub">degrees</div>
                     </div>
                     <div class="metric-card">
-                        <div class="text-2xl mb-1">🎯</div>
-                        <div class="metric-value text-purple-400">78</div>
+                        <div class="metric-icon"><i class="fas fa-crosshairs"></i></div>
+                        <div class="metric-value">78</div>
                         <div class="metric-label">Avg Shot Quality</div>
                         <div class="metric-sub">out of 100</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Shot Quality Meter -->
-            <div class="fade-up my-8">
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <i class="fas fa-chart-simple text-purple-400"></i> Shot Quality Breakdown
-                </h2>
-                <div class="bg-gray-900/50 rounded-xl p-6 border border-gray-800">
-                    <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between text-sm">
-                                <span class="text-gray-400">#23 • Home • Guard</span>
-                                <span class="text-green-400 font-semibold">92 — Excellent</span>
-                            </div>
-                            <div class="h-4 bg-gray-800 rounded-full overflow-hidden">
-                                <div class="quality-meter excellent" style="width: 92%;"></div>
-                            </div>
-                            <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>📏 4.2m • 📐 2.7m • 🔄 56°</span>
-                                <span>Defender: 2.8m away</span>
-                            </div>
+            <!-- Shot Quality Breakdown -->
+            <div class="fade-up" style="margin-top:32px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                    <i class="fas fa-chart-simple" style="color:#f59e0b;font-size:18px"></i>
+                    <h2 style="font-size:20px;font-weight:600;color:#e8edf5">Shot Quality Breakdown</h2>
+                </div>
+                <div style="background:rgba(255,255,255,0.02);border-radius:16px;padding:20px 24px;border:1px solid rgba(255,255,255,0.05)">
+                    <div class="quality-row">
+                        <div class="q-header">
+                            <span class="q-player">#23 · Guard</span>
+                            <span class="q-score" style="color:#34d399">92 — Excellent</span>
                         </div>
-                        <div>
-                            <div class="flex justify-between text-sm">
-                                <span class="text-gray-400">#5 • Home • Forward</span>
-                                <span class="text-yellow-400 font-semibold">58 — Average</span>
-                            </div>
-                            <div class="h-4 bg-gray-800 rounded-full overflow-hidden">
-                                <div class="quality-meter good" style="width: 58%;"></div>
-                            </div>
-                            <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>📏 6.5m • 📐 2.4m • 🔄 48°</span>
-                                <span>Defender: 1.8m away</span>
-                            </div>
+                        <div class="quality-meter excellent" style="width:92%;height:6px;border-radius:4px;"></div>
+                        <div class="q-detail">
+                            <span>4.2m · 2.7m · 56°</span>
+                            <span>Defender: 2.8m away</span>
                         </div>
-                        <div>
-                            <div class="flex justify-between text-sm">
-                                <span class="text-gray-400">#12 • Away • Center</span>
-                                <span class="text-red-400 font-semibold">35 — Poor</span>
-                            </div>
-                            <div class="h-4 bg-gray-800 rounded-full overflow-hidden">
-                                <div class="quality-meter poor" style="width: 35%;"></div>
-                            </div>
-                            <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>📏 8.2m • 📐 2.1m • 🔄 42°</span>
-                                <span>Defender: 1.2m away</span>
-                            </div>
+                    </div>
+                    <div class="quality-row">
+                        <div class="q-header">
+                            <span class="q-player">#5 · Forward</span>
+                            <span class="q-score" style="color:#f59e0b">58 — Average</span>
+                        </div>
+                        <div class="quality-meter good" style="width:58%;height:6px;border-radius:4px;"></div>
+                        <div class="q-detail">
+                            <span>6.5m · 2.4m · 48°</span>
+                            <span>Defender: 1.8m away</span>
+                        </div>
+                    </div>
+                    <div class="quality-row">
+                        <div class="q-header">
+                            <span class="q-player">#12 · Center</span>
+                            <span class="q-score" style="color:#ef4444">35 — Poor</span>
+                        </div>
+                        <div class="quality-meter poor" style="width:35%;height:6px;border-radius:4px;"></div>
+                        <div class="q-detail">
+                            <span>8.2m · 2.1m · 42°</span>
+                            <span>Defender: 1.2m away</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Description -->
-            <div class="fade-up">
-                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
-                    <i class="fas fa-cube text-purple-400"></i> What It Does
-                </h2>
-                <p class="text-gray-300 leading-relaxed mb-6">
-                    Voop's 3D Shot Quality Analysis uses <span class="text-purple-400 font-semibold">multi-camera triangulation</span> to calculate 
-                    real, physical shot metrics that go far beyond simple defender distance. The system determines actual release height 
-                    (in meters), release angle (in degrees), and true 3D distance to the hoop — providing an unprecedented level of shot analysis.
-                </p>
-                <p class="text-gray-300 leading-relaxed mb-6">
-                    Every shot attempt is assigned a <span class="text-purple-400 font-semibold">0-100 quality score</span> based on a composite 
-                    of these metrics: optimal release height (2.6m), ideal arc (55°), distance from hoop, and defender proximity. 
-                    A wide-open three with ideal arc might score 90+, while a contested fadeaway from deep might score below 30.
-                </p>
-                <p class="text-gray-300 leading-relaxed">
-                    Unlike traditional analytics that only track makes and misses, Voop reveals whether your offense is generating good looks 
-                    regardless of results. Poor shooting nights might actually be bad luck (good looks that missed), or they might be a broken 
-                    offense generating low-quality shots every time.
-                </p>
+            <div class="fade-up" style="margin-top:32px;">
+                <div class="content-section">
+                    <h3><i class="fas fa-cube"></i> What It Does</h3>
+                    <p>Voop's 3D Shot Quality Analysis uses <strong style="color:#f59e0b">multi-camera triangulation</strong> to calculate real, physical shot metrics that go far beyond simple defender distance. The system determines actual release height (in meters), release angle (in degrees), and true 3D distance to the hoop — providing an unprecedented level of shot analysis.</p>
+                    <p style="margin-top:12px">Every shot attempt is assigned a <strong style="color:#f59e0b">0-100 quality score</strong> based on a composite of these metrics: optimal release height (2.6m), ideal arc (55°), distance from hoop, and defender proximity. A wide-open three with ideal arc might score 90+, while a contested fadeaway from deep might score below 30.</p>
+                    <p style="margin-top:12px">Unlike traditional analytics that only track makes and misses, Voop reveals whether your offense is generating good looks regardless of results. Poor shooting nights might actually be bad luck (good looks that missed), or they might be a broken offense generating low-quality shots every time.</p>
+                </div>
             </div>
 
             <!-- Technical Details -->
-            <div class="fade-up">
-                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
-                    <i class="fas fa-microchip text-purple-400"></i> How It Works
-                </h2>
-                <div class="grid md:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
-                        <div class="text-purple-400 font-bold mb-2">📐 Triangulation</div>
-                        <p class="text-gray-400 text-sm">Uses multi-camera setup to reconstruct 3D position of each player and the ball in real time, enabling true 3D shot metrics.</p>
-                    </div>
-                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
-                        <div class="text-purple-400 font-bold mb-2">📏 Release Height</div>
-                        <p class="text-gray-400 text-sm">Calculates actual vertical position of the ball at release point (in meters). Higher release = harder to block.</p>
-                    </div>
-                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
-                        <div class="text-purple-400 font-bold mb-2">🔄 Release Angle</div>
-                        <p class="text-gray-400 text-sm">Measures the arc of the shot (in degrees). Optimal arc around 55° maximizes make probability.</p>
-                    </div>
-                    <div class="bg-gray-900/50 p-5 rounded-xl border border-gray-800">
-                        <div class="text-purple-400 font-bold mb-2">🎯 Quality Score</div>
-                        <p class="text-gray-400 text-sm">Composite metric (0-100) combining height, angle, distance, and defender proximity. Higher = better look.</p>
+            <div class="fade-up" style="margin-top:32px;">
+                <div class="content-section">
+                    <h3><i class="fas fa-microchip"></i> How It Works</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <span class="tech-icon"><i class="fas fa-cube"></i></span>
+                            <div class="tech-title">Triangulation</div>
+                            <div class="tech-desc">Uses multi-camera setup to reconstruct 3D position of each player and the ball in real time.</div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon"><i class="fas fa-arrow-up"></i></span>
+                            <div class="tech-title">Release Height</div>
+                            <div class="tech-desc">Calculates actual vertical position of the ball at release point. Higher release = harder to block.</div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon"><i class="fas fa-arrow-trend-up"></i></span>
+                            <div class="tech-title">Release Angle</div>
+                            <div class="tech-desc">Measures the arc of the shot. Optimal arc around 55° maximizes make probability.</div>
+                        </div>
+                        <div class="tech-item">
+                            <span class="tech-icon"><i class="fas fa-crosshairs"></i></span>
+                            <div class="tech-title">Quality Score</div>
+                            <div class="tech-desc">Composite metric combining height, angle, distance, and defender proximity. Higher = better look.</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- In-Game Application -->
-            <div class="fade-up">
-                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
-                    <i class="fas fa-basketball text-purple-400"></i> In-Game Application
-                </h2>
-                <div class="bg-gray-900/30 rounded-xl p-6 border-l-4 border-purple-400 mb-8">
-                    <p class="text-gray-300 leading-relaxed">
-                        During games, coaches can see every shot's quality score in real time. If a player consistently takes 70+ quality shots 
-                        but isn't making them, the problem is likely execution — not shot selection. If they're consistently taking sub-40 shots, 
-                        the offense needs adjustment.
-                    </p>
-                    <p class="text-gray-300 leading-relaxed mt-3">
-                        Post-game reports show shot quality distribution by player, lineup, and quarter. Coaches can identify which players 
-                        are creating good looks versus settling, which lineups generate the best shot quality, and whether shot quality drops 
-                        in the fourth quarter (indicating fatigue or defensive adjustment).
-                    </p>
-                    <p class="text-gray-300 leading-relaxed mt-3">
-                        The 3D metrics also enable advanced scouting — opponents can be analyzed for shot quality tendencies, helping coaches 
-                        design defenses that force them into low-quality attempts.
-                    </p>
+            <div class="fade-up" style="margin-top:32px;">
+                <div class="content-section" style="border-left:3px solid #f59e0b;border-radius:16px 16px 16px 16px">
+                    <h3><i class="fas fa-basketball"></i> In-Game Application</h3>
+                    <p>During games, coaches can see every shot's quality score in real time. If a player consistently takes 70+ quality shots but isn't making them, the problem is likely execution — not shot selection. If they're consistently taking sub-40 shots, the offense needs adjustment.</p>
+                    <p style="margin-top:12px">Post-game reports show shot quality distribution by player, lineup, and quarter. Coaches can identify which players are creating good looks versus settling, which lineups generate the best shot quality, and whether shot quality drops in the fourth quarter — indicating fatigue or defensive adjustment.</p>
+                    <p style="margin-top:12px">The 3D metrics also enable advanced scouting — opponents can be analyzed for shot quality tendencies, helping coaches design defenses that force them into low-quality attempts.</p>
                 </div>
             </div>
 
             <!-- Quality Scale -->
-            <div class="fade-up my-8">
-                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <i class="fas fa-gauge-high text-purple-400"></i> Quality Scale
-                </h2>
-                <div class="grid md:grid-cols-3 gap-4">
-                    <div class="bg-gray-900/40 rounded-xl p-4 text-center border-l-4 border-green-500">
-                        <div class="text-3xl font-bold text-green-400">90-100</div>
-                        <div class="text-sm text-gray-400 font-semibold">Elite Look</div>
-                        <div class="text-xs text-gray-500 mt-1">Wide open, optimal arc, ideal distance</div>
+            <div class="fade-up" style="margin-top:32px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                    <i class="fas fa-gauge-high" style="color:#f59e0b;font-size:18px"></i>
+                    <h2 style="font-size:20px;font-weight:600;color:#e8edf5">Quality Scale</h2>
+                </div>
+                <div class="scale-grid">
+                    <div class="scale-item" style="border-left-color:#10b981">
+                        <div class="s-value" style="color:#10b981">90–100</div>
+                        <div class="s-label">Elite Look</div>
+                        <div class="s-desc">Wide open, optimal arc, ideal distance</div>
                     </div>
-                    <div class="bg-gray-900/40 rounded-xl p-4 text-center border-l-4 border-yellow-500">
-                        <div class="text-3xl font-bold text-yellow-400">50-89</div>
-                        <div class="text-sm text-gray-400 font-semibold">Average Look</div>
-                        <div class="text-xs text-gray-500 mt-1">Contested or slightly off-arc</div>
+                    <div class="scale-item" style="border-left-color:#f59e0b">
+                        <div class="s-value" style="color:#f59e0b">50–89</div>
+                        <div class="s-label">Average Look</div>
+                        <div class="s-desc">Contested or slightly off-arc</div>
                     </div>
-                    <div class="bg-gray-900/40 rounded-xl p-4 text-center border-l-4 border-red-500">
-                        <div class="text-3xl font-bold text-red-400">0-49</div>
-                        <div class="text-sm text-gray-400 font-semibold">Poor Look</div>
-                        <div class="text-xs text-gray-500 mt-1">Heavily contested, forced, or rushed</div>
+                    <div class="scale-item" style="border-left-color:#ef4444">
+                        <div class="s-value" style="color:#ef4444">0–49</div>
+                        <div class="s-label">Poor Look</div>
+                        <div class="s-desc">Heavily contested, forced, or rushed</div>
                     </div>
                 </div>
             </div>
 
             <!-- Back to Features -->
-            <div class="fade-up mt-12 text-center">
-                <a href="voop.html" class="bg-purple-500 hover:bg-purple-600 px-6 py-3 rounded-lg inline-block transition">← Back to All Features</a>
+            <div class="fade-up" style="margin-top:40px;text-align:center">
+                <a href="voop.html" style="display:inline-block;background:#f59e0b;color:#0b0f1a;font-weight:600;padding:12px 32px;border-radius:10px;text-decoration:none;transition:opacity 0.2s" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">← Back to All Features</a>
             </div>
+
         </section>
     </div>
 
-    <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm mt-16">
+    <footer style="border-top:1px solid rgba(255,255,255,0.04);padding:24px 0;text-align:center;color:#5f6a7e;font-size:13px;margin-top:32px">
         <p>© 2026 Voop. Built by JYang with YOLOv8, PyQt, and computer vision</p>
     </footer>
 
@@ -348,5 +348,6 @@
         }, { threshold: 0.1 });
         fadeElements.forEach(el => observer.observe(el));
     </script>
+
 </body>
 </html>
