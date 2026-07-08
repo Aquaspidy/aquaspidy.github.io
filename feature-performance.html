@@ -6,99 +6,56 @@
     <title>Voop | Athletic Performance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .performance-bg {
-            position: relative;
-            overflow: hidden;
-        }
-        .performance-bg::before {
-            content: "🏃🏃🏃";
-            position: absolute;
-            top: -20%;
-            left: -20%;
-            width: 200%;
-            height: 200%;
-            font-size: 25vw;
-            opacity: 0.03;
-            font-family: monospace;
-            white-space: nowrap;
-            transform: rotate(-10deg);
-            pointer-events: none;
-            letter-spacing: 30px;
-        }
-        .performance-gradient {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.05));
-        }
-        .stat-pill {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-        .metric-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 1rem 1.25rem;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            text-align: center;
-        }
-        .metric-card .value {
-            font-size: 28px;
-            font-weight: 700;
-        }
-        .metric-card .label {
-            font-size: 12px;
-            color: #8895aa;
-            margin-top: 2px;
-        }
-        .metric-card .sub {
-            font-size: 11px;
-            color: #5f6a7e;
-            margin-top: 4px;
-        }
-        .fatigue-bar {
-            height: 6px;
-            background: #2a3344;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 6px;
-        }
-        .fatigue-fill {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-        .fatigue-fill.low { background: #22c55e; width: 25%; }
-        .fatigue-fill.medium { background: #f59e0b; width: 55%; }
-        .fatigue-fill.high { background: #ef4444; width: 85%; }
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            font-size: 14px;
-        }
-        .stat-row .label { color: #b0bccf; }
-        .stat-row .value { font-weight: 600; }
-        .stat-row .value.highlight { color: #22c55e; }
-        .stat-row .value.warning { color: #f59e0b; }
-        .stat-row .value.danger { color: #ef4444; }
+        *{margin:0;padding:0;box-sizing:border-box}
+        .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+        .fade-up.visible{opacity:1;transform:translateY(0)}
+        .performance-bg{position:relative;overflow:hidden}
+        .performance-bg::before{content:"🏃🏃🏃";position:absolute;top:-20%;left:-20%;width:200%;height:200%;font-size:25vw;opacity:0.03;font-family:monospace;white-space:nowrap;transform:rotate(-10deg);pointer-events:none;letter-spacing:30px}
+        .performance-gradient{background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(5,150,105,0.05))}
+        .stat-pill{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3)}
+        .stat-card{background:#141a26;border-radius:24px;border:1px solid rgba(255,255,255,0.06);padding:20px 22px;width:100%;max-width:380px;animation:float3D 12s ease-in-out infinite;transform-style:preserve-3d;will-change:transform;position:relative;overflow:hidden;margin:0 auto}
+        @keyframes float3D{0%{transform:perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)}10%{transform:perspective(1500px) rotateX(4deg) rotateY(8deg) scale(1.05)}25%{transform:perspective(1500px) rotateX(-2deg) rotateY(12deg) scale(1.08)}40%{transform:perspective(1500px) rotateX(-5deg) rotateY(4deg) scale(0.97)}55%{transform:perspective(1500px) rotateX(3deg) rotateY(-8deg) scale(1.07)}70%{transform:perspective(1500px) rotateX(6deg) rotateY(-4deg) scale(1.03)}85%{transform:perspective(1500px) rotateX(-3deg) rotateY(-10deg) scale(0.98)}100%{transform:perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)}}
+        .stat-card::before{content:'';position:absolute;top:-40%;right:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(74,222,128,0.08),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep 12s ease-in-out infinite}
+        .stat-card::after{content:'';position:absolute;bottom:-40%;left:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(74,222,128,0.05),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep2 12s ease-in-out infinite}
+        .stat-card .light-spot3{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:150px;height:150px;background:radial-gradient(circle,rgba(74,222,128,0.06),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep3 12s ease-in-out infinite}
+        @keyframes lightSweep{0%,100%{transform:translate(0,0) scale(1);opacity:0.6}50%{transform:translate(-35px,30px) scale(1.5);opacity:1}}
+        @keyframes lightSweep2{0%,100%{transform:translate(0,0) scale(1);opacity:0.4}50%{transform:translate(35px,-30px) scale(1.5);opacity:0.8}}
+        @keyframes lightSweep3{0%,100%{transform:translate(-50%,-50%) scale(0.8);opacity:0.3}50%{transform:translate(-50%,-50%) scale(1.4);opacity:0.6}}
+        .stat-title{font-size:13px;font-weight:600;color:#8895aa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:14px;position:relative;z-index:2}
+        .stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px;position:relative;z-index:2}
+        .stat-row:last-child{border-bottom:none}
+        .stat-row .label{color:#b0bccf}
+        .stat-row .value{font-weight:600;color:#e8edf5}
+        .value.highlight{color:#4ade80}
+        .value .num{display:inline-block;transition:all 0.8s cubic-bezier(0.34,1.56,0.64,1)}
+        .value .unit{font-size:12px;color:#8895aa;font-weight:400;margin-left:1px}
+        .icon-bolt{display:inline-block;margin-right:4px;font-size:14px}
+        .progress-wrap{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.04);position:relative;z-index:2}
+        .progress-row{display:flex;justify-content:space-between;margin-bottom:4px}
+        .progress-row .p-label{font-size:11px;color:#8895aa}
+        .progress-row .p-value{font-size:11px;font-weight:600;color:#e8edf5;font-family:'JetBrains Mono',monospace}
+        .bar-track{height:4px;background:#2a3344;border-radius:2px;overflow:hidden;position:relative}
+        .bar-fill{height:100%;background:linear-gradient(90deg,#4ade80,#22c55e);border-radius:2px;width:0%;transition:width 0.5s ease}
+        .metric-card{background:rgba(255,255,255,0.03);border-radius:12px;padding:1rem 1.25rem;border:1px solid rgba(255,255,255,0.06);text-align:center}
+        .metric-card .metric-value{font-size:28px;font-weight:700}
+        .metric-card .metric-label{font-size:12px;color:#8895aa;margin-top:2px}
+        .fatigue-bar{height:6px;background:#2a3344;border-radius:10px;overflow:hidden;margin-top:6px}
+        .fatigue-fill{height:100%;border-radius:10px;transition:width 0.5s ease}
+        .fatigue-fill.low{background:#22c55e;width:25%}
+        .fatigue-fill.medium{background:#f59e0b;width:55%}
+        .fatigue-fill.high{background:#ef4444;width:85%}
+        @media(max-width:600px){.stat-card{max-width:100%;padding:16px 18px}}
     </style>
 </head>
 <body class="bg-gray-950 text-white font-sans">
 
     <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold">
-                <span class="text-emerald-400">Voop</span>
-            </div>
+            <div class="text-2xl font-bold"><span class="text-emerald-400">Voop</span></div>
             <div class="space-x-6 text-sm hidden md:block">
                 <a href="index.html" class="hover:text-emerald-400 transition">Home</a>
                 <a href="voop.html" class="hover:text-emerald-400 transition">← All Features</a>
@@ -118,35 +75,103 @@
                 <p class="text-gray-400 text-xl mb-8">Real-time speed, distance, sprint tracking, and fatigue monitoring for every player.</p>
             </div>
 
+            <!-- Hero Card -->
+            <div class="fade-up my-8">
+                <div class="stat-card">
+                    <div class="light-spot3"></div>
+                    <div class="stat-title">🏃 Athletic Performance</div>
+                    <div class="stat-row">
+                        <span class="label"><span class="icon-bolt">⚡</span> Avg Speed</span>
+                        <span class="value highlight" id="speedDisplay">
+                            <span class="num" id="speedNum">4.7</span>
+                            <span class="unit">km/h</span>
+                        </span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label">📏 Total Distance</span>
+                        <span class="value" id="distDisplay">
+                            <span class="num" id="distNum">3.21</span>
+                            <span class="unit">km</span>
+                        </span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label">⏱️ Running Time</span>
+                        <span class="value" id="timeDisplay">
+                            <span class="num" id="timeNum">18:24</span>
+                        </span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label">🔄 Sprint Count</span>
+                        <span class="value highlight" id="sprintDisplay">
+                            <span class="num" id="sprintNum">34</span>
+                        </span>
+                    </div>
+                    <div class="stat-row" style="color:#f97316;">
+                        <span class="label">⚠️ Stamina</span>
+                        <span class="value" id="fatigueDisplay" style="color:#f97316;">
+                            <span class="num" id="fatigueNum">#7 Speed Decrease 22%</span>
+                        </span>
+                    </div>
+                    <div class="progress-wrap">
+                        <div class="progress-row">
+                            <span class="p-label">⚡ Sprint Intensity</span>
+                            <span class="p-value" id="intensityLabel">67%</span>
+                        </div>
+                        <div class="bar-track">
+                            <div class="bar-fill" id="intensityBar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Key Metrics -->
-            <div class="fade-up performance-gradient rounded-2xl p-8 border border-emerald-500/20 my-8">
-                <h2 class="text-lg font-bold mb-4 text-emerald-400">📊 Live Metrics</h2>
+            <div class="fade-up my-8">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <i class="fas fa-chart-simple text-emerald-400"></i> Key Metrics
+                </h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="metric-card">
                         <div class="text-2xl mb-1">⚡</div>
-                        <div class="value text-emerald-400">4.7</div>
-                        <div class="label">Avg Speed</div>
-                        <div class="sub">km/h</div>
+                        <div class="metric-value text-emerald-400">4.7</div>
+                        <div class="metric-label">Avg Speed (km/h)</div>
                     </div>
                     <div class="metric-card">
                         <div class="text-2xl mb-1">📏</div>
-                        <div class="value text-emerald-400">3.21</div>
-                        <div class="label">Total Distance</div>
-                        <div class="sub">km</div>
+                        <div class="metric-value text-emerald-400">3.21</div>
+                        <div class="metric-label">Total Distance (km)</div>
                     </div>
                     <div class="metric-card">
                         <div class="text-2xl mb-1">💨</div>
-                        <div class="value text-emerald-400">34</div>
-                        <div class="label">Sprints</div>
-                        <div class="sub">>5.5 km/h</div>
+                        <div class="metric-value text-emerald-400">34</div>
+                        <div class="metric-label">Sprints</div>
                     </div>
                     <div class="metric-card">
                         <div class="text-2xl mb-1">⏱️</div>
-                        <div class="value text-emerald-400">18:24</div>
-                        <div class="label">Running Time</div>
-                        <div class="sub">Active minutes</div>
+                        <div class="metric-value text-emerald-400">18:24</div>
+                        <div class="metric-label">Running Time</div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Description -->
+            <div class="fade-up">
+                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
+                    <i class="fas fa-heart-pulse text-emerald-400"></i> What It Does
+                </h2>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Voop's Athletic Performance module tracks every player's movement in real time using computer vision and persistent tracking. 
+                    The system monitors speed, distance covered, sprint frequency, and running time for each player on the court, providing 
+                    coaches with objective data on player workload and effort.
+                </p>
+                <p class="text-gray-300 leading-relaxed mb-6">
+                    Beyond basic tracking, Voop calculates a <span class="text-emerald-400 font-semibold">fatigue index</span> for each player 
+                    based on sprint count, total distance, and recent speed decline. This helps coaches identify when players are tiring 
+                    before it becomes visibly apparent — enabling smarter substitution decisions.
+                </p>
+                <p class="text-gray-300 leading-relaxed">
+                    The system also tracks team-level metrics including total distance, average speed, and possession time, giving coaches 
+                    a complete picture of their team's physical output across the game.
+                </p>
             </div>
 
             <!-- Fatigue Monitoring -->
@@ -194,27 +219,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Description -->
-            <div class="fade-up">
-                <h2 class="text-2xl font-bold mb-4 mt-8 flex items-center gap-2">
-                    <i class="fas fa-heart-pulse text-emerald-400"></i> What It Does
-                </h2>
-                <p class="text-gray-300 leading-relaxed mb-6">
-                    Voop's Athletic Performance module tracks every player's movement in real time using computer vision and persistent tracking. 
-                    The system monitors speed, distance covered, sprint frequency, and running time for each player on the court, providing 
-                    coaches with objective data on player workload and effort.
-                </p>
-                <p class="text-gray-300 leading-relaxed mb-6">
-                    Beyond basic tracking, Voop calculates a <span class="text-emerald-400 font-semibold">fatigue index</span> for each player 
-                    based on sprint count, total distance, and recent speed decline. This helps coaches identify when players are tiring 
-                    before it becomes visibly apparent — enabling smarter substitution decisions.
-                </p>
-                <p class="text-gray-300 leading-relaxed">
-                    The system also tracks team-level metrics including total distance, average speed, and possession time, giving coaches 
-                    a complete picture of their team's physical output across the game.
-                </p>
             </div>
 
             <!-- Technical Details -->
@@ -293,26 +297,6 @@
                 </div>
             </div>
 
-            <!-- Screenshot Placeholder -->
-            <div class="fade-up mt-12">
-                <h2 class="text-2xl font-bold mb-4">Preview</h2>
-                <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800 text-center">
-                    <div class="bg-black/50 rounded-xl aspect-video flex items-center justify-center">
-                        <div class="text-center">
-                            <i class="fas fa-chart-line text-5xl text-emerald-400 mb-3"></i>
-                            <p class="text-gray-500">Performance dashboard will appear here</p>
-                            <p class="text-gray-600 text-sm mt-2">Real-time speed, distance, sprints, and fatigue data</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-center gap-6 mt-4 text-xs">
-                        <div class="flex items-center gap-1"><span class="text-emerald-400">⚡</span><span class="text-gray-500">Speed</span></div>
-                        <div class="flex items-center gap-1"><span class="text-emerald-400">📏</span><span class="text-gray-500">Distance</span></div>
-                        <div class="flex items-center gap-1"><span class="text-emerald-400">💨</span><span class="text-gray-500">Sprints</span></div>
-                        <div class="flex items-center gap-1"><span class="text-emerald-400">🪫</span><span class="text-gray-500">Fatigue</span></div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Back to Features -->
             <div class="fade-up mt-12 text-center">
                 <a href="voop.html" class="bg-emerald-500 hover:bg-emerald-600 px-6 py-3 rounded-lg inline-block transition">← Back to All Features</a>
@@ -325,13 +309,83 @@
     </footer>
 
     <script>
+        // Hero card animation
+        const dataPoints = [
+            { speed: 4.7, dist: 3.21, time: '18:24', sprints: 34, fatigue: '#7 Speed Decrease 22%', intensity: 67 },
+            { speed: 6.2, dist: 3.45, time: '19:01', sprints: 41, fatigue: '✅ All players good', intensity: 58 },
+            { speed: 8.9, dist: 3.78, time: '19:37', sprints: 48, fatigue: '⚠️ #3 Fatigue: 68%', intensity: 82 },
+            { speed: 11.7, dist: 4.12, time: '20:10', sprints: 56, fatigue: '⚠️ #7 Speed Decrease 22%', intensity: 94 },
+            { speed: 7.4, dist: 3.56, time: '19:18', sprints: 39, fatigue: '✅ All players good', intensity: 62 },
+        ];
+
+        let currentIndex = 0;
+        let nextIndex = 1;
+        let progress = 0;
+        const segmentDuration = 2500;
+        const stepInterval = 30;
+
+        const speedNum = document.getElementById('speedNum');
+        const distNum = document.getElementById('distNum');
+        const sprintNum = document.getElementById('sprintNum');
+        const timeNum = document.getElementById('timeNum');
+        const fatigueNum = document.getElementById('fatigueNum');
+        const fatigueDisplay = document.getElementById('fatigueDisplay');
+        const intensityBar = document.getElementById('intensityBar');
+        const intensityLabel = document.getElementById('intensityLabel');
+
+        function smoothUpdate() {
+            progress += stepInterval / segmentDuration;
+            if (progress >= 1) {
+                progress = 0;
+                currentIndex = nextIndex;
+                nextIndex = (nextIndex + 1) % dataPoints.length;
+                timeNum.textContent = dataPoints[nextIndex].time;
+                fatigueNum.textContent = dataPoints[nextIndex].fatigue;
+                fatigueDisplay.style.color = dataPoints[nextIndex].fatigue.includes('✅') ? '#4ade80' : '#f97316';
+            }
+
+            const eased = progress;
+            const current = dataPoints[currentIndex];
+            const next = dataPoints[nextIndex];
+
+            const speedDiff = next.speed - current.speed;
+            const speedVal = current.speed + speedDiff * eased;
+            speedNum.textContent = speedVal.toFixed(1);
+
+            const distDiff = next.dist - current.dist;
+            const distVal = current.dist + distDiff * eased;
+            distNum.textContent = distVal.toFixed(2);
+
+            const sprintDiff = next.sprints - current.sprints;
+            const sprintVal = current.sprints + sprintDiff * eased;
+            sprintNum.textContent = Math.round(sprintVal);
+
+            const intensityDiff = next.intensity - current.intensity;
+            const intensityVal = current.intensity + intensityDiff * eased;
+            intensityBar.style.width = intensityVal + '%';
+            intensityLabel.textContent = Math.round(intensityVal) + '%';
+
+            requestAnimationFrame(smoothUpdate);
+        }
+
+        // Init
+        timeNum.textContent = dataPoints[0].time;
+        fatigueNum.textContent = dataPoints[0].fatigue;
+        fatigueDisplay.style.color = dataPoints[0].fatigue.includes('✅') ? '#4ade80' : '#f97316';
+        smoothUpdate();
+
+        const card = document.querySelector('.stat-card');
+        setInterval(() => {
+            card.style.animation = 'none';
+            requestAnimationFrame(() => {
+                card.style.animation = 'float3D 12s ease-in-out infinite';
+            });
+        }, 12000);
+
+        // Fade-up animation
         const fadeElements = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
         }, { threshold: 0.1 });
         fadeElements.forEach(el => observer.observe(el));
     </script>
