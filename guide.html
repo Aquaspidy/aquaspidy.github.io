@@ -6,196 +6,205 @@
     <title>Analyst Guide | Become Your Team's Data Analyst</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .timeline-item {
-            transition: all 0.3s ease;
-        }
-        .timeline-item:hover {
-            transform: translateX(8px);
-        }
-        /* Removed the timeline line completely */
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:#0b0f1a;color:#e8edf5}
+        .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+        .fade-up.visible{opacity:1;transform:translateY(0)}
+        .nav-link{color:#b0bccf;text-decoration:none;transition:color 0.2s;font-size:14px}
+        .nav-link:hover{color:#a78bfa}
+        .timeline-item{transition:all 0.3s ease}
+        .timeline-item:hover{transform:translateX(6px)}
+        .step-number{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#0b0f1a;flex-shrink:0}
+        .step-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:20px 24px;transition:all 0.3s ease;display:block;text-decoration:none;color:#e8edf5}
+        .step-card:hover{border-color:rgba(167,139,250,0.25);box-shadow:0 8px 30px rgba(0,0,0,0.2)}
+        .step-card .s-title{font-size:17px;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:10px}
+        .step-card .s-desc{color:#8895aa;font-size:14px;line-height:1.6}
+        .step-card .s-link{color:#a78bfa;font-size:13px;font-weight:500;margin-top:10px;display:inline-block;transition:transform 0.2s}
+        .step-card:hover .s-link{transform:translateX(4px)}
+        .download-section{background:linear-gradient(135deg,rgba(167,139,250,0.06),rgba(236,72,153,0.04));border:1px solid rgba(167,139,250,0.1);border-radius:20px;padding:32px 40px;text-align:center}
+        .download-section h2{font-size:22px;font-weight:700;margin-bottom:4px;color:#e8edf5}
+        .download-section p{color:#8895aa;margin-bottom:16px;font-size:15px}
+        .download-section .tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+        .download-section .tags a{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);padding:6px 16px;border-radius:100px;font-size:13px;color:#b0bccf;text-decoration:none;transition:all 0.2s}
+        .download-section .tags a:hover{background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.2);color:#a78bfa}
+        .download-section .note{color:#5f6a7e;font-size:12px;margin-top:14px}
+        @media(max-width:640px){.step-card{padding:16px 18px}.download-section{padding:24px 20px}}
     </style>
 </head>
-<body class="bg-gray-950 text-white font-sans">
+<body>
 
     <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold">
-                <span class="text-purple-400">Analyst</span> Guide
-            </div>
+            <div class="text-2xl font-bold"><span style="color:#a78bfa">Analyst</span> Guide</div>
             <div class="space-x-6 text-sm hidden md:block">
-                <a href="index.html" class="hover:text-purple-400 transition">← Home</a>
-                <a href="voop.html" class="hover:text-purple-400 transition">Voop App</a>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="voop.html" class="nav-link">Voop App</a>
             </div>
         </div>
     </nav>
 
     <section class="px-6 py-16 text-center max-w-3xl mx-auto fade-up">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4" style="letter-spacing:-0.5px">
             How to Become Your Team's<br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Basketball Data Analyst</span>
+            <span style="background:linear-gradient(135deg,#a78bfa,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Basketball Data Analyst</span>
         </h1>
-        <p class="text-gray-400 text-lg">A complete step-by-step guide based on my experience scouting, coding, scoring, and reporting for my high school team.</p>
+        <p style="color:#8895aa;font-size:18px;line-height:1.7">A complete step-by-step guide based on my experience scouting, coding, scoring, and reporting for my high school team.</p>
     </section>
 
-    <!-- Timeline Section - No line -->
-    <section class="px-6 py-8 max-w-4xl mx-auto relative">
-        
-        <!-- Step 1: Opponent Scouting -->
-        <div class="timeline-item relative mb-12 fade-up">
-            <div class="flex flex-col md:flex-row gap-6">
-                <div class="md:w-1/4 text-right">
-                    <div class="sticky top-24">
-                        <div class="w-12 h-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
-                            <span class="text-white font-bold">1</span>
-                        </div>
-                        <div class="hidden md:block mt-2 text-sm text-cyan-400 font-mono">STEP ONE</div>
+    <!-- Timeline -->
+    <section class="px-6 py-8 max-w-4xl mx-auto">
+
+        <!-- Step 1 -->
+        <div class="timeline-item relative mb-10 fade-up">
+            <div class="flex flex-col md:flex-row gap-5">
+                <div class="md:w-1/5 flex md:justify-end">
+                    <div class="flex items-center gap-4 md:block">
+                        <div class="step-number" style="background:linear-gradient(135deg,#06b6d4,#3b82f6)">1</div>
+                        <div class="hidden md:block text-sm font-mono" style="color:#06b6d4;margin-top:4px;text-align:right">STEP ONE</div>
                     </div>
                 </div>
-                <div class="md:w-3/4">
-                    <a href="method-scouting.html" class="block bg-gray-900/50 rounded-xl border border-gray-800 p-6 hover:border-cyan-500 transition no-underline text-white">
-                        <h3 class="text-xl font-bold text-cyan-400">🔍 Opponent Scouting Reports</h3>
-                        <p class="text-gray-400 mt-2">How I research opponents using Prephoops, Hudl, MaxPreps, and game film — and write detailed player scouting notes with individual defensive game plans.</p>
-                        <div class="mt-3 text-cyan-400 text-sm">Read full guide →</div>
+                <div class="md:w-4/5">
+                    <a href="method-scouting.html" class="step-card">
+                        <div class="s-title">
+                            <i class="fas fa-search" style="color:#06b6d4;font-size:18px"></i>
+                            Opponent Scouting Reports
+                        </div>
+                        <div class="s-desc">How I research opponents using Prephoops, Hudl, MaxPreps, and game film — and write detailed player scouting notes with individual defensive game plans.</div>
+                        <span class="s-link">Read full guide →</span>
                     </a>
                 </div>
             </div>
         </div>
-        
-        <!-- Step 2: Keeping Live Scores -->
-        <div class="timeline-item relative mb-12 fade-up">
-            <div class="flex flex-col md:flex-row gap-6">
-                <div class="md:w-1/4 text-right">
-                    <div class="sticky top-24">
-                        <div class="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
-                            <span class="text-white font-bold">2</span>
-                        </div>
-                        <div class="hidden md:block mt-2 text-sm text-emerald-400 font-mono">STEP TWO</div>
+
+        <!-- Step 2 -->
+        <div class="timeline-item relative mb-10 fade-up">
+            <div class="flex flex-col md:flex-row gap-5">
+                <div class="md:w-1/5 flex md:justify-end">
+                    <div class="flex items-center gap-4 md:block">
+                        <div class="step-number" style="background:linear-gradient(135deg,#10b981,#059669)">2</div>
+                        <div class="hidden md:block text-sm font-mono" style="color:#10b981;margin-top:4px;text-align:right">STEP TWO</div>
                     </div>
                 </div>
-                <div class="md:w-3/4">
-                    <a href="method-live-scoring.html" class="block bg-gray-900/50 rounded-xl border border-gray-800 p-6 hover:border-emerald-500 transition no-underline text-white">
-                        <h3 class="text-xl font-bold text-emerald-400">📝 Keeping Live Scores</h3>
-                        <p class="text-gray-400 mt-2">How I track every possession in real time — shot types, assists, turnovers, defensive stops, and transition opportunities — using a custom spreadsheet system.</p>
-                        <div class="mt-3 text-emerald-400 text-sm">Read full guide →</div>
+                <div class="md:w-4/5">
+                    <a href="method-live-scoring.html" class="step-card">
+                        <div class="s-title">
+                            <i class="fas fa-pen" style="color:#10b981;font-size:18px"></i>
+                            Keeping Live Scores
+                        </div>
+                        <div class="s-desc">How I track every possession in real time — shot types, assists, turnovers, defensive stops, and transition opportunities — using a custom spreadsheet system.</div>
+                        <span class="s-link">Read full guide →</span>
                     </a>
                 </div>
             </div>
         </div>
-        
-        <!-- Step 3: R Code for Graphics -->
-        <div class="timeline-item relative mb-12 fade-up">
-            <div class="flex flex-col md:flex-row gap-6">
-                <div class="md:w-1/4 text-right">
-                    <div class="sticky top-24">
-                        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
-                            <span class="text-white font-bold">3</span>
-                        </div>
-                        <div class="hidden md:block mt-2 text-sm text-purple-400 font-mono">STEP THREE</div>
+
+        <!-- Step 3 -->
+        <div class="timeline-item relative mb-10 fade-up">
+            <div class="flex flex-col md:flex-row gap-5">
+                <div class="md:w-1/5 flex md:justify-end">
+                    <div class="flex items-center gap-4 md:block">
+                        <div class="step-number" style="background:linear-gradient(135deg,#a78bfa,#8b5cf6)">3</div>
+                        <div class="hidden md:block text-sm font-mono" style="color:#a78bfa;margin-top:4px;text-align:right">STEP THREE</div>
                     </div>
                 </div>
-                <div class="md:w-3/4">
-                    <a href="method-r-code.html" class="block bg-gray-900/50 rounded-xl border border-gray-800 p-6 hover:border-purple-500 transition no-underline text-white">
-                        <h3 class="text-xl font-bold text-purple-400">📊 R Code for Stats & Graphics</h3>
-                        <p class="text-gray-400 mt-2">How I transform box scores into PPP calculations, Four Factors analysis, lineup efficiency charts, and shot quality trends over the season.</p>
-                        <div class="mt-3 text-purple-400 text-sm">Read full guide →</div>
+                <div class="md:w-4/5">
+                    <a href="method-r-code.html" class="step-card">
+                        <div class="s-title">
+                            <i class="fas fa-code" style="color:#a78bfa;font-size:18px"></i>
+                            R Code for Stats & Graphics
+                        </div>
+                        <div class="s-desc">How I transform box scores into PPP calculations, Four Factors analysis, lineup efficiency charts, and shot quality trends over the season.</div>
+                        <span class="s-link">Read full guide →</span>
                     </a>
                 </div>
             </div>
         </div>
-        
-        <!-- Step 4: Periodic Recaps -->
-        <div class="timeline-item relative mb-12 fade-up">
-            <div class="flex flex-col md:flex-row gap-6">
-                <div class="md:w-1/4 text-right">
-                    <div class="sticky top-24">
-                        <div class="w-12 h-12 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
-                            <span class="text-white font-bold">4</span>
-                        </div>
-                        <div class="hidden md:block mt-2 text-sm text-orange-400 font-mono">STEP FOUR</div>
+
+        <!-- Step 4 -->
+        <div class="timeline-item relative mb-10 fade-up">
+            <div class="flex flex-col md:flex-row gap-5">
+                <div class="md:w-1/5 flex md:justify-end">
+                    <div class="flex items-center gap-4 md:block">
+                        <div class="step-number" style="background:linear-gradient(135deg,#f97316,#ea580c)">4</div>
+                        <div class="hidden md:block text-sm font-mono" style="color:#f97316;margin-top:4px;text-align:right">STEP FOUR</div>
                     </div>
                 </div>
-                <div class="md:w-3/4">
-                    <a href="method-periodic-recaps.html" class="block bg-gray-900/50 rounded-xl border border-gray-800 p-6 hover:border-orange-500 transition no-underline text-white">
-                        <h3 class="text-xl font-bold text-orange-400">📋 Writing Periodic Recaps for Your Team</h3>
-                        <p class="text-gray-400 mt-2">Every 6-9 games, I write a comprehensive report analyzing PPP differential, Four Factors, lineup efficiency, and actionable team takeaways.</p>
-                        <div class="mt-3 text-orange-400 text-sm">Read full guide →</div>
+                <div class="md:w-4/5">
+                    <a href="method-periodic-recaps.html" class="step-card">
+                        <div class="s-title">
+                            <i class="fas fa-file-alt" style="color:#f97316;font-size:18px"></i>
+                            Writing Periodic Recaps for Your Team
+                        </div>
+                        <div class="s-desc">Every 6-9 games, I write a comprehensive report analyzing PPP differential, Four Factors, lineup efficiency, and actionable team takeaways.</div>
+                        <span class="s-link">Read full guide →</span>
                     </a>
                 </div>
             </div>
         </div>
-        
-        <!-- Step 5: Coach Feedback -->
-        <div class="timeline-item relative mb-12 fade-up">
-            <div class="flex flex-col md:flex-row gap-6">
-                <div class="md:w-1/4 text-right">
-                    <div class="sticky top-24">
-                        <div class="w-12 h-12 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full flex items-center justify-center mx-auto md:mx-0 md:ml-auto">
-                            <span class="text-white font-bold">5</span>
-                        </div>
-                        <div class="hidden md:block mt-2 text-sm text-pink-400 font-mono">STEP FIVE</div>
+
+        <!-- Step 5 -->
+        <div class="timeline-item relative mb-10 fade-up">
+            <div class="flex flex-col md:flex-row gap-5">
+                <div class="md:w-1/5 flex md:justify-end">
+                    <div class="flex items-center gap-4 md:block">
+                        <div class="step-number" style="background:linear-gradient(135deg,#ec4899,#db2777)">5</div>
+                        <div class="hidden md:block text-sm font-mono" style="color:#ec4899;margin-top:4px;text-align:right">STEP FIVE</div>
                     </div>
                 </div>
-                <div class="md:w-3/4">
-                    <a href="method-coach-feedback.html" class="block bg-gray-900/50 rounded-xl border border-gray-800 p-6 hover:border-pink-500 transition no-underline text-white">
-                        <h3 class="text-xl font-bold text-pink-400">✍️ Post-Game Coach Feedback</h3>
-                        <p class="text-gray-400 mt-2">Within 24 hours of each game, I send a 2-paragraph memo covering what worked offensively, defensive adjustments needed, individual takeaways, and one practice focus.</p>
-                        <div class="mt-3 text-pink-400 text-sm">Read full guide →</div>
+                <div class="md:w-4/5">
+                    <a href="method-coach-feedback.html" class="step-card">
+                        <div class="s-title">
+                            <i class="fas fa-comment" style="color:#ec4899;font-size:18px"></i>
+                            Post-Game Coach Feedback
+                        </div>
+                        <div class="s-desc">Within 24 hours of each game, I send a 2-paragraph memo covering what worked offensively, defensive adjustments needed, individual takeaways, and one practice focus.</div>
+                        <span class="s-link">Read full guide →</span>
                     </a>
                 </div>
             </div>
         </div>
-        
+
     </section>
 
     <!-- Templates Download Section -->
-        <!-- Templates Download Section -->
-    <section class="px-6 py-16 max-w-3xl mx-auto text-center fade-up">
-        <div class="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-2xl p-8 border border-purple-500/30">
-            <i class="fas fa-download text-3xl text-purple-400 mb-3"></i>
-            <h2 class="text-2xl font-bold mb-2">Download Templates</h2>
-            <p class="text-gray-400 mb-6">Get the exact templates I use for scouting, live scoring, periodic recaps, and coach feedback.</p>
-            <div class="flex flex-wrap gap-3 justify-center">
-                <a href="Scout_Exp.docx" download class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm transition">📋 Scout Template</a>
-                <a href="Example_Box_Score.xlsx" download class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm transition">📝 Score Sheet</a>
-                <a href="Periodic_Report_Exp.pdf" download class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm transition">📋 Recap Template</a>
-                <a href="Gamely_Recap_Exp.pdf" download class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-lg text-sm transition">✍️ Feedback Template</a>
+    <section class="px-6 py-8 max-w-3xl mx-auto fade-up">
+        <div class="download-section">
+            <div style="font-size:36px;color:#a78bfa;margin-bottom:8px"><i class="fas fa-download"></i></div>
+            <h2>Download Templates</h2>
+            <p>Get the exact templates I use for scouting, live scoring, R code, periodic recaps, and coach feedback.</p>
+            <div class="tags">
+                <a href="Scout_Exp.docx" download><i class="fas fa-file-word" style="margin-right:6px;color:#06b6d4"></i> Scout Template</a>
+                <a href="Example_Box_Score.xlsx" download><i class="fas fa-file-excel" style="margin-right:6px;color:#10b981"></i> Score Sheet</a>
+                <a href="Periodic_Report_Exp.pdf" download><i class="fas fa-file-pdf" style="margin-right:6px;color:#f97316"></i> Recap Template</a>
+                <a href="Gamely_Recap_Exp.pdf" download><i class="fas fa-file-pdf" style="margin-right:6px;color:#ec4899"></i> Feedback Template</a>
             </div>
-            <p class="text-gray-500 text-xs mt-4">All templates use placeholder data — customize with your own team info</p>
+            <div class="note">All templates use placeholder data — customize with your own team info</div>
         </div>
     </section>
 
-    <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm">
+    <footer style="border-top:1px solid rgba(255,255,255,0.04);padding:24px 0;text-align:center;color:#5f6a7e;font-size:13px;margin-top:24px">
         <p>© 2026 Voop. Analyst Guide by JYang</p>
-        <p class="mt-2"><a href="index.html" class="hover:text-purple-400">← Home</a> | <a href="voop.html" class="hover:text-purple-400">Voop App</a></p>
+        <p style="margin-top:6px">
+            <a href="index.html" style="color:#5f6a7e;text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#a78bfa'" onmouseout="this.style.color='#5f6a7e'">Home</a>
+            <span style="margin:0 8px;color:#2a3344">·</span>
+            <a href="voop.html" style="color:#5f6a7e;text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#a78bfa'" onmouseout="this.style.color='#5f6a7e'">Voop App</a>
+        </p>
     </footer>
 
     <script>
         const fadeElements = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
         }, { threshold: 0.1 });
         fadeElements.forEach(el => observer.observe(el));
         setTimeout(() => {
-            fadeElements.forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-                    el.classList.add('visible');
-                }
-            });
+            fadeElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 100) { el.classList.add('visible'); } });
         }, 100);
     </script>
+
 </body>
 </html>
