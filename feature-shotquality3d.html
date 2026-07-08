@@ -6,80 +6,50 @@
     <title>Voop | 3D Shot Quality Analysis</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .shot-bg {
-            position: relative;
-            overflow: hidden;
-        }
-        .shot-bg::before {
-            content: "🎯🎯🎯";
-            position: absolute;
-            top: -20%;
-            right: -20%;
-            width: 200%;
-            height: 200%;
-            font-size: 25vw;
-            opacity: 0.03;
-            font-family: monospace;
-            white-space: nowrap;
-            transform: rotate(15deg);
-            pointer-events: none;
-            letter-spacing: 30px;
-        }
-        .shot-gradient {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(168, 85, 247, 0.05));
-        }
-        .stat-pill {
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-        }
-        .quality-meter {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 0.5s ease;
-        }
-        .quality-meter.excellent { background: linear-gradient(90deg, #22c55e, #10b981); }
-        .quality-meter.good { background: linear-gradient(90deg, #f59e0b, #d97706); }
-        .quality-meter.poor { background: linear-gradient(90deg, #ef4444, #dc2626); }
-        .metric-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 1rem 1.25rem;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            text-align: center;
-        }
-        .metric-card .value {
-            font-size: 28px;
-            font-weight: 700;
-        }
-        .metric-card .label {
-            font-size: 12px;
-            color: #8895aa;
-            margin-top: 2px;
-        }
-        .metric-card .sub {
-            font-size: 11px;
-            color: #5f6a7e;
-            margin-top: 4px;
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+        .fade-up.visible{opacity:1;transform:translateY(0)}
+        .shot-bg{position:relative;overflow:hidden}
+        .shot-bg::before{content:"🎯🎯🎯";position:absolute;top:-20%;right:-20%;width:200%;height:200%;font-size:25vw;opacity:0.03;font-family:monospace;white-space:nowrap;transform:rotate(15deg);pointer-events:none;letter-spacing:30px}
+        .shot-gradient{background:linear-gradient(135deg,rgba(139,92,246,0.08),rgba(168,85,247,0.05))}
+        .stat-pill{background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3)}
+        .stat-card{background:#141a26;border-radius:24px;border:1px solid rgba(255,255,255,0.06);padding:20px 22px;width:100%;max-width:380px;animation:float3D 12s ease-in-out infinite;transform-style:preserve-3d;will-change:transform;position:relative;overflow:hidden;margin:0 auto}
+        @keyframes float3D{0%{transform:perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)}10%{transform:perspective(1500px) rotateX(4deg) rotateY(8deg) scale(1.05)}25%{transform:perspective(1500px) rotateX(-2deg) rotateY(12deg) scale(1.08)}40%{transform:perspective(1500px) rotateX(-5deg) rotateY(4deg) scale(0.97)}55%{transform:perspective(1500px) rotateX(3deg) rotateY(-8deg) scale(1.07)}70%{transform:perspective(1500px) rotateX(6deg) rotateY(-4deg) scale(1.03)}85%{transform:perspective(1500px) rotateX(-3deg) rotateY(-10deg) scale(0.98)}100%{transform:perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)}}
+        .stat-card::before{content:'';position:absolute;top:-40%;right:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(245,158,11,0.08),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep 12s ease-in-out infinite}
+        .stat-card::after{content:'';position:absolute;bottom:-40%;left:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(245,158,11,0.05),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep2 12s ease-in-out infinite}
+        .stat-card .light-spot3{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:150px;height:150px;background:radial-gradient(circle,rgba(245,158,11,0.06),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep3 12s ease-in-out infinite}
+        @keyframes lightSweep{0%,100%{transform:translate(0,0) scale(1);opacity:0.6}50%{transform:translate(-35px,30px) scale(1.5);opacity:1}}
+        @keyframes lightSweep2{0%,100%{transform:translate(0,0) scale(1);opacity:0.4}50%{transform:translate(35px,-30px) scale(1.5);opacity:0.8}}
+        @keyframes lightSweep3{0%,100%{transform:translate(-50%,-50%) scale(0.8);opacity:0.3}50%{transform:translate(-50%,-50%) scale(1.4);opacity:0.6}}
+        .stat-title{font-size:13px;font-weight:600;color:#8895aa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:14px;position:relative;z-index:2}
+        .stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px;position:relative;z-index:2}
+        .stat-row:last-child{border-bottom:none}
+        .stat-row .label{color:#b0bccf}
+        .stat-row .value{font-weight:600;color:#e8edf5}
+        .value.highlight{color:#f59e0b}
+        .value .num{display:inline-block;transition:all 0.8s cubic-bezier(0.34,1.56,0.64,1)}
+        .value .unit{font-size:12px;color:#8895aa;font-weight:400;margin-left:1px}
+        .icon-bolt{display:inline-block;margin-right:4px;font-size:14px}
+        .metric-card{background:rgba(255,255,255,0.03);border-radius:12px;padding:1rem 1.25rem;border:1px solid rgba(255,255,255,0.06);text-align:center}
+        .metric-card .metric-value{font-size:28px;font-weight:700}
+        .metric-card .metric-label{font-size:12px;color:#8895aa;margin-top:2px}
+        .metric-card .metric-sub{font-size:11px;color:#5f6a7e;margin-top:4px}
+        .quality-meter{height:100%;border-radius:10px;transition:width 0.5s ease}
+        .quality-meter.excellent{background:linear-gradient(90deg,#22c55e,#10b981)}
+        .quality-meter.good{background:linear-gradient(90deg,#f59e0b,#d97706)}
+        .quality-meter.poor{background:linear-gradient(90deg,#ef4444,#dc2626)}
+        @media(max-width:600px){.stat-card{max-width:100%;padding:16px 18px}}
     </style>
 </head>
 <body class="bg-gray-950 text-white font-sans">
 
     <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold">
-                <span class="text-purple-400">Voop</span>
-            </div>
+            <div class="text-2xl font-bold"><span class="text-purple-400">Voop</span></div>
             <div class="space-x-6 text-sm hidden md:block">
                 <a href="index.html" class="hover:text-purple-400 transition">Home</a>
                 <a href="voop.html" class="hover:text-purple-400 transition">← All Features</a>
@@ -99,33 +69,63 @@
                 <p class="text-gray-400 text-xl mb-8">Multi-camera triangulation calculates real shot metrics: release height, angle, distance, and defender proximity.</p>
             </div>
 
+            <!-- Hero Card -->
+            <div class="fade-up my-8">
+                <div class="stat-card">
+                    <div class="light-spot3"></div>
+                    <div class="stat-title">🎯 3D Shot Quality</div>
+                    <div class="stat-row">
+                        <span class="label"><span class="icon-bolt">📊</span> Quality Score</span>
+                        <span class="value highlight"><span class="num" id="qualityNum">87</span><span class="unit">%</span></span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label"><span class="icon-bolt">📏</span> Release Height</span>
+                        <span class="value"><span class="num" id="heightNum">2.6</span><span class="unit">m</span></span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label"><span class="icon-bolt">📐</span> Release Angle</span>
+                        <span class="value"><span class="num" id="angleNum">55</span><span class="unit">°</span></span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label"><span class="icon-bolt">📏</span> Shot Distance</span>
+                        <span class="value"><span class="num" id="shotDistNum">5.2</span><span class="unit">m</span></span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label"><span class="icon-bolt">🛡️</span> Defender Dist</span>
+                        <span class="value"><span class="num" id="defDistNum">1.8</span><span class="unit">m</span></span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Key Metrics -->
-            <div class="fade-up shot-gradient rounded-2xl p-8 border border-purple-500/20 my-8">
-                <h2 class="text-lg font-bold mb-4 text-purple-400">📊 Shot Metrics</h2>
+            <div class="fade-up my-8">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <i class="fas fa-chart-simple text-purple-400"></i> Shot Metrics
+                </h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div class="metric-card">
                         <div class="text-2xl mb-1">📏</div>
-                        <div class="value text-purple-400">5.8</div>
-                        <div class="label">Avg Distance</div>
-                        <div class="sub">meters from hoop</div>
+                        <div class="metric-value text-purple-400">5.8</div>
+                        <div class="metric-label">Avg Distance</div>
+                        <div class="metric-sub">meters from hoop</div>
                     </div>
                     <div class="metric-card">
                         <div class="text-2xl mb-1">📐</div>
-                        <div class="value text-purple-400">2.6</div>
-                        <div class="label">Release Height</div>
-                        <div class="sub">meters</div>
+                        <div class="metric-value text-purple-400">2.6</div>
+                        <div class="metric-label">Release Height</div>
+                        <div class="metric-sub">meters</div>
                     </div>
                     <div class="metric-card">
                         <div class="text-2xl mb-1">🔄</div>
-                        <div class="value text-purple-400">54°</div>
-                        <div class="label">Release Angle</div>
-                        <div class="sub">degrees</div>
+                        <div class="metric-value text-purple-400">54°</div>
+                        <div class="metric-label">Release Angle</div>
+                        <div class="metric-sub">degrees</div>
                     </div>
                     <div class="metric-card">
                         <div class="text-2xl mb-1">🎯</div>
-                        <div class="value text-purple-400">78</div>
-                        <div class="label">Avg Shot Quality</div>
-                        <div class="sub">out of 100</div>
+                        <div class="metric-value text-purple-400">78</div>
+                        <div class="metric-label">Avg Shot Quality</div>
+                        <div class="metric-sub">out of 100</div>
                     </div>
                 </div>
             </div>
@@ -274,25 +274,6 @@
                 </div>
             </div>
 
-            <!-- Screenshot Placeholder -->
-            <div class="fade-up mt-12">
-                <h2 class="text-2xl font-bold mb-4">Preview</h2>
-                <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800 text-center">
-                    <div class="bg-black/50 rounded-xl aspect-video flex items-center justify-center">
-                        <div class="text-center">
-                            <i class="fas fa-chart-scatter text-5xl text-purple-400 mb-3"></i>
-                            <p class="text-gray-500">3D shot quality visualization will appear here</p>
-                            <p class="text-gray-600 text-sm mt-2">Release height, angle, distance, and quality score for each shot</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-center gap-6 mt-4 text-xs">
-                        <div class="flex items-center gap-1"><span class="text-green-400">●</span><span class="text-gray-500">90-100</span></div>
-                        <div class="flex items-center gap-1"><span class="text-yellow-400">●</span><span class="text-gray-500">50-89</span></div>
-                        <div class="flex items-center gap-1"><span class="text-red-400">●</span><span class="text-gray-500">0-49</span></div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Back to Features -->
             <div class="fade-up mt-12 text-center">
                 <a href="voop.html" class="bg-purple-500 hover:bg-purple-600 px-6 py-3 rounded-lg inline-block transition">← Back to All Features</a>
@@ -305,13 +286,65 @@
     </footer>
 
     <script>
+        // Hero card animation
+        const dataPoints = [
+            { quality: 87, height: 2.6, angle: 55, shotDist: 5.2, defDist: 1.8 },
+            { quality: 62, height: 2.1, angle: 42, shotDist: 7.8, defDist: 0.9 },
+            { quality: 94, height: 2.8, angle: 58, shotDist: 4.1, defDist: 2.3 },
+            { quality: 71, height: 2.3, angle: 48, shotDist: 6.5, defDist: 1.2 },
+            { quality: 55, height: 1.9, angle: 38, shotDist: 9.2, defDist: 0.6 },
+        ];
+
+        let ci=0, ni=1, prog=0;
+        const seg=2500, step=30;
+        const qNum=document.getElementById('qualityNum');
+        const hNum=document.getElementById('heightNum');
+        const aNum=document.getElementById('angleNum');
+        const sNum=document.getElementById('shotDistNum');
+        const dNum=document.getElementById('defDistNum');
+
+        function smoothUpdate() {
+            prog += step / seg;
+            if (prog >= 1) {
+                prog = 0;
+                ci = ni;
+                ni = (ni + 1) % dataPoints.length;
+            }
+            const eased = prog;
+            const cur = dataPoints[ci];
+            const nxt = dataPoints[ni];
+            const qVal = cur.quality + (nxt.quality - cur.quality) * eased;
+            qNum.textContent = Math.round(qVal);
+            const hVal = cur.height + (nxt.height - cur.height) * eased;
+            hNum.textContent = hVal.toFixed(1);
+            const aVal = cur.angle + (nxt.angle - cur.angle) * eased;
+            aNum.textContent = Math.round(aVal);
+            const sVal = cur.shotDist + (nxt.shotDist - cur.shotDist) * eased;
+            sNum.textContent = sVal.toFixed(1);
+            const dVal = cur.defDist + (nxt.defDist - cur.defDist) * eased;
+            dNum.textContent = dVal.toFixed(1);
+            requestAnimationFrame(smoothUpdate);
+        }
+
+        qNum.textContent = dataPoints[0].quality;
+        hNum.textContent = dataPoints[0].height.toFixed(1);
+        aNum.textContent = dataPoints[0].angle;
+        sNum.textContent = dataPoints[0].shotDist.toFixed(1);
+        dNum.textContent = dataPoints[0].defDist.toFixed(1);
+        smoothUpdate();
+
+        const card = document.querySelector('.stat-card');
+        setInterval(() => {
+            card.style.animation = 'none';
+            requestAnimationFrame(() => {
+                card.style.animation = 'float3D 12s ease-in-out infinite';
+            });
+        }, 12000);
+
+        // Fade-up animation
         const fadeElements = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
         }, { threshold: 0.1 });
         fadeElements.forEach(el => observer.observe(el));
     </script>
