@@ -6,123 +6,56 @@
     <title>Voop | Heat Maps</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .heatmap-bg {
-            position: relative;
-            overflow: hidden;
-        }
-        .heatmap-bg::before {
-            content: "🔥🔥🔥";
-            position: absolute;
-            top: -20%;
-            left: -20%;
-            width: 200%;
-            height: 200%;
-            font-size: 25vw;
-            opacity: 0.03;
-            font-family: monospace;
-            white-space: nowrap;
-            transform: rotate(-10deg);
-            pointer-events: none;
-            letter-spacing: 30px;
-        }
-        .heatmap-gradient {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08), rgba(249, 115, 22, 0.05));
-        }
-        .stat-pill {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-        .court-container {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            overflow: hidden;
-            aspect-ratio: 1/0.7;
-            position: relative;
-        }
-        .court-container .court-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #5f6a7e;
-            font-size: 14px;
-        }
-        .heatmap-legend {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 10px;
-        }
-        .heatmap-legend .gradient-bar {
-            width: 120px;
-            height: 10px;
-            border-radius: 10px;
-            background: linear-gradient(90deg, #1a3a5c, #22c55e, #f59e0b, #ef4444);
-        }
-        .top-player-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 10px 14px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .top-player-card .rank {
-            font-weight: 700;
-            color: #8895aa;
-            min-width: 24px;
-        }
-        .top-player-card .name {
-            font-weight: 600;
-            flex: 1;
-            padding: 0 12px;
-        }
-        .top-player-card .heat {
-            font-size: 13px;
-        }
-        .top-player-card .heat-bar {
-            width: 80px;
-            height: 6px;
-            background: #2a3344;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        .top-player-card .heat-fill {
-            height: 100%;
-            border-radius: 10px;
-        }
-        .activity-stat {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            font-size: 14px;
-        }
-        .activity-stat .label { color: #b0bccf; }
-        .activity-stat .value { font-weight: 600; }
+        *{margin:0;padding:0;box-sizing:border-box}
+        .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+        .fade-up.visible{opacity:1;transform:translateY(0)}
+        .heatmap-bg{position:relative;overflow:hidden}
+        .heatmap-bg::before{content:"🔥🔥🔥";position:absolute;top:-20%;left:-20%;width:200%;height:200%;font-size:25vw;opacity:0.03;font-family:monospace;white-space:nowrap;transform:rotate(-10deg);pointer-events:none;letter-spacing:30px}
+        .heatmap-gradient{background:linear-gradient(135deg,rgba(239,68,68,0.08),rgba(249,115,22,0.05))}
+        .stat-pill{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3)}
+        .stat-card{background:#141a26;border-radius:24px;border:1px solid rgba(255,255,255,0.06);padding:20px 22px;width:100%;max-width:420px;animation:float3D 12s ease-in-out infinite;transform-style:preserve-3d;will-change:transform;position:relative;overflow:hidden;margin:0 auto}
+        @keyframes float3D{0%{transform:perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)}10%{transform:perspective(1500px) rotateX(4deg) rotateY(8deg) scale(1.05)}25%{transform:perspective(1500px) rotateX(-2deg) rotateY(12deg) scale(1.08)}40%{transform:perspective(1500px) rotateX(-5deg) rotateY(4deg) scale(0.97)}55%{transform:perspective(1500px) rotateX(3deg) rotateY(-8deg) scale(1.07)}70%{transform:perspective(1500px) rotateX(6deg) rotateY(-4deg) scale(1.03)}85%{transform:perspective(1500px) rotateX(-3deg) rotateY(-10deg) scale(0.98)}100%{transform:perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)}}
+        .stat-card::before{content:'';position:absolute;top:-40%;right:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(249,115,22,0.08),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep 12s ease-in-out infinite}
+        .stat-card::after{content:'';position:absolute;bottom:-40%;left:-30%;width:200px;height:200px;background:radial-gradient(circle,rgba(249,115,22,0.05),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep2 12s ease-in-out infinite}
+        .stat-card .light-spot3{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:150px;height:150px;background:radial-gradient(circle,rgba(249,115,22,0.06),transparent 70%);pointer-events:none;border-radius:50%;animation:lightSweep3 12s ease-in-out infinite}
+        @keyframes lightSweep{0%,100%{transform:translate(0,0) scale(1);opacity:0.6}50%{transform:translate(-35px,30px) scale(1.5);opacity:1}}
+        @keyframes lightSweep2{0%,100%{transform:translate(0,0) scale(1);opacity:0.4}50%{transform:translate(35px,-30px) scale(1.5);opacity:0.8}}
+        @keyframes lightSweep3{0%,100%{transform:translate(-50%,-50%) scale(0.8);opacity:0.3}50%{transform:translate(-50%,-50%) scale(1.4);opacity:0.6}}
+        .stat-title{font-size:13px;font-weight:600;color:#8895aa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:14px;position:relative;z-index:2}
+        .stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px;position:relative;z-index:2}
+        .stat-row:last-child{border-bottom:none}
+        .stat-row .label{color:#b0bccf}
+        .stat-row .value{font-weight:600;color:#e8edf5}
+        .value.highlight{color:#f97316}
+        .value .num{display:inline-block;transition:all 0.8s cubic-bezier(0.34,1.56,0.64,1)}
+        .value .unit{font-size:12px;color:#8895aa;font-weight:400;margin-left:1px}
+        .icon-bolt{display:inline-block;margin-right:4px;font-size:14px}
+        .court-container{position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.06);margin-bottom:14px;background:#0a100e;z-index:2}
+        #heatCanvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0.75}
+        .court-container svg{width:100%;height:100%;display:block;position:relative;z-index:2}
+        .top-player-card{background:rgba(255,255,255,0.03);border-radius:10px;padding:10px 14px;border:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center}
+        .top-player-card .rank{font-weight:700;color:#8895aa;min-width:24px}
+        .top-player-card .pname{font-weight:600;flex:1;padding:0 12px}
+        .top-player-card .pheat{font-size:13px}
+        .top-player-card .heat-bar{width:80px;height:6px;background:#2a3344;border-radius:10px;overflow:hidden}
+        .top-player-card .heat-fill{height:100%;border-radius:10px}
+        .activity-stat{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px}
+        .activity-stat .alabel{color:#b0bccf}
+        .activity-stat .avalue{font-weight:600}
+        .heatmap-legend{display:flex;align-items:center;gap:8px;justify-content:center;margin-top:10px}
+        .heatmap-legend .gradient-bar{width:120px;height:10px;border-radius:10px;background:linear-gradient(90deg,#1a3a5c,#22c55e,#f59e0b,#ef4444)}
+        @media(max-width:600px){.stat-card{max-width:100%;padding:16px 18px}}
     </style>
 </head>
 <body class="bg-gray-950 text-white font-sans">
 
     <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
         <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold">
-                <span class="text-red-400">Voop</span>
-            </div>
+            <div class="text-2xl font-bold"><span class="text-red-400">Voop</span></div>
             <div class="space-x-6 text-sm hidden md:block">
                 <a href="index.html" class="hover:text-red-400 transition">Home</a>
                 <a href="voop.html" class="hover:text-red-400 transition">← All Features</a>
@@ -142,9 +75,69 @@
                 <p class="text-gray-400 text-xl mb-8">Visualize player and team positioning intensity — see where your team operates best.</p>
             </div>
 
+            <!-- Hero Card -->
+            <div class="fade-up my-8">
+                <div class="stat-card">
+                    <div class="light-spot3"></div>
+                    <div class="stat-title">🔥 Heat Maps</div>
+                    <div class="court-container">
+                        <canvas id="heatCanvas"></canvas>
+                        <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="0" y="0" width="800" height="450" fill="transparent" rx="4"/>
+                            <rect x="10" y="10" width="780" height="430" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2" rx="4"/>
+                            <line x1="400" y1="10" x2="400" y2="440" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <circle cx="400" cy="225" r="50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <circle cx="400" cy="225" r="3" fill="rgba(255,255,255,0.15)"/>
+                            <line x1="10" y1="35" x2="130" y2="35" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <line x1="10" y1="415" x2="130" y2="415" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <path d="M 130,35 A 200,200 0 0,1 130,415" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <line x1="790" y1="35" x2="670" y2="35" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <line x1="790" y1="415" x2="670" y2="415" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <path d="M 670,35 A 200,200 0 0,0 670,415" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <rect x="10" y="170" width="160" height="110" fill="rgba(249,115,22,0.03)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <rect x="630" y="170" width="160" height="110" fill="rgba(34,211,238,0.03)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <path d="M 170,170 A 50,50 0 0,1 170,280" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <path d="M 170,170 A 50,50 0 0,0 170,280" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="5 4"/>
+                            <path d="M 630,170 A 50,50 0 0,0 630,280" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                            <path d="M 630,170 A 50,50 0 0,1 630,280" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="5 4"/>
+                            <path d="M 55,190 A 35,35 0 0,1 55,260" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                            <path d="M 745,190 A 35,35 0 0,0 745,260" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                            <rect x="10" y="213" width="12" height="24" fill="rgba(255,255,255,0.08)" rx="1"/>
+                            <circle cx="55" cy="225" r="11" fill="none" stroke="rgba(249,115,22,0.5)" stroke-width="2.5"/>
+                            <rect x="778" y="213" width="12" height="24" fill="rgba(255,255,255,0.08)" rx="1"/>
+                            <circle cx="745" cy="225" r="11" fill="none" stroke="rgba(34,211,238,0.5)" stroke-width="2.5"/>
+                            <text x="45" y="48" font-family="Inter, sans-serif" font-size="9" fill="rgba(249,115,22,0.35)" font-weight="600" letter-spacing="0.08em">HOME</text>
+                            <text x="710" y="48" font-family="Inter, sans-serif" font-size="9" fill="rgba(34,211,238,0.35)" font-weight="600" letter-spacing="0.08em">AWAY</text>
+                        </svg>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label"><span class="icon-bolt">🏠</span> Home Activity</span>
+                        <span class="value highlight"><span class="num" id="homeActNum">1,247</span></span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label"><span class="icon-bolt">✈️</span> Away Activity</span>
+                        <span class="value"><span class="num" id="awayActNum">892</span></span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label"><span class="icon-bolt">🔥</span> Peak Zone</span>
+                        <span class="value highlight"><span class="num" id="peakNum">Paint</span></span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label"><span class="icon-bolt">📊</span> Coverage</span>
+                        <span class="value"><span class="num" id="coverageNum">68</span><span class="unit">%</span></span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="label"><span class="icon-bolt">👤</span> Top Player</span>
+                        <span class="value highlight"><span class="num" id="topPlayerNum">#7</span></span>
+                    </div>
+                </div>
+            </div>
+
             <!-- Heatmap Visuals -->
-            <div class="fade-up heatmap-gradient rounded-2xl p-8 border border-red-500/20 my-8">
-                <h2 class="text-lg font-bold mb-4 text-red-400">🔥 Position Intensity</h2>
+            <div class="fade-up my-8">
+                <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                    <i class="fas fa-fire-flame-curved text-red-400"></i> Position Intensity
+                </h2>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <div class="court-container">
@@ -158,7 +151,6 @@
                                 <circle cx="320" cy="140" r="6" stroke="#2a3344" stroke-width="1" fill="none"/>
                                 <path d="M 60 50 Q 200 20 340 50" stroke="#2a3344" stroke-width="1.5" fill="none"/>
                                 <path d="M 60 230 Q 200 260 340 230" stroke="#2a3344" stroke-width="1.5" fill="none"/>
-                                <!-- Heat map blobs -->
                                 <ellipse cx="200" cy="140" rx="60" ry="40" fill="rgba(239,68,68,0.15)"/>
                                 <ellipse cx="140" cy="120" rx="35" ry="25" fill="rgba(249,115,22,0.2)"/>
                                 <ellipse cx="260" cy="100" rx="30" ry="20" fill="rgba(249,115,22,0.15)"/>
@@ -166,7 +158,6 @@
                                 <ellipse cx="300" cy="180" rx="25" ry="30" fill="rgba(249,115,22,0.1)"/>
                                 <ellipse cx="100" cy="160" rx="20" ry="35" fill="rgba(239,68,68,0.08)"/>
                                 <ellipse cx="240" cy="220" rx="30" ry="15" fill="rgba(249,115,22,0.1)"/>
-                                <!-- Player dots -->
                                 <circle cx="140" cy="120" r="6" fill="#f97316" opacity="0.8"/>
                                 <circle cx="160" cy="100" r="5" fill="#f97316" opacity="0.6"/>
                                 <circle cx="200" cy="140" r="7" fill="#ef4444" opacity="0.8"/>
@@ -179,15 +170,9 @@
                                 <circle cx="280" cy="140" r="4" fill="#f97316" opacity="0.4"/>
                                 <circle cx="220" cy="100" r="4" fill="#f97316" opacity="0.4"/>
                             </svg>
-                            <div class="court-overlay">
-                                <span style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:11px;color:#5f6a7e;background:rgba(0,0,0,0.7);padding:2px 12px;border-radius:20px;">🏠 Home Activity</span>
-                            </div>
+                            <div class="court-overlay"><span style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:11px;color:#5f6a7e;background:rgba(0,0,0,0.7);padding:2px 12px;border-radius:20px;">🏠 Home Activity</span></div>
                         </div>
-                        <div class="heatmap-legend">
-                            <span class="text-xs text-gray-500">Low</span>
-                            <div class="gradient-bar"></div>
-                            <span class="text-xs text-gray-500">High</span>
-                        </div>
+                        <div class="heatmap-legend"><span class="text-xs text-gray-500">Low</span><div class="gradient-bar"></div><span class="text-xs text-gray-500">High</span></div>
                     </div>
                     <div>
                         <div class="court-container">
@@ -201,14 +186,12 @@
                                 <circle cx="320" cy="140" r="6" stroke="#2a3344" stroke-width="1" fill="none"/>
                                 <path d="M 60 50 Q 200 20 340 50" stroke="#2a3344" stroke-width="1.5" fill="none"/>
                                 <path d="M 60 230 Q 200 260 340 230" stroke="#2a3344" stroke-width="1.5" fill="none"/>
-                                <!-- Heat map blobs -->
                                 <ellipse cx="240" cy="160" rx="50" ry="35" fill="rgba(59,130,246,0.15)"/>
                                 <ellipse cx="300" cy="130" rx="30" ry="25" fill="rgba(59,130,246,0.2)"/>
                                 <ellipse cx="180" cy="110" rx="25" ry="20" fill="rgba(59,130,246,0.12)"/>
                                 <ellipse cx="220" cy="220" rx="35" ry="20" fill="rgba(59,130,246,0.1)"/>
                                 <ellipse cx="130" cy="180" rx="20" ry="30" fill="rgba(59,130,246,0.08)"/>
                                 <ellipse cx="280" cy="200" rx="25" ry="15" fill="rgba(59,130,246,0.1)"/>
-                                <!-- Player dots -->
                                 <circle cx="240" cy="160" r="7" fill="#3b82f6" opacity="0.8"/>
                                 <circle cx="300" cy="130" r="6" fill="#3b82f6" opacity="0.7"/>
                                 <circle cx="180" cy="110" r="5" fill="#3b82f6" opacity="0.6"/>
@@ -219,15 +202,9 @@
                                 <circle cx="320" cy="160" r="4" fill="#3b82f6" opacity="0.4"/>
                                 <circle cx="200" cy="180" r="4" fill="#3b82f6" opacity="0.4"/>
                             </svg>
-                            <div class="court-overlay">
-                                <span style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:11px;color:#5f6a7e;background:rgba(0,0,0,0.7);padding:2px 12px;border-radius:20px;">✈️ Away Activity</span>
-                            </div>
+                            <div class="court-overlay"><span style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:11px;color:#5f6a7e;background:rgba(0,0,0,0.7);padding:2px 12px;border-radius:20px;">✈️ Away Activity</span></div>
                         </div>
-                        <div class="heatmap-legend">
-                            <span class="text-xs text-gray-500">Low</span>
-                            <div class="gradient-bar"></div>
-                            <span class="text-xs text-gray-500">High</span>
-                        </div>
+                        <div class="heatmap-legend"><span class="text-xs text-gray-500">Low</span><div class="gradient-bar"></div><span class="text-xs text-gray-500">High</span></div>
                     </div>
                 </div>
             </div>
@@ -241,42 +218,42 @@
                     <div class="space-y-3">
                         <div class="top-player-card">
                             <span class="rank">#1</span>
-                            <span class="name">🏠 Player #23 <span class="text-xs text-gray-500">Forward</span></span>
+                            <span class="pname">🏠 Player #23 <span class="text-xs text-gray-500">Forward</span></span>
                             <div class="flex items-center gap-4">
                                 <div class="heat-bar"><div class="heat-fill" style="width:92%;background:linear-gradient(90deg,#f59e0b,#ef4444);"></div></div>
-                                <span class="heat text-red-400 font-bold">92%</span>
+                                <span class="pheat text-red-400 font-bold">92%</span>
                             </div>
                         </div>
                         <div class="top-player-card">
                             <span class="rank">#2</span>
-                            <span class="name">✈️ Player #12 <span class="text-xs text-gray-500">Guard</span></span>
+                            <span class="pname">✈️ Player #12 <span class="text-xs text-gray-500">Guard</span></span>
                             <div class="flex items-center gap-4">
                                 <div class="heat-bar"><div class="heat-fill" style="width:78%;background:linear-gradient(90deg,#22c55e,#f59e0b);"></div></div>
-                                <span class="heat text-orange-400 font-bold">78%</span>
+                                <span class="pheat text-orange-400 font-bold">78%</span>
                             </div>
                         </div>
                         <div class="top-player-card">
                             <span class="rank">#3</span>
-                            <span class="name">🏠 Player #5 <span class="text-xs text-gray-500">Guard</span></span>
+                            <span class="pname">🏠 Player #5 <span class="text-xs text-gray-500">Guard</span></span>
                             <div class="flex items-center gap-4">
                                 <div class="heat-bar"><div class="heat-fill" style="width:65%;background:linear-gradient(90deg,#22c55e,#f59e0b);"></div></div>
-                                <span class="heat text-orange-400 font-bold">65%</span>
+                                <span class="pheat text-orange-400 font-bold">65%</span>
                             </div>
                         </div>
                         <div class="top-player-card">
                             <span class="rank">#4</span>
-                            <span class="name">✈️ Player #8 <span class="text-xs text-gray-500">Forward</span></span>
+                            <span class="pname">✈️ Player #8 <span class="text-xs text-gray-500">Forward</span></span>
                             <div class="flex items-center gap-4">
                                 <div class="heat-bar"><div class="heat-fill" style="width:54%;background:linear-gradient(90deg,#22c55e,#22c55e);"></div></div>
-                                <span class="heat text-green-400 font-bold">54%</span>
+                                <span class="pheat text-green-400 font-bold">54%</span>
                             </div>
                         </div>
                         <div class="top-player-card">
                             <span class="rank">#5</span>
-                            <span class="name">🏠 Player #15 <span class="text-xs text-gray-500">Center</span></span>
+                            <span class="pname">🏠 Player #15 <span class="text-xs text-gray-500">Center</span></span>
                             <div class="flex items-center gap-4">
                                 <div class="heat-bar"><div class="heat-fill" style="width:47%;background:linear-gradient(90deg,#22c55e,#22c55e);"></div></div>
-                                <span class="heat text-green-400 font-bold">47%</span>
+                                <span class="pheat text-green-400 font-bold">47%</span>
                             </div>
                         </div>
                     </div>
@@ -291,17 +268,17 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="bg-gray-900/40 rounded-xl p-6 border border-gray-800">
                         <h3 class="font-bold text-orange-400 mb-3">🏠 Home Team</h3>
-                        <div class="activity-stat"><span class="label">Total Frames Active</span><span class="value text-orange-400">2,847</span></div>
-                        <div class="activity-stat"><span class="label">Peak Zone</span><span class="value text-orange-400">Paint (39%)</span></div>
-                        <div class="activity-stat"><span class="label">Most Active Player</span><span class="value text-orange-400">#23 (92%)</span></div>
-                        <div class="activity-stat"><span class="label">Offensive Rebounding Activity</span><span class="value text-orange-400">High</span></div>
+                        <div class="activity-stat"><span class="alabel">Total Frames Active</span><span class="avalue text-orange-400">2,847</span></div>
+                        <div class="activity-stat"><span class="alabel">Peak Zone</span><span class="avalue text-orange-400">Paint (39%)</span></div>
+                        <div class="activity-stat"><span class="alabel">Most Active Player</span><span class="avalue text-orange-400">#23 (92%)</span></div>
+                        <div class="activity-stat"><span class="alabel">Offensive Rebounding Activity</span><span class="avalue text-orange-400">High</span></div>
                     </div>
                     <div class="bg-gray-900/40 rounded-xl p-6 border border-gray-800">
                         <h3 class="font-bold text-blue-400 mb-3">✈️ Away Team</h3>
-                        <div class="activity-stat"><span class="label">Total Frames Active</span><span class="value text-blue-400">2,612</span></div>
-                        <div class="activity-stat"><span class="label">Peak Zone</span><span class="value text-blue-400">Perimeter (44%)</span></div>
-                        <div class="activity-stat"><span class="label">Most Active Player</span><span class="value text-blue-400">#12 (78%)</span></div>
-                        <div class="activity-stat"><span class="label">Defensive Activity</span><span class="value text-blue-400">High</span></div>
+                        <div class="activity-stat"><span class="alabel">Total Frames Active</span><span class="avalue text-blue-400">2,612</span></div>
+                        <div class="activity-stat"><span class="alabel">Peak Zone</span><span class="avalue text-blue-400">Perimeter (44%)</span></div>
+                        <div class="activity-stat"><span class="alabel">Most Active Player</span><span class="avalue text-blue-400">#12 (78%)</span></div>
+                        <div class="activity-stat"><span class="alabel">Defensive Activity</span><span class="avalue text-blue-400">High</span></div>
                     </div>
                 </div>
             </div>
@@ -375,26 +352,6 @@
                 </div>
             </div>
 
-            <!-- Screenshot Placeholder -->
-            <div class="fade-up mt-12">
-                <h2 class="text-2xl font-bold mb-4">Preview</h2>
-                <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800 text-center">
-                    <div class="bg-black/50 rounded-xl aspect-video flex items-center justify-center">
-                        <div class="text-center">
-                            <i class="fas fa-fire-flame-curved text-5xl text-red-400 mb-3"></i>
-                            <p class="text-gray-500">Heat map visualization will appear here</p>
-                            <p class="text-gray-600 text-sm mt-2">Live player positioning intensity with color-coded activity zones</p>
-                        </div>
-                    </div>
-                    <div class="flex justify-center gap-6 mt-4 text-xs">
-                        <div class="flex items-center gap-1"><div class="w-3 h-3 rounded-full" style="background:#1a3a5c;"></div><span class="text-gray-500">Low</span></div>
-                        <div class="flex items-center gap-1"><div class="w-3 h-3 rounded-full" style="background:#22c55e;"></div><span class="text-gray-500">Medium</span></div>
-                        <div class="flex items-center gap-1"><div class="w-3 h-3 rounded-full" style="background:#f59e0b;"></div><span class="text-gray-500">High</span></div>
-                        <div class="flex items-center gap-1"><div class="w-3 h-3 rounded-full" style="background:#ef4444;"></div><span class="text-gray-500">Very High</span></div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Back to Features -->
             <div class="fade-up mt-12 text-center">
                 <a href="voop.html" class="bg-red-500 hover:bg-red-600 px-6 py-3 rounded-lg inline-block transition">← Back to All Features</a>
@@ -407,13 +364,181 @@
     </footer>
 
     <script>
+        // Hero card animation
+        const dataPoints = [
+            { home: 1247, away: 892, peak: 'Paint', coverage: 68, top: '#7' },
+            { home: 1560, away: 743, peak: 'Perimeter', coverage: 74, top: '#3' },
+            { home: 1034, away: 1105, peak: 'Mid-Range', coverage: 61, top: '#1' },
+            { home: 1872, away: 956, peak: 'Paint', coverage: 82, top: '#5' },
+            { home: 1345, away: 678, peak: 'Perimeter', coverage: 56, top: '#9' },
+        ];
+
+        let ci=0, ni=1, prog=0;
+        const seg=2000, step=30;
+        const hNum=document.getElementById('homeActNum');
+        const aNum=document.getElementById('awayActNum');
+        const pNum=document.getElementById('peakNum');
+        const cNum=document.getElementById('coverageNum');
+        const tNum=document.getElementById('topPlayerNum');
+
+        // Canvas heatmap
+        const canvas = document.getElementById('heatCanvas');
+        const ctx = canvas.getContext('2d');
+        let W, H;
+
+        function resizeCanvas() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            const dpr = Math.min(devicePixelRatio, 2);
+            W = rect.width;
+            H = rect.height;
+            canvas.width = W * dpr;
+            canvas.height = H * dpr;
+            canvas.style.width = W + 'px';
+            canvas.style.height = H + 'px';
+            ctx.scale(dpr, dpr);
+        }
+
+        function jetColor(value) {
+            const v = Math.max(0, Math.min(1, value));
+            const r = Math.min(1, Math.max(0, 1.5 * (v - 0.2)));
+            const g = Math.min(1, Math.max(0, 1 - 2 * Math.abs(v - 0.5)));
+            const b = Math.min(1, Math.max(0, 1.5 * (0.8 - v)));
+            return { r: r * 255, g: g * 255, b: b * 255 };
+        }
+
+        const homePositions = [];
+        const awayPositions = [];
+        const NUM = 8;
+        for (let i = 0; i < NUM; i++) {
+            homePositions.push({ x: 0.15 + Math.random() * 0.5, y: 0.15 + Math.random() * 0.6, vx: (Math.random() - 0.5) * 0.004, vy: (Math.random() - 0.5) * 0.004, phase: Math.random() * Math.PI * 2 });
+            awayPositions.push({ x: 0.35 + Math.random() * 0.5, y: 0.15 + Math.random() * 0.6, vx: (Math.random() - 0.5) * 0.004, vy: (Math.random() - 0.5) * 0.004, phase: Math.random() * Math.PI * 2 });
+        }
+
+        function gaussianKernel(sigma, size) {
+            const half = Math.floor(size / 2);
+            const kernel = new Float32Array(size * size);
+            let sum = 0;
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    const dx = x - half, dy = y - half;
+                    const val = Math.exp(-(dx*dx + dy*dy) / (2 * sigma * sigma));
+                    kernel[y * size + x] = val;
+                    sum += val;
+                }
+            }
+            for (let i = 0; i < size * size; i++) kernel[i] /= sum;
+            return { kernel, size, half };
+        }
+
+        const KERNEL_SIZE = 21, SIGMA = 8;
+        const gk = gaussianKernel(SIGMA, KERNEL_SIZE);
+
+        function drawHeatmap() {
+            const mask = new Float32Array(Math.ceil(W) * Math.ceil(H));
+            const time = Date.now();
+            homePositions.forEach((p, i) => {
+                p.x += p.vx + Math.sin(time * 0.0003 + p.phase) * 0.002;
+                p.y += p.vy + Math.cos(time * 0.0004 + p.phase + 1) * 0.002;
+                if (p.x < 0.05) { p.x = 0.05; p.vx = Math.abs(p.vx); }
+                if (p.x > 0.85) { p.x = 0.85; p.vx = -Math.abs(p.vx); }
+                if (p.y < 0.05) { p.y = 0.05; p.vy = Math.abs(p.vy); }
+                if (p.y > 0.85) { p.y = 0.85; p.vy = -Math.abs(p.vy); }
+                const px = Math.round(p.x * W), py = Math.round(p.y * H);
+                if (px >= 0 && px < W && py >= 0 && py < H) mask[py * W + px] += 0.8 + 0.4 * Math.sin(time * 0.001 + i);
+            });
+            awayPositions.forEach((p, i) => {
+                p.x += p.vx + Math.sin(time * 0.00035 + p.phase + 2) * 0.002;
+                p.y += p.vy + Math.cos(time * 0.00045 + p.phase + 3) * 0.002;
+                if (p.x < 0.05) { p.x = 0.05; p.vx = Math.abs(p.vx); }
+                if (p.x > 0.85) { p.x = 0.85; p.vx = -Math.abs(p.vx); }
+                if (p.y < 0.05) { p.y = 0.05; p.vy = Math.abs(p.vy); }
+                if (p.y > 0.85) { p.y = 0.85; p.vy = -Math.abs(p.vy); }
+                const px = Math.round(p.x * W), py = Math.round(p.y * H);
+                if (px >= 0 && px < W && py >= 0 && py < H) mask[py * W + px] += 0.6 + 0.3 * Math.sin(time * 0.0012 + i + 0.5);
+            });
+
+            const blurred = new Float32Array(W * H);
+            const half = gk.half, size = gk.size, kernel = gk.kernel;
+            for (let y = 0; y < H; y++) {
+                for (let x = 0; x < W; x++) {
+                    let sum = 0;
+                    for (let ky = 0; ky < size; ky++) {
+                        for (let kx = 0; kx < size; kx++) {
+                            const sx = Math.min(Math.max(x + kx - half, 0), W - 1);
+                            const sy = Math.min(Math.max(y + ky - half, 0), H - 1);
+                            sum += mask[sy * W + sx] * kernel[ky * size + kx];
+                        }
+                    }
+                    blurred[y * W + x] = sum;
+                }
+            }
+            let maxVal = 0;
+            for (let i = 0; i < W * H; i++) { if (blurred[i] > maxVal) maxVal = blurred[i]; }
+            if (maxVal === 0) maxVal = 1;
+
+            const imageData = ctx.createImageData(W, H);
+            for (let y = 0; y < H; y++) {
+                for (let x = 0; x < W; x++) {
+                    const idx = y * W + x;
+                    const normalized = Math.min(1, blurred[idx] / maxVal * 2.0);
+                    const color = jetColor(normalized);
+                    const pIdx = idx * 4;
+                    imageData.data[pIdx] = color.r;
+                    imageData.data[pIdx + 1] = color.g;
+                    imageData.data[pIdx + 2] = color.b;
+                    imageData.data[pIdx + 3] = normalized > 0.02 ? 220 : 0;
+                }
+            }
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        function renderLoop() {
+            drawHeatmap();
+            requestAnimationFrame(renderLoop);
+        }
+
+        function smoothUpdate() {
+            prog += step / seg;
+            if (prog >= 1) {
+                prog = 0;
+                ci = ni;
+                ni = (ni + 1) % dataPoints.length;
+                pNum.textContent = dataPoints[ni].peak;
+                tNum.textContent = dataPoints[ni].top;
+            }
+            const eased = prog;
+            const cur = dataPoints[ci];
+            const nxt = dataPoints[ni];
+            hNum.textContent = Math.round(cur.home + (nxt.home - cur.home) * eased);
+            aNum.textContent = Math.round(cur.away + (nxt.away - cur.away) * eased);
+            cNum.textContent = Math.round(cur.coverage + (nxt.coverage - cur.coverage) * eased);
+            requestAnimationFrame(smoothUpdate);
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        hNum.textContent = dataPoints[0].home;
+        aNum.textContent = dataPoints[0].away;
+        pNum.textContent = dataPoints[0].peak;
+        cNum.textContent = dataPoints[0].coverage;
+        tNum.textContent = dataPoints[0].top;
+
+        smoothUpdate();
+        renderLoop();
+
+        const card = document.querySelector('.stat-card');
+        setInterval(() => {
+            card.style.animation = 'none';
+            requestAnimationFrame(() => {
+                card.style.animation = 'float3D 12s ease-in-out infinite';
+            });
+        }, 12000);
+
+        // Fade-up animation
         const fadeElements = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
         }, { threshold: 0.1 });
         fadeElements.forEach(el => observer.observe(el));
     </script>
