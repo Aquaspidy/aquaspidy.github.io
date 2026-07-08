@@ -6,210 +6,198 @@
     <title>Voop App | Real-Time Basketball Analytics</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .feature-card {
-            transition: all 0.3s ease;
-            height: 100%;
-        }
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.15);
-            border-color: rgba(6, 182, 212, 0.6);
-        }
-        .philosophy-quote {
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(139, 92, 246, 0.05));
-        }
-        .download-btn {
-            transition: all 0.3s ease;
-        }
-        .download-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
-        }
-        .multi-cam-badge {
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.15));
-            border: 1px solid rgba(6, 182, 212, 0.3);
-        }
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        @media (max-width: 640px) {
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:#0b0f1a;color:#e8edf5}
+        .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+        .fade-up.visible{opacity:1;transform:translateY(0)}
+        .feature-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:24px 22px;transition:all 0.3s ease;height:100%;display:flex;flex-direction:column;align-items:flex-start;text-decoration:none;color:#e8edf5;position:relative;overflow:hidden}
+        .feature-card:hover{transform:translateY(-6px);border-color:rgba(34,211,238,0.25);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+        .feature-card .f-icon{font-size:28px;color:#22d3ee;margin-bottom:14px;display:block}
+        .feature-card h3{font-size:18px;font-weight:600;margin-bottom:6px;color:#e8edf5}
+        .feature-card p{font-size:14px;color:#8895aa;line-height:1.6;flex:1}
+        .feature-card .arrow{color:#22d3ee;font-size:14px;margin-top:14px;display:inline-block;transition:transform 0.2s;font-weight:500}
+        .feature-card:hover .arrow{transform:translateX(4px)}
+        .feature-card .glow{position:absolute;top:-40%;right:-20%;width:150px;height:150px;background:radial-gradient(circle,rgba(34,211,238,0.04),transparent 70%);pointer-events:none;border-radius:50%}
+        .stat-pill{background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.1);padding:4px 16px;border-radius:100px;font-size:11px;font-weight:500;color:#22d3ee;letter-spacing:0.5px;text-transform:uppercase}
+        .philosophy-quote{background:linear-gradient(135deg,rgba(34,211,238,0.04),rgba(139,92,246,0.03));border:1px solid rgba(34,211,238,0.08);border-radius:16px;padding:32px 40px;text-align:center}
+        .philosophy-quote i{color:#22d3ee;opacity:0.4}
+        .philosophy-quote p{color:#b0bccf;font-style:italic;line-height:1.8;font-size:17px}
+        .download-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#10b981,#059669);color:#0b0f1a;font-weight:600;padding:14px 32px;border-radius:12px;text-decoration:none;transition:all 0.3s ease}
+        .download-btn:hover{transform:scale(1.02);box-shadow:0 8px 30px rgba(16,185,129,0.25)}
+        .download-section{background:linear-gradient(135deg,rgba(34,211,238,0.04),rgba(59,130,246,0.03));border:1px solid rgba(34,211,238,0.08);border-radius:20px;padding:32px 40px;text-align:center}
+        .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+        .multi-cam-badge{background:linear-gradient(135deg,rgba(34,211,238,0.06),rgba(59,130,246,0.04));border:1px solid rgba(34,211,238,0.1);border-radius:16px;padding:28px 32px;text-align:center}
+        .multi-cam-badge .mc-icon{font-size:40px;color:#22d3ee;margin-bottom:12px;display:block}
+        .multi-cam-badge h2{font-size:22px;font-weight:700;margin-bottom:8px;color:#e8edf5}
+        .multi-cam-badge p{color:#8895aa;line-height:1.7;max-width:680px;margin:0 auto}
+        .multi-cam-badge .tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+        .multi-cam-badge .tags span{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);padding:4px 14px;border-radius:100px;font-size:12px;color:#8895aa}
+        .nav-link{color:#b0bccf;text-decoration:none;transition:color 0.2s;font-size:14px}
+        .nav-link:hover{color:#22d3ee}
+        @media(max-width:640px){.feature-grid{grid-template-columns:1fr}.philosophy-quote{padding:24px 20px}.download-section{padding:24px 20px}.multi-cam-badge{padding:20px 16px}}
     </style>
 </head>
-<body class="bg-gray-950 text-white font-sans">
+<body>
 
     <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="text-2xl font-bold">
-                <span class="text-cyan-400">Voop</span>
-            </div>
+            <div class="text-2xl font-bold"><span style="color:#22d3ee">Voop</span></div>
             <div class="space-x-6 text-sm hidden md:block">
-                <a href="index.html" class="hover:text-cyan-400 transition">← Home</a>
-                <a href="guide.html" class="hover:text-cyan-400 transition">Analyst Guide</a>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="guide.html" class="nav-link">Analyst Guide</a>
             </div>
         </div>
     </nav>
 
     <section class="px-6 py-20 text-center max-w-4xl mx-auto fade-up">
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">
-            <span class="text-cyan-400">Voop</span> App
+        <h1 class="text-5xl md:text-6xl font-bold mb-4" style="letter-spacing:-0.5px">
+            <span style="color:#22d3ee">Voop</span> App
         </h1>
-        <p class="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
+        <p class="text-gray-400 text-lg mb-4 max-w-2xl mx-auto" style="color:#8895aa;line-height:1.7">
             Real-time computer vision basketball analytics for high school teams.
             Built with YOLOv8, PyQt, and optical flow tracking.
         </p>
     </section>
 
     <!-- Multi-Camera Introduction -->
-    <section class="px-6 py-8 max-w-4xl mx-auto fade-up">
-        <div class="multi-cam-badge rounded-2xl p-6 border text-center">
-            <div class="text-4xl mb-3">📹</div>
-            <h2 class="text-2xl font-bold mb-2">Multi-Camera Support</h2>
-            <p class="text-gray-300 leading-relaxed max-w-3xl mx-auto">
-                Voop now supports <span class="text-cyan-400 font-semibold">up to 6 cameras</span> simultaneously, providing 
-                comprehensive court coverage and enhanced accuracy. Multi-camera triangulation enables 
-                <span class="text-cyan-400 font-semibold">true 3D player tracking</span>, precise shot quality analysis 
-                with real release height and angle, and eliminates blind spots that single-camera systems miss. 
+    <section class="px-6 py-6 max-w-4xl mx-auto fade-up">
+        <div class="multi-cam-badge">
+            <span class="mc-icon"><i class="fas fa-video"></i></span>
+            <h2>Multi-Camera Support</h2>
+            <p>
+                Voop now supports <strong style="color:#22d3ee">up to 6 cameras</strong> simultaneously, providing
+                comprehensive court coverage and enhanced accuracy. Multi-camera triangulation enables
+                <strong style="color:#22d3ee">true 3D player tracking</strong>, precise shot quality analysis
+                with real release height and angle, and eliminates blind spots that single-camera systems miss.
                 Coaches can now view the entire court exhaustively — from baseline to baseline.
             </p>
-            <div class="flex flex-wrap justify-center gap-4 mt-4 text-sm text-gray-400">
-                <span class="bg-gray-800/50 px-3 py-1 rounded-full">📐 3D Triangulation</span>
-                <span class="bg-gray-800/50 px-3 py-1 rounded-full">🎯 Real Release Height</span>
-                <span class="bg-gray-800/50 px-3 py-1 rounded-full">🔄 Full Court Coverage</span>
-                <span class="bg-gray-800/50 px-3 py-1 rounded-full">📊 Multi-Angle Analysis</span>
+            <div class="tags">
+                <span><i class="fas fa-cube" style="margin-right:4px"></i> 3D Triangulation</span>
+                <span><i class="fas fa-crosshairs" style="margin-right:4px"></i> Real Release Height</span>
+                <span><i class="fas fa-arrows-left-right" style="margin-right:4px"></i> Full Court Coverage</span>
+                <span><i class="fas fa-chart-simple" style="margin-right:4px"></i> Multi-Angle Analysis</span>
             </div>
         </div>
     </section>
 
     <!-- Feature Grid -->
-    <section class="px-6 py-8 max-w-6xl mx-auto">
+    <section class="px-6 py-12 max-w-6xl mx-auto">
         <div class="feature-grid">
-            
-            <!-- 1. Matchup -->
-            <a href="feature-matchup.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-cyan-500 transition no-underline text-white">
-                <div class="text-5xl mb-4">🏷️</div>
-                <h3 class="text-xl font-semibold mb-2">Live Matchup</h3>
-                <p class="text-gray-400 text-sm">Real-time ball handler vs defender tracking. Identifies who has the ball, who's guarding them, and highlights mismatches instantly →</p>
+
+            <a href="feature-matchup.html" class="feature-card">
+                <span class="glow"></span>
+                <span class="f-icon"><i class="fas fa-people-arrows"></i></span>
+                <h3>Live Matchup</h3>
+                <p>Real-time ball handler vs defender tracking. Identifies who has the ball, who's guarding them, and highlights mismatches instantly.</p>
+                <span class="arrow">Learn more →</span>
             </a>
-            
-            <!-- 2. Athletic Performance -->
-            <a href="feature-performance.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-emerald-500 transition no-underline text-white">
-                <div class="text-5xl mb-4">🏃</div>
-                <h3 class="text-xl font-semibold mb-2">Athletic Performance</h3>
-                <p class="text-gray-400 text-sm">Tracks speed, distance, sprints, and fatigue in real time. Know which players are running hard and who needs a sub →</p>
+
+            <a href="feature-performance.html" class="feature-card">
+                <span class="glow"></span>
+                <span class="f-icon"><i class="fas fa-running"></i></span>
+                <h3>Athletic Performance</h3>
+                <p>Tracks speed, distance, sprints, and fatigue in real time. Know which players are running hard and who needs a substitution.</p>
+                <span class="arrow">Learn more →</span>
             </a>
-            
-            <!-- 3. 3D Shot Quality -->
-            <a href="feature-shotquality3d.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-purple-500 transition no-underline text-white">
-                <div class="text-5xl mb-4">🎯</div>
-                <h3 class="text-xl font-semibold mb-2">3D Shot Quality</h3>
-                <p class="text-gray-400 text-sm">Multi-camera triangulation calculates real release height, angle, and defender distance. 0-100 quality score for every shot →</p>
+
+            <a href="feature-shotquality3d.html" class="feature-card">
+                <span class="glow"></span>
+                <span class="f-icon"><i class="fas fa-crosshairs"></i></span>
+                <h3>3D Shot Quality</h3>
+                <p>Multi-camera triangulation calculates real release height, angle, and defender distance. 0-100 quality score for every shot.</p>
+                <span class="arrow">Learn more →</span>
             </a>
-            
-            <!-- 4. Play Recognition -->
-            <a href="feature-tactics.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-orange-500 transition no-underline text-white">
-                <div class="text-5xl mb-4">🧠</div>
-                <h3 class="text-xl font-semibold mb-2">Play Recognition & Counter Plan</h3>
-                <p class="text-gray-400 text-sm">AI detects formations (2-3 zone, Horns, 1-3-1, Flex) and suggests counter-plans in real time — like having an assistant coach →</p>
+
+            <a href="feature-tactics.html" class="feature-card">
+                <span class="glow"></span>
+                <span class="f-icon"><i class="fas fa-brain"></i></span>
+                <h3>Play Recognition & Counter Plan</h3>
+                <p>AI detects formations (2-3 zone, Horns, 1-3-1, Flex) and suggests counter-plans in real time — like having an assistant coach.</p>
+                <span class="arrow">Learn more →</span>
             </a>
-            
-            <!-- 5. Events Detection -->
-            <a href="feature-events.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-pink-500 transition no-underline text-white">
-                <div class="text-5xl mb-4">⚡</div>
-                <h3 class="text-xl font-semibold mb-2">Events Detection</h3>
-                <p class="text-gray-400 text-sm">Detects key moments: PnR, Fast Breaks, Mismatches, Drives, Passes, Steals, and Blocks. Never miss a critical play again →</p>
+
+            <a href="feature-events.html" class="feature-card">
+                <span class="glow"></span>
+                <span class="f-icon"><i class="fas fa-bolt"></i></span>
+                <h3>Events Detection</h3>
+                <p>Detects key moments: PnR, Fast Breaks, Mismatches, Drives, Passes, Steals, and Blocks. Never miss a critical play again.</p>
+                <span class="arrow">Learn more →</span>
             </a>
-            
-            <!-- 6. Heat Maps -->
-            <a href="feature-heatmap.html" class="feature-card bg-gray-900/50 p-6 rounded-xl border border-gray-800 hover:border-red-500 transition no-underline text-white">
-                <div class="text-5xl mb-4">🔥</div>
-                <h3 class="text-xl font-semibold mb-2">Heat Maps</h3>
-                <p class="text-gray-400 text-sm">Visualize player and team positioning intensity. See where your team operates best — and where opponents exploit you →</p>
+
+            <a href="feature-heatmap.html" class="feature-card">
+                <span class="glow"></span>
+                <span class="f-icon"><i class="fas fa-fire"></i></span>
+                <h3>Heat Maps</h3>
+                <p>Visualize player and team positioning intensity. See where your team operates best — and where opponents exploit you.</p>
+                <span class="arrow">Learn more →</span>
             </a>
-            
+
         </div>
     </section>
 
-    <!-- Why These Features -->
-    <section class="px-6 py-8 max-w-3xl mx-auto fade-up">
-        <div class="philosophy-quote rounded-2xl p-8 border border-cyan-500/20 text-center">
-            <i class="fas fa-quote-left text-3xl text-cyan-400 mb-4 opacity-50"></i>
-            <p class="text-gray-300 italic leading-relaxed text-lg">
-                Why these features? Because we believe the essence of sports is and will always be human. 
-                No AI model can outpower a wise coach who knows their players. What AI can do is help 
-                the coach to its best — detecting what the human eye can't always pay attention to and 
+    <!-- Philosophy -->
+    <section class="px-6 py-6 max-w-3xl mx-auto fade-up">
+        <div class="philosophy-quote">
+            <i class="fas fa-quote-left" style="font-size:28px;display:block;margin-bottom:12px"></i>
+            <p>
+                Why these features? Because we believe the essence of sports is and will always be human.
+                No AI model can outpower a wise coach who knows their players. What AI can do is help
+                the coach to its best — detecting what the human eye can't always pay attention to and
                 what may be critical in helping a team win a game. This is why Voop focuses on these features above.
             </p>
-            <i class="fas fa-quote-right text-3xl text-cyan-400 mt-4 opacity-50"></i>
+            <i class="fas fa-quote-right" style="font-size:28px;display:block;margin-top:12px"></i>
         </div>
     </section>
 
     <!-- Download Section -->
-    <section class="px-6 py-12 max-w-2xl mx-auto fade-up">
-        <div class="bg-gradient-to-r from-cyan-900/30 to-blue-900/30 rounded-2xl p-8 border border-cyan-500/30 text-center">
-            <div class="text-5xl mb-4">📦</div>
-            <h2 class="text-2xl font-bold mb-2">Download Voop</h2>
-            <p class="text-gray-400 mb-6">Get the complete Voop application package for macOS. Includes the app, YOLOv8 model, and all dependencies.</p>
-            <a href="Voop_Download_Package.zip" download class="download-btn bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-4 rounded-xl font-bold inline-flex items-center gap-3 transition">
-                <i class="fas fa-download text-xl"></i>
-                Download Voop_Download_Package.zip
+    <section class="px-6 py-8 max-w-2xl mx-auto fade-up">
+        <div class="download-section">
+            <div style="font-size:40px;color:#10b981;margin-bottom:12px"><i class="fas fa-download"></i></div>
+            <h2 style="font-size:22px;font-weight:700;margin-bottom:4px;color:#e8edf5">Download Voop</h2>
+            <p style="color:#8895aa;margin-bottom:20px;font-size:15px">Get the complete Voop application package for macOS. Includes the app, YOLOv8 model, and all dependencies.</p>
+            <a href="Voop_Download_Package.zip" download class="download-btn">
+                <i class="fas fa-arrow-down"></i> Download Voop_Download_Package.zip
             </a>
-            <p class="text-gray-500 text-xs mt-4">Version 2.0 • macOS • Requires Python 3.9+ • Multi-Camera Support</p>
+            <p style="color:#5f6a7e;font-size:12px;margin-top:14px">Version 2.0 · macOS · Requires Python 3.9+ · Multi-Camera Support</p>
         </div>
     </section>
 
     <!-- Demo Video Placeholder -->
-    <section class="px-6 py-12 max-w-4xl mx-auto text-center fade-up">
-        <h2 class="text-2xl font-bold mb-4">See It In Action</h2>
-        <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800">
-            <div class="bg-black/50 rounded-xl aspect-video flex items-center justify-center">
-                <div class="text-center">
-                    <i class="fas fa-play-circle text-6xl text-cyan-400 mb-3"></i>
-                    <p class="text-gray-500">Demo Video Coming Soon</p>
-                    <p class="text-gray-600 text-sm mt-2">Multi-camera tracking with 3D shot quality analysis</p>
-                </div>
+    <section class="px-6 py-8 max-w-4xl mx-auto text-center fade-up">
+        <h2 style="font-size:20px;font-weight:600;margin-bottom:16px;color:#e8edf5">See It In Action</h2>
+        <div style="background:rgba(255,255,255,0.02);border-radius:20px;padding:32px;border:1px solid rgba(255,255,255,0.05)">
+            <div style="background:#0a0e16;border-radius:12px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;flex-direction:column;border:1px solid rgba(255,255,255,0.04)">
+                <i class="fas fa-play-circle" style="font-size:56px;color:#22d3ee;margin-bottom:12px;opacity:0.6"></i>
+                <p style="color:#5f6a7e;font-size:15px">Demo Video Coming Soon</p>
+                <p style="color:#3d4555;font-size:13px;margin-top:4px">Multi-camera tracking with 3D shot quality analysis</p>
             </div>
-            <p class="text-gray-400 text-sm mt-4">Watch Voop track players across multiple cameras with real-time analytics</p>
+            <p style="color:#8895aa;font-size:14px;margin-top:12px">Watch Voop track players across multiple cameras with real-time analytics</p>
         </div>
     </section>
 
-    <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm">
+    <footer style="border-top:1px solid rgba(255,255,255,0.04);padding:24px 0;text-align:center;color:#5f6a7e;font-size:13px;margin-top:24px">
         <p>© 2026 Voop. Built by JYang with Python, YOLOv8, PyQt, and computer vision</p>
-        <p class="mt-2"><a href="index.html" class="hover:text-cyan-400">← Home</a> | <a href="guide.html" class="hover:text-cyan-400">Analyst Guide</a></p>
+        <p style="margin-top:6px">
+            <a href="index.html" style="color:#5f6a7e;text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#22d3ee'" onmouseout="this.style.color='#5f6a7e'">Home</a>
+            <span style="margin:0 8px;color:#2a3344">·</span>
+            <a href="guide.html" style="color:#5f6a7e;text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='#22d3ee'" onmouseout="this.style.color='#5f6a7e'">Analyst Guide</a>
+        </p>
     </footer>
 
     <script>
         const fadeElements = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
         }, { threshold: 0.1 });
         fadeElements.forEach(el => observer.observe(el));
         setTimeout(() => {
-            fadeElements.forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-                    el.classList.add('visible');
-                }
-            });
+            fadeElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 100) { el.classList.add('visible'); } });
         }, 100);
     </script>
+
 </body>
 </html>
