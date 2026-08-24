@@ -14,16 +14,10 @@
         .btn-glow:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(6, 182, 212, 0.4); }
         @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .animated-bg { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); background-size: 200% 200%; animation: gradientShift 10s ease infinite; }
-        
-        /* Fix for cut-off letters */
-        .hero-text {
-            line-height: 1.2;
-            padding: 0.25rem 0;
-        }
-        .hero-text span {
-            display: block;
-            line-height: 1.3;
-        }
+        .history-btn { transition: all 0.3s ease; }
+        .history-btn:hover { transform: scale(1.03); box-shadow: 0 0 30px rgba(249, 115, 22, 0.25); }
+        .nav-link { color: #b0bccf; text-decoration: none; transition: color 0.2s; font-size: 14px; }
+        .nav-link:hover { color: #22d3ee; }
     </style>
 </head>
 <body class="bg-gray-950 text-white font-sans animated-bg">
@@ -31,24 +25,25 @@
     <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="text-2xl font-bold"><span class="text-cyan-400">Voop</span></div>
-            <div class="space-x-6 text-sm hidden md:block"><a href="#" class="text-cyan-400">Home</a></div>
+            <div class="space-x-6 text-sm hidden md:block">
+                <a href="#" class="nav-link">Home</a>
+            </div>
         </div>
     </nav>
 
     <section class="px-6 py-24 text-center max-w-4xl mx-auto fade-up">
         <div class="mb-6"><span class="bg-cyan-500/10 text-cyan-400 px-4 py-1 rounded-full text-sm">Built by JYang • Basketball Analyst</span></div>
-        
         <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 hero-text">
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 block">
                 Basketball Analytics for
             </span>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mt-2 inline-block">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 block mt-2 inline-block">
                 Mid & High School Teams
             </span>
         </h1>
-        
         <p class="text-gray-400 text-lg mb-12 max-w-2xl mx-auto">A real-time computer vision app + a complete guide to becoming your team's data analyst.</p>
-        
+
+        <!-- Two Big Buttons -->
         <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
             <a href="voop.html" class="w-full md:w-64 btn-glow">
                 <div class="bg-gradient-to-r from-cyan-500 to-blue-500 p-0.5 rounded-2xl">
@@ -69,6 +64,15 @@
                 </div>
             </a>
         </div>
+
+        <!-- NEW: History & Mission Button -->
+        <div class="flex justify-center mt-8 history-btn">
+            <a href="history.html" class="inline-flex items-center gap-3 bg-gradient-to-r from-orange-500/10 to-orange-600/10 hover:from-orange-500/20 hover:to-orange-600/20 border border-orange-500/30 hover:border-orange-400/60 px-6 py-3 rounded-xl transition-all duration-300">
+                <i class="fas fa-book-open text-orange-400 text-lg"></i>
+                <span class="text-orange-300 font-medium">Our History & Mission</span>
+                <i class="fas fa-arrow-right text-orange-400 text-sm"></i>
+            </a>
+        </div>
     </section>
 
     <section class="px-6 py-16 max-w-4xl mx-auto text-center fade-up">
@@ -81,7 +85,7 @@
     <footer class="border-t border-gray-800/50 py-8 text-center text-gray-500 text-sm">
         <p>© 2026 Voop. Built by JYang with Python, YOLOv8, and computer vision</p>
         <p class="mt-2">
-            <a href="https://x.com/JesseYa39485274" target="_blank" class="hover:text-cyan-400 mx-2"><i class="fab fa-twitter"></i></a>
+            <a href="https://x.com/JesseYa39485274" target="_blank" class="hover:text-cyan-400 mx-2"><i class="fab fa-x-twitter"></i></a>
             <a href="#" class="hover:text-cyan-400 mx-2"><i class="fab fa-github"></i></a>
         </p>
     </footer>
@@ -96,5 +100,6 @@
             fadeElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 100) { el.classList.add('visible'); } });
         }, 100);
     </script>
+
 </body>
 </html>
