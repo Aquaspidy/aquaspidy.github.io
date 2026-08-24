@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voop | Our History & Mission</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:#0b0f1a;color:#e8edf5}
+        .fade-up{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease-out,transform 0.8s ease-out}
+        .fade-up.visible{opacity:1;transform:translateY(0)}
+        .nav-link{color:#b0bccf;text-decoration:none;transition:color 0.2s;font-size:14px}
+        .nav-link:hover{color:#22d3ee}
+        .story-text{color:#b0bccf;line-height:1.9;font-size:16px}
+        .story-text strong{color:#e8edf5}
+        .story-text .highlight{color:#22d3ee;font-weight:600}
+        .gallery-container{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+        .gallery-item{background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;color:#5f6a7e;font-size:13px;text-align:center;padding:12px;transition:all 0.3s ease;position:relative}
+        .gallery-item:hover{border-color:rgba(34,211,238,0.3);transform:translateY(-2px)}
+        .gallery-item .placeholder-icon{font-size:28px;color:#2a3344;margin-bottom:8px;display:block}
+        .gallery-item .placeholder-text{font-size:11px;color:#3d4555}
+        .gallery-item img{width:100%;height:100%;object-fit:cover}
+        .gallery-item.span-2{grid-column:span 2}
+        .gallery-item.tall{aspect-ratio:3/4}
+        .gallery-item.wide{aspect-ratio:16/9}
+        .connection-line{position:relative}
+        .timeline-dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#22d3ee;margin-right:10px;flex-shrink:0}
+        .timeline-dot.orange{background:#f97316}
+        .timeline-dot.purple{background:#a78bfa}
+        .back-link{color:#22d3ee;text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:opacity 0.2s}
+        .back-link:hover{opacity:0.7}
+        @media(max-width:768px){.gallery-container{grid-template-columns:1fr}.gallery-item.span-2{grid-column:span 1}.gallery-item.tall{aspect-ratio:4/3}}
+    </style>
+</head>
+<body>
+
+    <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold"><span style="color:#22d3ee">Voop</span></div>
+            <div class="space-x-6 text-sm hidden md:block">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="voop.html" class="nav-link">Voop App</a>
+                <a href="guide.html" class="nav-link">Analyst Guide</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="px-6 py-12 max-w-6xl mx-auto">
+        <div class="fade-up">
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
+
+        <div class="grid md:grid-cols-5 gap-10 mt-6">
+            <!-- Left Column: Story (3/5) -->
+            <div class="md:col-span-3 fade-up">
+                <h1 style="font-size:36px;font-weight:800;margin-bottom:6px;letter-spacing:-0.5px;color:#e8edf5">Our History & Mission</h1>
+                <p style="color:#5f6a7e;font-size:14px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:16px">From a courtside seat to a startup accelerator win</p>
+
+                <div class="story-text">
+                    <p style="margin-bottom:16px;">
+                        Sitting courtside as a statistician gave me the advantage of viewing the game from an angle that nobody else has. I am not the coach worrying about what play to call, not the players worrying about where to go, and not the audience busy cheering. I sit courtside recording every possession down, which makes it very easy for me to see a pattern — such that the opponent shooter kept running to that same corner and made 3 threes in a row, and it's hard to tell the coach because the loss already happened, and we are already back on offense.
+                    </p>
+
+                    <p style="margin-bottom:16px;">
+                        Only if the coach can kind of see it coming, and maybe he can identify it during the second made three, without taking up his time yelling plays. Some sort of technology that gives coaches an extra pair of eyes.
+                    </p>
+
+                    <p style="margin-bottom:16px;">
+                        Though pro-leagues already implement similar tech, like Synergy Sports and Second Spectrum, they are <span class="highlight">highly prohibitive</span>, and some of their features are way too advanced for a high school level.
+                    </p>
+
+                    <p style="margin-bottom:16px;background:rgba(34,211,238,0.04);border-left:3px solid #22d3ee;padding:14px 18px;border-radius:0 8px 8px 0;">
+                        <span style="color:#e8edf5;font-weight:600;">That's my starting point for Voop.</span> To create a real-time basketball analytics app designed for high school teams, preserving only the features that matter for such a level, and keeping it easy to use for coaches that are not the most professional expert with computers and numbers.
+                    </p>
+
+                    <p style="margin-bottom:16px;">
+                        I taught myself computer vision using <span class="highlight">YOLO and OpenCV</span>. It took months of trial and error, but eventually I built a system that could track players on the court, measure their speed and distance, and estimate fatigue levels in real time. It wasn't polished, but it is now in a very good shape.
+                    </p>
+
+                    <div style="margin:24px 0;padding:16px 20px;background:rgba(249,115,22,0.06);border-radius:12px;border:1px solid rgba(249,115,22,0.15);">
+                        <p style="color:#e8edf5;font-weight:600;display:flex;align-items:center;gap:10px;">
+                            <span style="background:#f97316;color:#0b0f1a;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;">🏆</span>
+                            In the summer of 2026, I brought Voop to <span class="highlight">LaunchX</span>, a startup accelerator hosted at UC San Diego. Over two weeks, I worked with a team of four to transform the prototype into a viable product. We developed a business model, built financial projections, and refined the product based on real customer feedback.
+                        </p>
+                        <p style="color:#f97316;font-weight:700;font-size:18px;margin-top:8px;text-align:center;">
+                            Our team placed 1st out of 28 teams (111 students), and I personally received the Best Builder award for technical innovation.
+                        </p>
+                    </div>
+
+                    <p style="margin-bottom:12px;">
+                        Throughout the program and beyond, I sought feedback from coaches who know the game at a high level. I interviewed <span class="highlight">UCSD Men's Basketball Assistant Coach Cameron Barry</span>, trainer <span class="highlight">Ryan Razooky (795K+ followers)</span>, and Coach Seals. Their insights helped me prioritize features, eliminate what didn't matter, and focus on what coaches actually need — fatigue tracking, substitution timing, and actionable in-game data.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Column: Photo Gallery (2/5) -->
+            <div class="md:col-span-2 fade-up">
+                <h3 style="font-size:14px;font-weight:600;color:#8895aa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:8px;">
+                    <i class="fas fa-images" style="margin-right:8px;color:#22d3ee"></i> Gallery
+                </h3>
+
+                <div class="gallery-container">
+                    <!-- Row 1: Two images (LaunchX team & award) -->
+                    <div class="gallery-item">
+                        <div>
+                            <span class="placeholder-icon"><i class="fas fa-users"></i></span>
+                            <span class="placeholder-text">LaunchX Team</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div>
+                            <span class="placeholder-icon"><i class="fas fa-trophy"></i></span>
+                            <span class="placeholder-text">1st Place Award</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Full width image (LaunchX group) -->
+                    <div class="gallery-item span-2 wide">
+                        <div>
+                            <span class="placeholder-icon"><i class="fas fa-people-group"></i></span>
+                            <span class="placeholder-text">LaunchX Cohort 2026</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Two images (coaches) -->
+                    <div class="gallery-item">
+                        <div>
+                            <span class="placeholder-icon"><i class="fas fa-chalkboard-user"></i></span>
+                            <span class="placeholder-text">Coach Cameron Barry</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div>
+                            <span class="placeholder-icon"><i class="fas fa-basketball"></i></span>
+                            <span class="placeholder-text">Coach Seals</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Tall image + standard image -->
+                    <div class="gallery-item tall">
+                        <div>
+                            <span class="placeholder-icon"><i class="fas fa-user"></i></span>
+                            <span class="placeholder-text">Ryan Razooky</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div>
+                            <span class="placeholder-icon"><i class="fas fa-laptop-code"></i></span>
+                            <span class="placeholder-text">Building Voop</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: Full width image (courtside / app screenshot) -->
+                    <div class="gallery-item span-2 wide">
+                        <div>
+                            <span class="placeholder-icon"><i class="fas fa-eye"></i></span>
+                            <span class="placeholder-text">Courtside View</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 6: Final two images (demo & team) -->
+                    <div class="gallery-item">
+                        <div>
+                            <span class="placeholder-icon"><i class="fas fa-video"></i></span>
+                            <span class="placeholder-text">Demo Session</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div>
+                            <span class="placeholder-icon"><i class="fas fa-handshake"></i></span>
+                            <span class="placeholder-text">Coaching Feedback</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="color:#3d4555;font-size:11px;text-align:center;margin-top:12px;border-top:1px solid rgba(255,255,255,0.04);padding-top:12px;">
+                    <i class="fas fa-camera" style="margin-right:4px"></i> 9 photos · click placeholders to add your images
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="border-top:1px solid rgba(255,255,255,0.04);padding:20px 0;text-align:center;color:#5f6a7e;font-size:13px;margin-top:12px">
+        <p>© 2026 Voop. Built by JYang with Python, YOLOv8, and computer vision</p>
+    </footer>
+
+    <script>
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>
