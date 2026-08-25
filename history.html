@@ -31,7 +31,7 @@
         .gallery-item:hover .image-label{opacity:1}
         .gallery-item .image-label span{color:#e8edf5;font-size:12px;font-weight:500}
 
-        /* Coach Conversation Images — Vertical Stack (Wider) */
+        /* Coach Conversation Images — Wider */
         .coach-container{
             grid-column:span 2;
             display:flex;
@@ -44,6 +44,7 @@
             border:1px solid rgba(255,255,255,0.06);
             overflow:hidden;
             position:relative;
+            width:100%;
         }
         .coach-card .coach-label{
             padding:10px 16px;
@@ -73,7 +74,7 @@
         .coach-card.scrollable::-webkit-scrollbar-track{background:transparent}
         .coach-card.scrollable::-webkit-scrollbar-thumb{background:#2a3344;border-radius:4px}
 
-        /* Expanded State — Properly Centered */
+        /* Expanded State — Properly Centered in Middle of Page */
         .gallery-item.expanded{
             position:fixed;
             top:0;
@@ -97,13 +98,16 @@
         .gallery-item.expanded img{
             width:auto;
             height:auto;
-            max-width:80vw;
+            max-width:75vw;
             max-height:80vh;
             object-fit:contain;
             border-radius:8px;
             box-shadow:0 20px 60px rgba(0,0,0,0.8);
             transform:scale(1);
             transition:transform 0.3s ease;
+            position:static;
+            margin:0 auto;
+            display:block;
         }
         .gallery-item.expanded .zoom-hint{display:none}
         .gallery-item.expanded .image-label{display:none}
@@ -119,8 +123,22 @@
 
         .back-link{color:#22d3ee;text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:opacity 0.2s}
         .back-link:hover{opacity:0.7}
-        @media(max-width:768px){.gallery-container{grid-template-columns:1fr}.gallery-item.span-2{grid-column:span 1}.coach-container{grid-column:span 1}}
-        @media(max-width:480px){.gallery-container{grid-template-columns:1fr}.gallery-item.span-2{grid-column:span 1}.coach-container{grid-column:span 1}}
+
+        /* Widen gallery on larger screens */
+        @media(min-width:1200px){
+            .gallery-container{grid-template-columns:1fr 1fr;gap:18px}
+            .coach-card .coach-label{font-size:15px;padding:12px 20px}
+        }
+        @media(max-width:768px){
+            .gallery-container{grid-template-columns:1fr}
+            .gallery-item.span-2{grid-column:span 1}
+            .coach-container{grid-column:span 1}
+        }
+        @media(max-width:480px){
+            .gallery-container{grid-template-columns:1fr}
+            .gallery-item.span-2{grid-column:span 1}
+            .coach-container{grid-column:span 1}
+        }
     </style>
 </head>
 <body>
@@ -192,15 +210,15 @@
                     </div>
                 </div>
 
-                <!-- Right Column: Photo Gallery (2/5) -->
-                <div class="md:col-span-2 fade-up">
+                <!-- Right Column: Photo Gallery (2/5) — WIDER -->
+                <div class="md:col-span-2 fade-up" style="padding-left:10px;">
                     <h3 style="font-size:14px;font-weight:600;color:#8895aa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:8px;">
                         <i class="fas fa-images" style="margin-right:8px;color:#22d3ee"></i> Gallery
                     </h3>
 
                     <div class="gallery-container" id="galleryContainer">
 
-                        <!-- Row 1: Trophy + Prototype (side by side) — Click to expand -->
+                        <!-- Row 1: Trophy + Prototype -->
                         <div class="gallery-item" onclick="toggleExpand(this)">
                             <img src="Leaderboard.jpg" alt="Best Builder Trophy - 1st Place">
                             <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
@@ -212,7 +230,7 @@
                             <div class="image-label"><span>💻 Voop Prototype</span></div>
                         </div>
 
-                        <!-- Row 2: Panel Screenshot (Full width) — Click to expand -->
+                        <!-- Row 2: Panel Screenshot (Full width) -->
                         <div class="gallery-item span-2 wide" onclick="toggleExpand(this)">
                             <img src="Panal.jpg" alt="LaunchX Panel / Presentation">
                             <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
@@ -222,7 +240,6 @@
                         <!-- Coach Conversations — Vertical Stack (Wider) -->
                         <div class="coach-container">
 
-                            <!-- Coach Barry — Full width, enlarged -->
                             <div class="coach-card">
                                 <div class="coach-label">
                                     <i class="fas fa-envelope"></i> Coach Cameron Barry — Feedback
@@ -230,7 +247,6 @@
                                 <img src="CoachBarry.jpg" alt="Coach Cameron Barry Email Feedback">
                             </div>
 
-                            <!-- Coach Razooky — Full width, scrollable -->
                             <div class="coach-card scrollable">
                                 <div class="coach-label">
                                     <i class="fab fa-instagram"></i> Coach Ryan Razooky — Feedback
@@ -256,11 +272,9 @@
     </div>
 
     <script>
-        // Toggle expanded state for non-conversation images only
         function toggleExpand(el) {
             const mainContent = document.getElementById('mainContent');
 
-            // If already expanded, collapse
             if (el.classList.contains('expanded')) {
                 el.classList.remove('expanded');
                 document.body.classList.remove('expanded-mode');
@@ -268,22 +282,18 @@
                 return;
             }
 
-            // Close any other expanded items
             document.querySelectorAll('.gallery-item.expanded').forEach(item => {
                 item.classList.remove('expanded');
             });
 
-            // Expand this one
             el.classList.add('expanded');
             document.body.classList.add('expanded-mode');
             document.body.style.overflow = 'hidden';
         }
 
-        // Close on click outside the image
         document.addEventListener('click', function(e) {
             const expanded = document.querySelector('.gallery-item.expanded');
             if (expanded) {
-                // Only close if clicking on the overlay background itself
                 if (e.target === expanded) {
                     expanded.classList.remove('expanded');
                     document.body.classList.remove('expanded-mode');
@@ -292,7 +302,6 @@
             }
         });
 
-        // Close with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const expanded = document.querySelector('.gallery-item.expanded');
