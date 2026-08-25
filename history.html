@@ -21,7 +21,7 @@
         .story-text .highlight{color:#22d3ee;font-weight:600}
         .gallery-container{display:grid;grid-template-columns:1fr 1fr;gap:14px;position:relative}
         .gallery-item{background:rgba(255,255,255,0.03);border-radius:14px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:0;transition:all 0.3s ease;position:relative;cursor:pointer}
-        .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:all 0.3s ease}
+        .gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
         .gallery-item.span-2{grid-column:span 2}
         .gallery-item.tall{aspect-ratio:3/4;cursor:pointer}
         .gallery-item.wide{aspect-ratio:16/9}
@@ -31,52 +31,47 @@
         .gallery-item:hover .image-label{opacity:1}
         .gallery-item .image-label span{color:#e8edf5;font-size:12px;font-weight:500}
 
-        /* Conversation Cards — Inline, Readable */
-        .conversation-card{
+        /* Coach Conversation Images — Vertical Stack */
+        .coach-container{
+            grid-column:span 2;
+            display:flex;
+            flex-direction:column;
+            gap:14px;
+        }
+        .coach-card{
             background:rgba(255,255,255,0.03);
             border-radius:14px;
             border:1px solid rgba(255,255,255,0.06);
-            padding:16px 18px;
-            overflow-y:auto;
-            max-height:400px;
+            overflow:hidden;
+            position:relative;
+        }
+        .coach-card .coach-label{
+            padding:10px 16px;
             font-size:13px;
-            line-height:1.7;
-        }
-        .conversation-card .msg{
-            padding:8px 12px;
-            margin-bottom:6px;
-            border-radius:10px;
-        }
-        .conversation-card .msg.sent{
-            background:rgba(34,211,238,0.08);
-            border-left:3px solid #22d3ee;
-            margin-right:20px;
-        }
-        .conversation-card .msg.received{
-            background:rgba(255,255,255,0.04);
-            border-left:3px solid #8895aa;
-            margin-left:20px;
-        }
-        .conversation-card .msg .sender{
             font-weight:600;
-            font-size:11px;
-            color:#8895aa;
-            margin-bottom:2px;
-            text-transform:uppercase;
-            letter-spacing:0.3px;
+            color:#f97316;
+            border-bottom:1px solid rgba(255,255,255,0.06);
+            display:flex;
+            align-items:center;
+            gap:8px;
+            background:rgba(255,255,255,0.02);
         }
-        .conversation-card .msg .sender.me{color:#22d3ee}
-        .conversation-card .msg .sender.coach{color:#f97316}
-        .conversation-card .msg .body{color:#e8edf5}
-        .conversation-card .msg .time{
-            font-size:10px;
-            color:#5f6a7e;
+        .coach-card .coach-label i{color:#22d3ee}
+        .coach-card img{
+            width:100%;
+            height:auto;
             display:block;
-            margin-top:2px;
         }
-        .conversation-card::-webkit-scrollbar{width:4px}
-        .conversation-card::-webkit-scrollbar-track{background:transparent}
-        .conversation-card::-webkit-scrollbar-thumb{background:#2a3344;border-radius:4px}
+        .coach-card.scrollable{
+            max-height:500px;
+            overflow-y:auto;
+        }
+        .coach-card.scrollable img{
+            height:auto;
+        }
+        .coach-card.scrollable::-webkit-scrollbar{width:4px}
+        .coach-card.scrollable::-webkit-scrollbar-track{background:transparent}
+        .coach-card.scrollable::-webkit-scrollbar-thumb{background:#2a3344;border-radius:4px}
 
         /* Expanded State for non-conversation images */
         .gallery-item.expanded{
@@ -122,8 +117,8 @@
 
         .back-link{color:#22d3ee;text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:opacity 0.2s}
         .back-link:hover{opacity:0.7}
-        @media(max-width:768px){.gallery-container{grid-template-columns:1fr 1fr}.gallery-item.span-2{grid-column:span 2}}
-        @media(max-width:480px){.gallery-container{grid-template-columns:1fr}.gallery-item.span-2{grid-column:span 1}}
+        @media(max-width:768px){.gallery-container{grid-template-columns:1fr}.gallery-item.span-2{grid-column:span 1}.coach-container{grid-column:span 1}}
+        @media(max-width:480px){.gallery-container{grid-template-columns:1fr}.gallery-item.span-2{grid-column:span 1}.coach-container{grid-column:span 1}}
     </style>
 </head>
 <body>
@@ -222,91 +217,31 @@
                             <div class="image-label"><span>🎤 LaunchX Panel Presentation</span></div>
                         </div>
 
-                        <!-- Row 3: Coach Conversations — Displayed Inline, Readable -->
-                        <div class="span-2" style="grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-                            <!-- Coach Barry Conversation -->
-                            <div class="conversation-card">
-                                <h4 style="font-size:13px;font-weight:600;color:#f97316;margin-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:6px;">
-                                    <i class="fas fa-envelope" style="margin-right:6px;"></i> Coach Cameron Barry
-                                </h4>
-                                <div class="msg sent">
-                                    <div class="sender me">Me</div>
-                                    <div class="body">Would a tool that tracks live player fatigue, speed drops, and real-time opponent play recognition with matching counter plans actually help a coaching staff during a fast-paced game?</div>
+                        <!-- Coach Conversations — Vertical Stack -->
+                        <div class="coach-container">
+
+                            <!-- Coach Barry — Full width, enlarged -->
+                            <div class="coach-card">
+                                <div class="coach-label">
+                                    <i class="fas fa-envelope"></i> Coach Cameron Barry — Feedback
                                 </div>
-                                <div class="msg received">
-                                    <div class="sender coach">Coach Barry</div>
-                                    <div class="body">That would absolutely be a tool that would be helpful during games.</div>
-                                </div>
-                                <div class="msg sent">
-                                    <div class="sender me">Me</div>
-                                    <div class="body">As a coach, what would make you most hesitant to use a new video analytics tool (e.g., complex camera setup, learning curve, or data trust)?</div>
-                                </div>
-                                <div class="msg received">
-                                    <div class="sender coach">Coach Barry</div>
-                                    <div class="body">The data trust and learning curve would definitely cause some hesitation in implementing this.</div>
-                                </div>
-                                <div class="msg sent">
-                                    <div class="sender me">Me</div>
-                                    <div class="body">What's the biggest pain point or frustration you have with current basketball analytics or coaching tools?</div>
-                                </div>
-                                <div class="msg received">
-                                    <div class="sender coach">Coach Barry</div>
-                                    <div class="body">I think automation is the biggest pain point. Figuring out how to remove as much of the human element for analytical tools would be very helpful for us.</div>
-                                </div>
+                                <img src="CoachBarry.jpg" alt="Coach Cameron Barry Email Feedback">
                             </div>
 
-                            <!-- Coach Ryan Razooky Conversation -->
-                            <div class="conversation-card">
-                                <h4 style="font-size:13px;font-weight:600;color:#f97316;margin-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:6px;">
-                                    <i class="fab fa-instagram" style="margin-right:6px;"></i> Coach Ryan Razooky
-                                </h4>
-                                <div class="msg sent">
-                                    <div class="sender me">Me</div>
-                                    <div class="body">Would a tool that tracks live player fatigue, speed drops, and real-time opponent play recognition with matching counter plans actually help a middle/high school coaching staff during a fast-paced game?</div>
+                            <!-- Coach Razooky — Full width, scrollable -->
+                            <div class="coach-card scrollable">
+                                <div class="coach-label">
+                                    <i class="fab fa-instagram"></i> Coach Ryan Razooky — Feedback
                                 </div>
-                                <div class="msg received">
-                                    <div class="sender coach">Coach Razooky</div>
-                                    <div class="body">Yes & no because the game usually isn't that complex at that age yet & there are other priorities that matter more. Usually not always.</div>
-                                </div>
-                                <div class="msg sent">
-                                    <div class="sender me">Me</div>
-                                    <div class="body">As a coach/trainer, what would make you most hesitant to use a new video analytics tool?</div>
-                                </div>
-                                <div class="msg received">
-                                    <div class="sender coach">Coach Razooky</div>
-                                    <div class="body">Setup.</div>
-                                </div>
-                                <div class="msg sent">
-                                    <div class="sender me">Me</div>
-                                    <div class="body">What's the biggest pain point or frustration you have with current basketball analytics or coaching tools?</div>
-                                </div>
-                                <div class="msg received">
-                                    <div class="sender coach">Coach Razooky</div>
-                                    <div class="body">Being able to filter to stats that matter to me.</div>
-                                </div>
-                                <div class="msg sent">
-                                    <div class="sender me">Me</div>
-                                    <div class="body">What is the best feature you have seen about a basketball analytics/training tool that you like very much?</div>
-                                </div>
-                                <div class="msg received">
-                                    <div class="sender coach">Coach Razooky</div>
-                                    <div class="body">Second Spectrum is amazing.</div>
-                                </div>
-                                <div class="msg sent">
-                                    <div class="sender me">Me</div>
-                                    <div class="body">Can you specify which features of Second Spectrum you like the most, and how you think basketball at a middle/high school level can be improved with computer/AI?</div>
-                                </div>
-                                <div class="msg received">
-                                    <div class="sender coach">Coach Razooky</div>
-                                    <div class="body">Data is more important for higher levels of basketball so high level High School yes but for middle school and lower level HS it isn't as important. The reason being is because most players at that age still lack many of the necessary skills to execute even if the solution is in front of them. Second Spectrum has great filtering.</div>
-                                </div>
+                                <img src="CoachR.png" alt="Coach Ryan Razooky Instagram Feedback">
                             </div>
+
                         </div>
 
                     </div>
 
                     <p style="color:#3d4555;font-size:11px;text-align:center;margin-top:12px;border-top:1px solid rgba(255,255,255,0.04);padding-top:12px;">
-                        <i class="fas fa-mouse-pointer" style="margin-right:4px"></i> Click images to expand · Coach conversations shown directly
+                        <i class="fas fa-mouse-pointer" style="margin-right:4px"></i> Click trophy, prototype, or panel to expand · Coach conversations shown directly
                     </p>
                 </div>
             </div>
@@ -330,6 +265,7 @@
                 return;
             }
 
+            // Close any other expanded items
             document.querySelectorAll('.gallery-item.expanded').forEach(item => {
                 item.classList.remove('expanded');
             });
@@ -339,7 +275,7 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // Close on click outside the image
+        // Close on click outside the image (on the dark overlay)
         document.addEventListener('click', function(e) {
             const expanded = document.querySelector('.gallery-item.expanded');
             if (expanded) {
