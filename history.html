@@ -19,12 +19,11 @@
         .story-text{color:#b0bccf;line-height:1.9;font-size:16px}
         .story-text strong{color:#e8edf5}
         .story-text .highlight{color:#22d3ee;font-weight:600}
-        .gallery-container{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;position:relative}
-        .gallery-item{background:rgba(255,255,255,0.03);border-radius:14px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:0;transition:all 0.3s ease;position:relative;cursor:zoom-in}
+        .gallery-container{display:grid;grid-template-columns:1fr 1fr;gap:14px;position:relative}
+        .gallery-item{background:rgba(255,255,255,0.03);border-radius:14px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:0;transition:all 0.3s ease;position:relative;cursor:pointer}
         .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:all 0.3s ease}
         .gallery-item.span-2{grid-column:span 2}
-        .gallery-item.span-3{grid-column:span 3}
-        .gallery-item.tall{aspect-ratio:3/4;cursor:zoom-in}
+        .gallery-item.tall{aspect-ratio:3/4;cursor:pointer}
         .gallery-item.wide{aspect-ratio:16/9}
         .gallery-item .zoom-hint{position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.7);color:#8895aa;font-size:10px;padding:4px 12px;border-radius:20px;pointer-events:none;opacity:0;transition:opacity 0.3s;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.06)}
         .gallery-item:hover .zoom-hint{opacity:1}
@@ -32,7 +31,7 @@
         .gallery-item:hover .image-label{opacity:1}
         .gallery-item .image-label span{color:#e8edf5;font-size:12px;font-weight:500}
 
-        /* --- Expanded State (Full Page Overlay) --- */
+        /* === EXPANDED STATE (Overlay) === */
         .gallery-item.expanded{
             position:fixed;
             top:0;
@@ -43,21 +42,21 @@
             aspect-ratio:unset;
             border-radius:0;
             border:none;
-            background:rgba(11,15,26,0.95);
-            backdrop-filter:blur(8px);
+            background:rgba(11,15,26,0.92);
+            backdrop-filter:blur(12px);
             cursor:zoom-out;
             display:flex;
             align-items:center;
             justify-content:center;
             padding:40px;
             grid-column:unset;
-            animation:fadeIn 0.25s ease;
+            animation:fadeIn 0.2s ease;
         }
         .gallery-item.expanded img{
             width:auto;
             height:auto;
-            max-width:90vw;
-            max-height:90vh;
+            max-width:85vw;
+            max-height:85vh;
             object-fit:contain;
             border-radius:8px;
             box-shadow:0 20px 60px rgba(0,0,0,0.8);
@@ -65,6 +64,7 @@
         .gallery-item.expanded .zoom-hint{display:none}
         .gallery-item.expanded .image-label{display:none}
 
+        /* Tall images expanded — scrollable */
         .gallery-item.expanded.tall{
             padding:20px;
             align-items:flex-start;
@@ -73,7 +73,7 @@
         .gallery-item.expanded.tall img{
             max-height:none;
             width:auto;
-            max-width:90vw;
+            max-width:85vw;
             height:auto;
             object-fit:contain;
         }
@@ -84,6 +84,13 @@
         @keyframes fadeIn{
             0%{opacity:0;transform:scale(0.95)}
             100%{opacity:1;transform:scale(1)}
+        }
+
+        /* Blur the background when expanded */
+        body.expanded-mode .main-content{
+            filter:blur(6px);
+            pointer-events:none;
+            transition:filter 0.3s ease;
         }
 
         .back-link{color:#22d3ee;text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:opacity 0.2s}
@@ -105,116 +112,124 @@
         </div>
     </nav>
 
-    <section class="px-6 py-12 max-w-6xl mx-auto">
-        <div class="fade-up">
-            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
-        </div>
+    <!-- Main Content Wrapper -->
+    <div class="main-content" id="mainContent">
 
-        <div class="grid md:grid-cols-5 gap-10 mt-6">
-            <!-- Left Column: Story (3/5) -->
-            <div class="md:col-span-3 fade-up">
-                <h1 style="font-size:36px;font-weight:800;margin-bottom:6px;letter-spacing:-0.5px;color:#e8edf5">Our History & Mission</h1>
-                <p style="color:#5f6a7e;font-size:14px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:16px">From a courtside seat to a startup accelerator win</p>
+        <section class="px-6 py-12 max-w-6xl mx-auto">
+            <div class="fade-up">
+                <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            </div>
 
-                <div class="story-text">
-                    <p style="margin-bottom:16px;">
-                        Sitting courtside as a statistician gave me the advantage of viewing the game from an angle that nobody else has. I am not the coach worrying about what play to call, not the players worrying about where to go, and not the audience busy cheering. I sit courtside recording every possession down, which makes it very easy for me to see a pattern — such that the opponent shooter kept running to that same corner and made 3 threes in a row, and it's hard to tell the coach because the loss already happened, and we are already back on offense.
-                    </p>
+            <div class="grid md:grid-cols-5 gap-10 mt-6">
+                <!-- Left Column: Story (3/5) -->
+                <div class="md:col-span-3 fade-up">
+                    <h1 style="font-size:36px;font-weight:800;margin-bottom:6px;letter-spacing:-0.5px;color:#e8edf5">Our History & Mission</h1>
+                    <p style="color:#5f6a7e;font-size:14px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:16px">From a courtside seat to a startup accelerator win</p>
 
-                    <p style="margin-bottom:16px;">
-                        Only if the coach can kind of see it coming, and maybe he can identify it during the second made three, without taking up his time yelling plays. Some sort of technology that gives coaches an extra pair of eyes.
-                    </p>
+                    <div class="story-text">
+                        <p style="margin-bottom:16px;">
+                            Sitting courtside as a statistician gave me the advantage of viewing the game from an angle that nobody else has. I am not the coach worrying about what play to call, not the players worrying about where to go, and not the audience busy cheering. I sit courtside recording every possession down, which makes it very easy for me to see a pattern — such that the opponent shooter kept running to that same corner and made 3 threes in a row, and it's hard to tell the coach because the loss already happened, and we are already back on offense.
+                        </p>
 
-                    <p style="margin-bottom:16px;">
-                        Though pro-leagues already implement similar tech, like Synergy Sports and Second Spectrum, they are <span class="highlight">highly prohibitive</span>, and some of their features are way too advanced for a high school level.
-                    </p>
+                        <p style="margin-bottom:16px;">
+                            Only if the coach can kind of see it coming, and maybe he can identify it during the second made three, without taking up his time yelling plays. Some sort of technology that gives coaches an extra pair of eyes.
+                        </p>
 
-                    <p style="margin-bottom:16px;background:rgba(34,211,238,0.04);border-left:3px solid #22d3ee;padding:14px 18px;border-radius:0 8px 8px 0;">
-                        <span style="color:#e8edf5;font-weight:600;">That's my starting point for Voop.</span> To create a real-time basketball analytics app designed for high school teams, preserving only the features that matter for such a level, and keeping it easy to use for coaches that are not the most professional expert with computers and numbers.
-                    </p>
+                        <p style="margin-bottom:16px;">
+                            Though pro-leagues already implement similar tech, like Synergy Sports and Second Spectrum, they are <span class="highlight">highly prohibitive</span>, and some of their features are way too advanced for a high school level.
+                        </p>
 
-                    <p style="margin-bottom:16px;">
-                        I taught myself computer vision using <span class="highlight">YOLO and OpenCV</span>. It took months of trial and error, but eventually I built a system that could track players on the court, measure their speed and distance, and estimate fatigue levels in real time. It wasn't polished, but it is now in a very good shape.
-                    </p>
+                        <p style="margin-bottom:16px;background:rgba(34,211,238,0.04);border-left:3px solid #22d3ee;padding:14px 18px;border-radius:0 8px 8px 0;">
+                            <span style="color:#e8edf5;font-weight:600;">That's my starting point for Voop.</span> To create a real-time basketball analytics app designed for high school teams, preserving only the features that matter for such a level, and keeping it easy to use for coaches that are not the most professional expert with computers and numbers.
+                        </p>
 
-                    <!-- LaunchX Box -->
-                    <div style="margin:24px 0;padding:20px 24px;background:rgba(249,115,22,0.06);border-radius:12px;border:1px solid rgba(249,115,22,0.15);overflow:visible;">
-                        <div style="display:flex;align-items:flex-start;gap:12px;">
-                            <span style="background:#f97316;color:#0b0f1a;border-radius:50%;min-width:32px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0;margin-top:2px;">🏆</span>
-                            <p style="color:#e8edf5;font-weight:500;font-size:15px;line-height:1.8;margin:0;">
-                                In the summer of 2026, I brought Voop to <span class="highlight">LaunchX</span>, a startup accelerator hosted at UC San Diego. Over two weeks, I worked with a team of four to transform the prototype into a viable product. We developed a business model, built financial projections, and refined the product based on real customer feedback.
-                            </p>
+                        <p style="margin-bottom:16px;">
+                            I taught myself computer vision using <span class="highlight">YOLO and OpenCV</span>. It took months of trial and error, but eventually I built a system that could track players on the court, measure their speed and distance, and estimate fatigue levels in real time. It wasn't polished, but it is now in a very good shape.
+                        </p>
+
+                        <!-- LaunchX Box -->
+                        <div style="margin:24px 0;padding:20px 24px;background:rgba(249,115,22,0.06);border-radius:12px;border:1px solid rgba(249,115,22,0.15);overflow:visible;">
+                            <div style="display:flex;align-items:flex-start;gap:12px;">
+                                <span style="background:#f97316;color:#0b0f1a;border-radius:50%;min-width:32px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0;margin-top:2px;">🏆</span>
+                                <p style="color:#e8edf5;font-weight:500;font-size:15px;line-height:1.8;margin:0;">
+                                    In the summer of 2026, I brought Voop to <span class="highlight">LaunchX</span>, a startup accelerator hosted at UC San Diego. Over two weeks, I worked with a team of four to transform the prototype into a viable product. We developed a business model, built financial projections, and refined the product based on real customer feedback.
+                                </p>
+                            </div>
+                            <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(249,115,22,0.15);">
+                                <p style="color:#f97316;font-weight:700;font-size:18px;text-align:center;margin:0;line-height:1.6;">
+                                    🏆 Our team placed 1st out of 28 teams (111 students), and I personally received the Best Builder award for technical innovation.
+                                </p>
+                            </div>
                         </div>
-                        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(249,115,22,0.15);">
-                            <p style="color:#f97316;font-weight:700;font-size:18px;text-align:center;margin:0;line-height:1.6;">
-                                🏆 Our team placed 1st out of 28 teams (111 students), and I personally received the Best Builder award for technical innovation.
-                            </p>
+
+                        <p style="margin-bottom:12px;">
+                            Throughout the program and beyond, I sought feedback from coaches who know the game at a high level. I interviewed <span class="highlight">UCSD Men's Basketball Assistant Coach Cameron Barry</span>, trainer <span class="highlight">Ryan Razooky (795K+ followers)</span>, and Coach Seals. Their insights helped me prioritize features, eliminate what didn't matter, and focus on what coaches actually need — fatigue tracking, substitution timing, and actionable in-game data.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Column: Photo Gallery (2/5) -->
+                <div class="md:col-span-2 fade-up">
+                    <h3 style="font-size:14px;font-weight:600;color:#8895aa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:8px;">
+                        <i class="fas fa-images" style="margin-right:8px;color:#22d3ee"></i> Gallery
+                    </h3>
+
+                    <div class="gallery-container" id="galleryContainer">
+
+                        <!-- Row 1: Trophy + Prototype (side by side) -->
+                        <div class="gallery-item" onclick="toggleExpand(this)">
+                            <img src="Leaderboard.jpg" alt="Best Builder Trophy - 1st Place">
+                            <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
+                            <div class="image-label"><span>🏆 Best Builder Award</span></div>
                         </div>
+                        <div class="gallery-item" onclick="toggleExpand(this)">
+                            <img src="Prototype.jpg" alt="Voop Prototype">
+                            <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
+                            <div class="image-label"><span>💻 Voop Prototype</span></div>
+                        </div>
+
+                        <!-- Row 2: Panel Screenshot (Full width) -->
+                        <div class="gallery-item span-2 wide" onclick="toggleExpand(this)">
+                            <img src="Panal.jpg" alt="LaunchX Panel / Presentation">
+                            <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
+                            <div class="image-label"><span>🎤 LaunchX Panel Presentation</span></div>
+                        </div>
+
+                        <!-- Row 3: Coach Barry + Coach R (Tall, scrollable) -->
+                        <div class="gallery-item tall" onclick="toggleExpand(this)">
+                            <img src="CoachBarry.jpg" alt="Coach Cameron Barry Feedback">
+                            <span class="zoom-hint"><i class="fas fa-expand"></i> Click to expand</span>
+                            <div class="image-label"><span>📋 Coach Barry Feedback</span></div>
+                        </div>
+                        <div class="gallery-item tall" onclick="toggleExpand(this)">
+                            <img src="CoachR.png" alt="Coach Seals / Ryan Razooky Feedback">
+                            <span class="zoom-hint"><i class="fas fa-expand"></i> Click to expand</span>
+                            <div class="image-label"><span>📋 Coach Feedback</span></div>
+                        </div>
+
                     </div>
 
-                    <p style="margin-bottom:12px;">
-                        Throughout the program and beyond, I sought feedback from coaches who know the game at a high level. I interviewed <span class="highlight">UCSD Men's Basketball Assistant Coach Cameron Barry</span>, trainer <span class="highlight">Ryan Razooky (795K+ followers)</span>, and Coach Seals. Their insights helped me prioritize features, eliminate what didn't matter, and focus on what coaches actually need — fatigue tracking, substitution timing, and actionable in-game data.
+                    <p style="color:#3d4555;font-size:11px;text-align:center;margin-top:12px;border-top:1px solid rgba(255,255,255,0.04);padding-top:12px;">
+                        <i class="fas fa-mouse-pointer" style="margin-right:4px"></i> Click any image to expand · Scroll to view full content
                     </p>
                 </div>
             </div>
+        </section>
 
-            <!-- Right Column: Photo Gallery (2/5) -->
-            <div class="md:col-span-2 fade-up">
-                <h3 style="font-size:14px;font-weight:600;color:#8895aa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:8px;">
-                    <i class="fas fa-images" style="margin-right:8px;color:#22d3ee"></i> Gallery
-                </h3>
+        <footer style="border-top:1px solid rgba(255,255,255,0.04);padding:20px 0;text-align:center;color:#5f6a7e;font-size:13px;margin-top:12px">
+            <p>© 2026 Voop. Built by JYang with Python, YOLOv8, and computer vision</p>
+        </footer>
 
-                <div class="gallery-container" id="galleryContainer">
-
-                    <!-- Row 1: Trophy + Prototype (side by side) -->
-                    <div class="gallery-item" onclick="toggleExpand(this)">
-                        <img src="Leaderboard.jpg" alt="Best Builder Trophy - 1st Place">
-                        <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
-                        <div class="image-label"><span>🏆 Best Builder Award</span></div>
-                    </div>
-                    <div class="gallery-item" onclick="toggleExpand(this)">
-                        <img src="Prototype.jpg" alt="Voop Prototype">
-                        <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
-                        <div class="image-label"><span>💻 Voop Prototype</span></div>
-                    </div>
-
-                    <!-- Row 2: Panel Screenshot (Full width) -->
-                    <div class="gallery-item span-2 wide" onclick="toggleExpand(this)">
-                        <img src="Panal.jpg" alt="LaunchX Panel / Presentation">
-                        <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
-                        <div class="image-label"><span>🎤 LaunchX Panel Presentation</span></div>
-                    </div>
-
-                    <!-- Row 3: Coach Barry + Coach R (Tall, scrollable) -->
-                    <div class="gallery-item tall" onclick="toggleExpand(this)">
-                        <img src="CoachBarry.jpg" alt="Coach Cameron Barry Feedback">
-                        <span class="zoom-hint"><i class="fas fa-expand"></i> Click to expand</span>
-                        <div class="image-label"><span>📋 Coach Barry Feedback</span></div>
-                    </div>
-                    <div class="gallery-item tall" onclick="toggleExpand(this)">
-                        <img src="CoachR.jpg" alt="Coach Seals / Ryan Razooky Feedback">
-                        <span class="zoom-hint"><i class="fas fa-expand"></i> Click to expand</span>
-                        <div class="image-label"><span>📋 Coach Feedback</span></div>
-                    </div>
-
-                </div>
-
-                <p style="color:#3d4555;font-size:11px;text-align:center;margin-top:12px;border-top:1px solid rgba(255,255,255,0.04);padding-top:12px;">
-                    <i class="fas fa-mouse-pointer" style="margin-right:4px"></i> Click any image to expand · Scroll to view full content
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <footer style="border-top:1px solid rgba(255,255,255,0.04);padding:20px 0;text-align:center;color:#5f6a7e;font-size:13px;margin-top:12px">
-        <p>© 2026 Voop. Built by JYang with Python, YOLOv8, and computer vision</p>
-    </footer>
+    </div>
 
     <script>
         // Toggle expanded state on click
         function toggleExpand(el) {
+            const mainContent = document.getElementById('mainContent');
+
             if (el.classList.contains('expanded')) {
                 el.classList.remove('expanded');
+                document.body.classList.remove('expanded-mode');
                 document.body.style.overflow = '';
                 return;
             }
@@ -224,6 +239,7 @@
             });
 
             el.classList.add('expanded');
+            document.body.classList.add('expanded-mode');
             document.body.style.overflow = 'hidden';
 
             if (el.classList.contains('tall')) {
@@ -231,21 +247,25 @@
             }
         }
 
+        // Close on click outside the image (on the dark overlay)
         document.addEventListener('click', function(e) {
             const expanded = document.querySelector('.gallery-item.expanded');
             if (expanded) {
-                if (e.target === expanded || e.target.closest('.gallery-item') === null) {
+                if (e.target === expanded) {
                     expanded.classList.remove('expanded');
+                    document.body.classList.remove('expanded-mode');
                     document.body.style.overflow = '';
                 }
             }
         });
 
+        // Close with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const expanded = document.querySelector('.gallery-item.expanded');
                 if (expanded) {
                     expanded.classList.remove('expanded');
+                    document.body.classList.remove('expanded-mode');
                     document.body.style.overflow = '';
                 }
             }
