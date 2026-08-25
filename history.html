@@ -23,7 +23,6 @@
         .gallery-item{background:rgba(255,255,255,0.03);border-radius:14px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:0;transition:all 0.3s ease;position:relative;cursor:pointer}
         .gallery-item img{width:100%;height:100%;object-fit:cover;display:block}
         .gallery-item.span-2{grid-column:span 2}
-        .gallery-item.tall{aspect-ratio:3/4;cursor:pointer}
         .gallery-item.wide{aspect-ratio:16/9}
         .gallery-item .zoom-hint{position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.7);color:#8895aa;font-size:10px;padding:4px 12px;border-radius:20px;pointer-events:none;opacity:0;transition:opacity 0.3s;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.06)}
         .gallery-item:hover .zoom-hint{opacity:1}
@@ -43,66 +42,69 @@
         .coach-card.scrollable::-webkit-scrollbar-track{background:transparent}
         .coach-card.scrollable::-webkit-scrollbar-thumb{background:#2a3344;border-radius:4px}
 
-        /* === EXPANDED STATE — FIXED === */
-        .gallery-item.expanded{
-            position:fixed;
-            top:50%;
-            left:50%;
-            transform:translate(-50%,-50%);
-            width:auto;
-            max-width:85vw;
-            max-height:85vh;
-            z-index:9999;
-            aspect-ratio:unset;
-            border-radius:12px;
-            border:none;
-            background:transparent;
-            backdrop-filter:none;
-            cursor:zoom-out;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:0;
-            grid-column:unset;
-            box-shadow:0 20px 80px rgba(0,0,0,0.9);
-        }
-        .gallery-item.expanded img{
-            width:auto;
-            height:auto;
-            max-width:85vw;
-            max-height:85vh;
-            object-fit:contain;
-            border-radius:8px;
-            display:block;
-            margin:0;
-            box-shadow:0 20px 60px rgba(0,0,0,0.8);
-        }
-        .gallery-item.expanded .zoom-hint{display:none}
-        .gallery-item.expanded .image-label{display:none}
-
-        /* Overlay background */
-        .expanded-overlay{
+        /* === LIGHTBOX — WORKING VERSION === */
+        .lightbox-overlay{
             position:fixed;
             top:0;
             left:0;
             width:100vw;
             height:100vh;
-            background:rgba(11,15,26,0.92);
-            backdrop-filter:blur(12px);
-            z-index:9998;
-            cursor:zoom-out;
+            background:rgba(0,0,0,0.92);
+            backdrop-filter:blur(8px);
+            z-index:10000;
             display:none;
+            align-items:center;
+            justify-content:center;
+            cursor:pointer;
+            padding:40px;
         }
-        .expanded-overlay.active{display:block}
-        body.expanded-mode .main-content{filter:blur(4px);pointer-events:none;transition:filter 0.3s ease}
+        .lightbox-overlay.active{
+            display:flex;
+        }
+        .lightbox-overlay img{
+            max-width:85vw;
+            max-height:85vh;
+            width:auto;
+            height:auto;
+            object-fit:contain;
+            border-radius:8px;
+            box-shadow:0 20px 80px rgba(0,0,0,0.9);
+            cursor:default;
+            background:transparent;
+        }
+        .lightbox-overlay .close-hint{
+            position:fixed;
+            bottom:30px;
+            left:50%;
+            transform:translateX(-50%);
+            color:#8895aa;
+            font-size:13px;
+            background:rgba(0,0,0,0.5);
+            padding:8px 20px;
+            border-radius:30px;
+            backdrop-filter:blur(4px);
+            border:1px solid rgba(255,255,255,0.06);
+            pointer-events:none;
+        }
+        body.lightbox-open .main-content{
+            filter:blur(4px);
+            pointer-events:none;
+            transition:filter 0.3s ease;
+        }
 
         .back-link{color:#22d3ee;text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:opacity 0.2s}
         .back-link:hover{opacity:0.7}
 
-        @media(max-width:768px){.gallery-container{grid-template-columns:1fr}.gallery-item.span-2{grid-column:span 1}.coach-container{grid-column:span 1}.gallery-item.expanded{max-width:95vw;max-height:90vh}}
+        @media(max-width:768px){.gallery-container{grid-template-columns:1fr}.gallery-item.span-2{grid-column:span 1}.coach-container{grid-column:span 1}.lightbox-overlay{padding:20px}.lightbox-overlay img{max-width:95vw;max-height:90vh}}
     </style>
 </head>
 <body>
+
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+        <img id="lightboxImage" src="" alt="Expanded view">
+        <span class="close-hint">✕ Click anywhere to close</span>
+    </div>
 
     <nav class="px-6 py-4 border-b border-gray-800/50 sticky top-0 bg-gray-950/80 backdrop-blur-md z-50">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
@@ -114,9 +116,6 @@
             </div>
         </div>
     </nav>
-
-    <!-- Overlay -->
-    <div class="expanded-overlay" id="expandedOverlay"></div>
 
     <!-- Main Content Wrapper -->
     <div class="main-content" id="mainContent">
@@ -181,18 +180,18 @@
 
                     <div class="gallery-container" id="galleryContainer">
 
-                        <div class="gallery-item" onclick="toggleExpand(this)">
+                        <div class="gallery-item" onclick="openLightbox('Leaderboard.jpg', '🏆 Best Builder Award')">
                             <img src="Leaderboard.jpg" alt="Best Builder Trophy - 1st Place">
                             <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
                             <div class="image-label"><span>🏆 Best Builder Award</span></div>
                         </div>
-                        <div class="gallery-item" onclick="toggleExpand(this)">
+                        <div class="gallery-item" onclick="openLightbox('Prototype.jpg', '💻 Voop Prototype')">
                             <img src="Prototype.jpg" alt="Voop Prototype">
                             <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
                             <div class="image-label"><span>💻 Voop Prototype</span></div>
                         </div>
 
-                        <div class="gallery-item span-2 wide" onclick="toggleExpand(this)">
+                        <div class="gallery-item span-2 wide" onclick="openLightbox('Panal.jpg', '🎤 LaunchX Panel Presentation')">
                             <img src="Panal.jpg" alt="LaunchX Panel / Presentation">
                             <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
                             <div class="image-label"><span>🎤 LaunchX Panel Presentation</span></div>
@@ -225,53 +224,36 @@
     </div>
 
     <script>
-        function toggleExpand(el) {
-            const overlay = document.getElementById('expandedOverlay');
-            const mainContent = document.getElementById('mainContent');
+        // ===== LIGHTBOX FUNCTIONS =====
+        const lightboxOverlay = document.getElementById('lightboxOverlay');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const mainContent = document.getElementById('mainContent');
 
-            // If already expanded, collapse
-            if (el.classList.contains('expanded')) {
-                el.classList.remove('expanded');
-                overlay.classList.remove('active');
-                document.body.classList.remove('expanded-mode');
-                document.body.style.overflow = '';
-                return;
-            }
-
-            // Close any other expanded items first
-            document.querySelectorAll('.gallery-item.expanded').forEach(item => {
-                item.classList.remove('expanded');
-            });
-
-            // Expand this one
-            el.classList.add('expanded');
-            overlay.classList.add('active');
-            document.body.classList.add('expanded-mode');
+        function openLightbox(imageSrc, altText) {
+            lightboxImage.src = imageSrc;
+            lightboxImage.alt = altText || 'Expanded view';
+            lightboxOverlay.classList.add('active');
+            document.body.classList.add('lightbox-open');
             document.body.style.overflow = 'hidden';
         }
 
-        // Close overlay when clicking on the dark background
-        document.getElementById('expandedOverlay').addEventListener('click', function() {
-            const expanded = document.querySelector('.gallery-item.expanded');
-            if (expanded) {
-                expanded.classList.remove('expanded');
-                this.classList.remove('active');
-                document.body.classList.remove('expanded-mode');
-                document.body.style.overflow = '';
-            }
-        });
+        function closeLightbox() {
+            lightboxOverlay.classList.remove('active');
+            document.body.classList.remove('lightbox-open');
+            document.body.style.overflow = '';
+        }
 
         // Close with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                const expanded = document.querySelector('.gallery-item.expanded');
-                const overlay = document.getElementById('expandedOverlay');
-                if (expanded) {
-                    expanded.classList.remove('expanded');
-                    overlay.classList.remove('active');
-                    document.body.classList.remove('expanded-mode');
-                    document.body.style.overflow = '';
-                }
+                closeLightbox();
+            }
+        });
+
+        // Close if clicked on overlay (not on image itself)
+        lightboxOverlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
             }
         });
 
