@@ -31,7 +31,7 @@
         .gallery-item:hover .image-label{opacity:1}
         .gallery-item .image-label span{color:#e8edf5;font-size:12px;font-weight:500}
 
-        /* Coach Conversation Images — Vertical Stack */
+        /* Coach Conversation Images — Vertical Stack (Wider) */
         .coach-container{
             grid-column:span 2;
             display:flex;
@@ -63,7 +63,7 @@
             display:block;
         }
         .coach-card.scrollable{
-            max-height:500px;
+            max-height:550px;
             overflow-y:auto;
         }
         .coach-card.scrollable img{
@@ -73,7 +73,7 @@
         .coach-card.scrollable::-webkit-scrollbar-track{background:transparent}
         .coach-card.scrollable::-webkit-scrollbar-thumb{background:#2a3344;border-radius:4px}
 
-        /* Expanded State for non-conversation images */
+        /* Expanded State — Properly Centered */
         .gallery-item.expanded{
             position:fixed;
             top:0;
@@ -97,20 +97,22 @@
         .gallery-item.expanded img{
             width:auto;
             height:auto;
-            max-width:85vw;
-            max-height:85vh;
+            max-width:80vw;
+            max-height:80vh;
             object-fit:contain;
             border-radius:8px;
             box-shadow:0 20px 60px rgba(0,0,0,0.8);
+            transform:scale(1);
+            transition:transform 0.3s ease;
         }
         .gallery-item.expanded .zoom-hint{display:none}
         .gallery-item.expanded .image-label{display:none}
         @keyframes fadeIn{
-            0%{opacity:0;transform:scale(0.95)}
+            0%{opacity:0;transform:scale(0.92)}
             100%{opacity:1;transform:scale(1)}
         }
         body.expanded-mode .main-content{
-            filter:blur(6px);
+            filter:blur(4px);
             pointer-events:none;
             transition:filter 0.3s ease;
         }
@@ -217,7 +219,7 @@
                             <div class="image-label"><span>🎤 LaunchX Panel Presentation</span></div>
                         </div>
 
-                        <!-- Coach Conversations — Vertical Stack -->
+                        <!-- Coach Conversations — Vertical Stack (Wider) -->
                         <div class="coach-container">
 
                             <!-- Coach Barry — Full width, enlarged -->
@@ -258,6 +260,7 @@
         function toggleExpand(el) {
             const mainContent = document.getElementById('mainContent');
 
+            // If already expanded, collapse
             if (el.classList.contains('expanded')) {
                 el.classList.remove('expanded');
                 document.body.classList.remove('expanded-mode');
@@ -270,15 +273,17 @@
                 item.classList.remove('expanded');
             });
 
+            // Expand this one
             el.classList.add('expanded');
             document.body.classList.add('expanded-mode');
             document.body.style.overflow = 'hidden';
         }
 
-        // Close on click outside the image (on the dark overlay)
+        // Close on click outside the image
         document.addEventListener('click', function(e) {
             const expanded = document.querySelector('.gallery-item.expanded');
             if (expanded) {
+                // Only close if clicking on the overlay background itself
                 if (e.target === expanded) {
                     expanded.classList.remove('expanded');
                     document.body.classList.remove('expanded-mode');
