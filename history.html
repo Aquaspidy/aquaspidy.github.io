@@ -31,114 +31,75 @@
         .gallery-item:hover .image-label{opacity:1}
         .gallery-item .image-label span{color:#e8edf5;font-size:12px;font-weight:500}
 
-        /* Coach Conversation Images — Wider */
-        .coach-container{
-            grid-column:span 2;
-            display:flex;
-            flex-direction:column;
-            gap:14px;
-        }
-        .coach-card{
-            background:rgba(255,255,255,0.03);
-            border-radius:14px;
-            border:1px solid rgba(255,255,255,0.06);
-            overflow:hidden;
-            position:relative;
-            width:100%;
-        }
-        .coach-card .coach-label{
-            padding:10px 16px;
-            font-size:13px;
-            font-weight:600;
-            color:#f97316;
-            border-bottom:1px solid rgba(255,255,255,0.06);
-            display:flex;
-            align-items:center;
-            gap:8px;
-            background:rgba(255,255,255,0.02);
-        }
+        /* Coach Cards */
+        .coach-container{grid-column:span 2;display:flex;flex-direction:column;gap:14px}
+        .coach-card{background:rgba(255,255,255,0.03);border-radius:14px;border:1px solid rgba(255,255,255,0.06);overflow:hidden;position:relative;width:100%}
+        .coach-card .coach-label{padding:10px 16px;font-size:13px;font-weight:600;color:#f97316;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.02)}
         .coach-card .coach-label i{color:#22d3ee}
-        .coach-card img{
-            width:100%;
-            height:auto;
-            display:block;
-        }
-        .coach-card.scrollable{
-            max-height:550px;
-            overflow-y:auto;
-        }
-        .coach-card.scrollable img{
-            height:auto;
-        }
+        .coach-card img{width:100%;height:auto;display:block;border-radius:0}
+        .coach-card.scrollable{max-height:550px;overflow-y:auto}
+        .coach-card.scrollable img{height:auto}
         .coach-card.scrollable::-webkit-scrollbar{width:4px}
         .coach-card.scrollable::-webkit-scrollbar-track{background:transparent}
         .coach-card.scrollable::-webkit-scrollbar-thumb{background:#2a3344;border-radius:4px}
 
-        /* Expanded State — Properly Centered in Middle of Page */
+        /* === EXPANDED STATE — FIXED === */
         .gallery-item.expanded{
+            position:fixed;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            width:auto;
+            max-width:85vw;
+            max-height:85vh;
+            z-index:9999;
+            aspect-ratio:unset;
+            border-radius:12px;
+            border:none;
+            background:transparent;
+            backdrop-filter:none;
+            cursor:zoom-out;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:0;
+            grid-column:unset;
+            box-shadow:0 20px 80px rgba(0,0,0,0.9);
+        }
+        .gallery-item.expanded img{
+            width:auto;
+            height:auto;
+            max-width:85vw;
+            max-height:85vh;
+            object-fit:contain;
+            border-radius:8px;
+            display:block;
+            margin:0;
+            box-shadow:0 20px 60px rgba(0,0,0,0.8);
+        }
+        .gallery-item.expanded .zoom-hint{display:none}
+        .gallery-item.expanded .image-label{display:none}
+
+        /* Overlay background */
+        .expanded-overlay{
             position:fixed;
             top:0;
             left:0;
             width:100vw;
             height:100vh;
-            z-index:9999;
-            aspect-ratio:unset;
-            border-radius:0;
-            border:none;
             background:rgba(11,15,26,0.92);
             backdrop-filter:blur(12px);
+            z-index:9998;
             cursor:zoom-out;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:40px;
-            grid-column:unset;
-            animation:fadeIn 0.2s ease;
+            display:none;
         }
-        .gallery-item.expanded img{
-            width:auto;
-            height:auto;
-            max-width:75vw;
-            max-height:80vh;
-            object-fit:contain;
-            border-radius:8px;
-            box-shadow:0 20px 60px rgba(0,0,0,0.8);
-            transform:scale(1);
-            transition:transform 0.3s ease;
-            position:static;
-            margin:0 auto;
-            display:block;
-        }
-        .gallery-item.expanded .zoom-hint{display:none}
-        .gallery-item.expanded .image-label{display:none}
-        @keyframes fadeIn{
-            0%{opacity:0;transform:scale(0.92)}
-            100%{opacity:1;transform:scale(1)}
-        }
-        body.expanded-mode .main-content{
-            filter:blur(4px);
-            pointer-events:none;
-            transition:filter 0.3s ease;
-        }
+        .expanded-overlay.active{display:block}
+        body.expanded-mode .main-content{filter:blur(4px);pointer-events:none;transition:filter 0.3s ease}
 
         .back-link{color:#22d3ee;text-decoration:none;font-size:14px;display:inline-flex;align-items:center;gap:8px;transition:opacity 0.2s}
         .back-link:hover{opacity:0.7}
 
-        /* Widen gallery on larger screens */
-        @media(min-width:1200px){
-            .gallery-container{grid-template-columns:1fr 1fr;gap:18px}
-            .coach-card .coach-label{font-size:15px;padding:12px 20px}
-        }
-        @media(max-width:768px){
-            .gallery-container{grid-template-columns:1fr}
-            .gallery-item.span-2{grid-column:span 1}
-            .coach-container{grid-column:span 1}
-        }
-        @media(max-width:480px){
-            .gallery-container{grid-template-columns:1fr}
-            .gallery-item.span-2{grid-column:span 1}
-            .coach-container{grid-column:span 1}
-        }
+        @media(max-width:768px){.gallery-container{grid-template-columns:1fr}.gallery-item.span-2{grid-column:span 1}.coach-container{grid-column:span 1}.gallery-item.expanded{max-width:95vw;max-height:90vh}}
     </style>
 </head>
 <body>
@@ -153,6 +114,9 @@
             </div>
         </div>
     </nav>
+
+    <!-- Overlay -->
+    <div class="expanded-overlay" id="expandedOverlay"></div>
 
     <!-- Main Content Wrapper -->
     <div class="main-content" id="mainContent">
@@ -189,7 +153,6 @@
                             I taught myself computer vision using <span class="highlight">YOLO and OpenCV</span>. It took months of trial and error, but eventually I built a system that could track players on the court, measure their speed and distance, and estimate fatigue levels in real time. It wasn't polished, but it is now in a very good shape.
                         </p>
 
-                        <!-- LaunchX Box -->
                         <div style="margin:24px 0;padding:20px 24px;background:rgba(249,115,22,0.06);border-radius:12px;border:1px solid rgba(249,115,22,0.15);overflow:visible;">
                             <div style="display:flex;align-items:flex-start;gap:12px;">
                                 <span style="background:#f97316;color:#0b0f1a;border-radius:50%;min-width:32px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0;margin-top:2px;">🏆</span>
@@ -210,15 +173,14 @@
                     </div>
                 </div>
 
-                <!-- Right Column: Photo Gallery (2/5) — WIDER -->
-                <div class="md:col-span-2 fade-up" style="padding-left:10px;">
+                <!-- Right Column: Gallery -->
+                <div class="md:col-span-2 fade-up">
                     <h3 style="font-size:14px;font-weight:600;color:#8895aa;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:8px;">
                         <i class="fas fa-images" style="margin-right:8px;color:#22d3ee"></i> Gallery
                     </h3>
 
                     <div class="gallery-container" id="galleryContainer">
 
-                        <!-- Row 1: Trophy + Prototype -->
                         <div class="gallery-item" onclick="toggleExpand(this)">
                             <img src="Leaderboard.jpg" alt="Best Builder Trophy - 1st Place">
                             <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
@@ -230,30 +192,21 @@
                             <div class="image-label"><span>💻 Voop Prototype</span></div>
                         </div>
 
-                        <!-- Row 2: Panel Screenshot (Full width) -->
                         <div class="gallery-item span-2 wide" onclick="toggleExpand(this)">
                             <img src="Panal.jpg" alt="LaunchX Panel / Presentation">
                             <span class="zoom-hint"><i class="fas fa-expand"></i> Click to zoom</span>
                             <div class="image-label"><span>🎤 LaunchX Panel Presentation</span></div>
                         </div>
 
-                        <!-- Coach Conversations — Vertical Stack (Wider) -->
                         <div class="coach-container">
-
                             <div class="coach-card">
-                                <div class="coach-label">
-                                    <i class="fas fa-envelope"></i> Coach Cameron Barry — Feedback
-                                </div>
+                                <div class="coach-label"><i class="fas fa-envelope"></i> Coach Cameron Barry — Feedback</div>
                                 <img src="CoachBarry.jpg" alt="Coach Cameron Barry Email Feedback">
                             </div>
-
                             <div class="coach-card scrollable">
-                                <div class="coach-label">
-                                    <i class="fab fa-instagram"></i> Coach Ryan Razooky — Feedback
-                                </div>
+                                <div class="coach-label"><i class="fab fa-instagram"></i> Coach Ryan Razooky — Feedback</div>
                                 <img src="CoachR.png" alt="Coach Ryan Razooky Instagram Feedback">
                             </div>
-
                         </div>
 
                     </div>
@@ -273,46 +226,56 @@
 
     <script>
         function toggleExpand(el) {
+            const overlay = document.getElementById('expandedOverlay');
             const mainContent = document.getElementById('mainContent');
 
+            // If already expanded, collapse
             if (el.classList.contains('expanded')) {
                 el.classList.remove('expanded');
+                overlay.classList.remove('active');
                 document.body.classList.remove('expanded-mode');
                 document.body.style.overflow = '';
                 return;
             }
 
+            // Close any other expanded items first
             document.querySelectorAll('.gallery-item.expanded').forEach(item => {
                 item.classList.remove('expanded');
             });
 
+            // Expand this one
             el.classList.add('expanded');
+            overlay.classList.add('active');
             document.body.classList.add('expanded-mode');
             document.body.style.overflow = 'hidden';
         }
 
-        document.addEventListener('click', function(e) {
+        // Close overlay when clicking on the dark background
+        document.getElementById('expandedOverlay').addEventListener('click', function() {
             const expanded = document.querySelector('.gallery-item.expanded');
             if (expanded) {
-                if (e.target === expanded) {
-                    expanded.classList.remove('expanded');
-                    document.body.classList.remove('expanded-mode');
-                    document.body.style.overflow = '';
-                }
+                expanded.classList.remove('expanded');
+                this.classList.remove('active');
+                document.body.classList.remove('expanded-mode');
+                document.body.style.overflow = '';
             }
         });
 
+        // Close with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const expanded = document.querySelector('.gallery-item.expanded');
+                const overlay = document.getElementById('expandedOverlay');
                 if (expanded) {
                     expanded.classList.remove('expanded');
+                    overlay.classList.remove('active');
                     document.body.classList.remove('expanded-mode');
                     document.body.style.overflow = '';
                 }
             }
         });
 
+        // Fade-up animation
         const fadeElements = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
